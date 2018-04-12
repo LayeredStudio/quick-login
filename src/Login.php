@@ -15,8 +15,10 @@ class Login {
 	}
 
 	public function defaultProviders(array $providers) {
+		$providers['facebook'] = new \Layered\QuickLogin\Provider\Facebook;
 		$providers['twitter'] = new \Layered\QuickLogin\Provider\Twitter;
 		$providers['google'] = new \Layered\QuickLogin\Provider\Google;
+		$providers['wordpresscom'] = new \Layered\QuickLogin\Provider\WordPressCom;
 
 		return $providers;
 	}
