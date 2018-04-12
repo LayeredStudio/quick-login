@@ -1,0 +1,96 @@
+
+/* Quick Login */
+
+.quick-login-clear {
+	clear: both;
+	overflow: hidden;
+}
+
+.quick-login-separator {
+	text-align: center;
+	position: relative;
+	margin: 1rem;
+}
+
+.quick-login-separator:before {
+	position: absolute;
+	content: "";
+	top: 50%;
+	left: 0;
+	right: 0;
+	height: 1px;
+	background: #ddd;
+}
+
+.quick-login-separator span {
+	color: #72777c;
+	display: inline-block;
+	border-radius: 3px;
+	padding: 0.2rem 0.5rem;
+	background: #fff;
+	position: relative;
+	text-transform: uppercase;
+}
+
+.quick-login-label {
+	margin-bottom: 0.5rem !important;
+}
+
+.quick-login-buttons {
+	margin-bottom: 0.5rem;
+}
+
+.quick-login-button {
+	display: block;
+	padding: 0.5rem 1rem;
+	border-radius: 3px;
+	color: #fff;
+	text-decoration: none;
+	line-height: 24px;
+	background: var(--quick-login-color, #ccc);
+	transition: transform 0.2s ease;
+	margin-bottom: 0.5rem;
+	cursor: pointer;
+	max-width: 20rem;
+}
+
+.quick-login-icon {
+	display: inline-block;
+	padding: 0.5rem;
+	border-radius: 3px;
+	color: #fff;
+	text-decoration: none;
+	line-height: 24px;
+	background: var(--quick-login-color, #ccc);
+	transition: transform 0.2s ease;
+	margin-right: 0.5rem;
+	cursor: pointer;
+}
+
+.quick-login-button:hover,
+.quick-login-icon:hover {
+	transform: scale(1.012);
+	color: #fff;
+}
+
+.quick-login-button:active,
+.quick-login-button:focus,
+.quick-login-button:visited,
+.quick-login-icon:active,
+.quick-login-icon:focus,
+.quick-login-icon:visited {
+	color: #fff;
+	box-shadow: none;
+}
+
+.quick-login-button svg,
+.quick-login-icon svg {
+	float: left;
+	width: 24px;
+	height: 24px;
+	fill: #fff;
+}
+
+.quick-login-button span {
+	margin-left: 0.8rem;
+}
