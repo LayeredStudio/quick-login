@@ -41,27 +41,27 @@ class Buttons {
 	}
 
 	public function separator(string $separator = '') {
-		return '<div class="quick-login-separator"><span>or</span></div>';
+		return '<div class="quick-login-separator"><span>' . __('or', 'quick-login') . '</span></div>';
 	}
 
 	public function onWooCommerceForms() {
 		$form = in_array(current_action(), ['woocommerce_register_form_start', 'woocommerce_register_form_end']) ? 'register' : 'login';
-
-		if ($this->options[$form . '-form'] === 'bottom') {
-			echo apply_filters('quick_login_separator', '');
-		}
-
-		echo self::renderLogins($this->options[$form . '-style']);
-
-		if ($this->options[$form . '-form'] === 'top') {
-			echo apply_filters('quick_login_separator', '');
-		}
+		echo self::renderLogins($this->options[$form . '-style'], $this->options[$form . '-form'] == 'bottom' ? 'top' : 'bottom');
 	}
 
 	public function onCommentsForm() {
 		if ($this->options['comment-form'] === 'top') {
 			echo self::renderLogins($this->options['comment-style']);
 		}
+	}
+
+	public function shortcode(array $atts) {
+		$atts = shortcode_atts([
+			'style'			=>	'button',
+			'separator'		=>	'no'
+		], $atts, 'quick-login');
+
+		return self::renderLogins($atts['style'], $atts['separator']);
 	}
 
 	public function globalAssets() {
@@ -81,17 +81,23 @@ class Buttons {
 		wp_enqueue_script('quick-login');
 	}
 
-	public static function renderLogins(string $style = 'button') {
+	public static function renderLogins(string $style = 'button', string $separatorPosition = null) {
 		$providers = apply_filters('quick_login_providers', []);
 		$providers = array_filter($providers, function(Provider $provider) {
 			return $provider->getOption('status') === 'enabled';
 		});
 
+		$html = '';
+
 		if (!count($providers)) {
-			return '';
+			return $html;
 		}
 
-		$html = '<div class="quick-login-buttons">';
+		if ($separatorPosition === 'top') {
+			$html .= apply_filters('quick_login_separator', '');
+		}
+
+		$html .= '<div class="quick-login-buttons">';
 
 		if (!in_array($style, ['button', 'icon'])) {
 			$style = 'button';
@@ -111,6 +117,10 @@ class Buttons {
 		}
 
 		$html .= '</div>';
+
+		if ($separatorPosition === 'bottom') {
+			$html .= apply_filters('quick_login_separator', '');
+		}
 
 		return $html;
 	}
