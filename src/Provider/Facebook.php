@@ -1,7 +1,7 @@
 <?php
 namespace Layered\QuickLogin\Provider;
 
-use \Layered\QuickLogin\Provider;
+use Layered\QuickLogin\Provider;
 
 class Facebook extends Provider {
 

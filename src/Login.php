@@ -109,6 +109,17 @@ class Login {
 
 			$user = get_user_by('id', $userId);
 			add_user_meta($user->ID, $provider->getId() . '_id', $data['id']);
+
+			if (class_exists('WooCommerce')) {
+				if ($data['first_name']) {
+					add_user_meta($user->ID, 'billing_first_name', $data['first_name']);
+					add_user_meta($user->ID, 'shipping_first_name', $data['first_name']);
+				}
+				if ($data['last_name']) {
+					add_user_meta($user->ID, 'billing_last_name', $data['last_name']);
+					add_user_meta($user->ID, 'shipping_last_name', $data['last_name']);
+				}
+			}
 		}
 
 		wp_set_auth_cookie($user->ID, true);
