@@ -29,6 +29,28 @@ class Google extends Provider {
 		);
 	}
 
+	public function instructions() {
+		?>
+		<p><strong>Google Sign In</strong> requires credentials for a Project. <button class="button quick-login-provider-instructions-btn">Show instructions</button></p>
+		<ol class="quick-login-provider-instructions">
+			<li>Create (or edit) a Project on <a href="https://console.cloud.google.com/apis/credentials" target="_blank">Google Cloud Console</a></li>
+			<li>Navigate to <strong>APIs &amp; Services -> Credentials</strong> page
+				<ul>
+					<li>On <strong>OAuth consent screen</strong> tab fill your site specific info</li>
+					<li>On <strong>Credentials</strong> tab create (or edit) a <strong>OAuth Client ID</strong></li>
+					<li>If creating, click on <strong>Create credentials -> OAuth Client ID</strong>. Select <strong>Web application</strong> as Type</li>
+					<li>If editing, select a client in <strong>OAuth 2.0 client IDs</strong> section</li>
+					<li>Fill <strong>Authorised redirect URIs</strong> with <code><?php echo site_url('/wp-login.php?quick-login=google') ?></code></li>
+				</ul>
+			</li>
+			<li>Navigate to <strong>Credentials -> OAuth 2.0 client IDs -> <i>Your OAuth Client ID</i></strong>
+				<ul>
+					<li>Copy and fill below the <strong>Client ID</strong> field</li>
+					<li>Copy and fill below the <strong>Client secret</strong> field</li>
+				</ul>
+			</li>
+		</ol>
+		<?php
 	}
 
 	protected function getClient() {

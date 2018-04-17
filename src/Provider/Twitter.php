@@ -29,6 +29,27 @@ class Twitter extends Provider {
 		);
 	}
 
+	public function instructions() {
+		?>
+		<p><strong>Twitter Sign In</strong> requires credentials for a Twitter App. <button class="button quick-login-provider-instructions-btn">Show instructions</button></p>
+		<ol class="quick-login-provider-instructions">
+			<li>Create (or edit) a Twitter app on <a href="https://apps.twitter.com" target="_blank">Twitter Apps page</a>
+				<ul>
+					<li>Fill <strong>Name</strong>, <strong>Description</strong> and <strong>Website</strong> with site's info</li>
+					<li>Fill <strong>Callback URL</strong> with <code><?php echo site_url('/wp-login.php?quick-login=twitter') ?></code></li>
+					<li><strong>Important!</strong> On app's <strong>Setting</strong> tab, fill in the <strong>Privacy Policy URL</strong> and <strong>Terms of Service URL</strong> fields</li>
+					<li>On app's <strong>Permissions</strong> tab, select <strong>Read only</strong> for Access type</li>
+					<li>On app's <strong>Permissions</strong> tab, enable <strong>Request email addresses from users</strong>. Required for user sign-in verification</li>
+				</ul>
+			</li>
+			<li>Navigate to <strong>Keys and Access Tokens</strong> app's tab
+				<ul>
+					<li>Copy and fill below the <strong>Consumer Key</strong> field</li>
+					<li>Copy and fill below the <strong>Consumer Secret</strong> field</li>
+				</ul>
+			</li>
+		</ol>
+		<?php
 	}
 
 	protected function getServer() {

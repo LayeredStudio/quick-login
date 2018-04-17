@@ -1,0 +1,213 @@
+
+/* Quick Login Admin */
+
+.text-right {
+	text-align: right;
+}
+
+.quick-login-wrap {
+	
+}
+
+.quick-login-wrap .notice, .quick-login-wrap div.error, .quick-login-wrap div.updated {
+	display: block !important;
+}
+
+.quick-login-wrap h3 {
+	line-height: 3rem;
+	color: #333;
+	margin-top: 4rem;
+}
+
+.quick-login-wrap h3 span {
+	font-size: 3rem;
+	font-weight: 200;
+	margin-right: 0.5rem;
+}
+
+.quick-login-wrap .about-text {
+	min-height: 10px;
+}
+
+@keyframes quick-login-glow {
+	from {
+		box-shadow: 0 0 3px 3px rgba(255, 255, 255, .2);
+	}
+	to {
+		box-shadow: 0 0 10px 10px rgba(255, 255, 255, .3);
+	}
+}
+
+.quick-login-admin-providers {
+	clear: both;
+	margin: -1rem;
+}
+
+.quick-login-admin-provider {
+	display: block;
+	margin: 1rem;
+	border-radius: 3px;
+	background: var(--quick-login-color, #ccc);
+	color: #fff;
+	float: left;
+	cursor: default;
+}
+
+.quick-login-admin-provider-name {
+	display: block;
+	width: 200px;
+	height: 150px;
+	border-radius: 3px 3px 0 0;
+	text-align: center;
+	background: rgba(255, 255, 255, .1);
+	position: relative;
+}
+
+.quick-login-admin-provider-name svg {
+	height: 40px;
+	width: 40px;
+	fill: #fff;
+	margin-top: 2rem;
+}
+
+.quick-login-admin-provider-name p {
+	font-size: 1.5rem;
+	line-height: 1;
+	margin: 1rem 0 0.7rem;
+}
+
+.quick-login-admin-provider-name a {
+	text-decoration: none;
+	color: #f0f0f0;
+	margin-right: 1rem;
+	font-size: 0.7rem;
+	position: absolute;
+	right: 0;
+	top: 5px;
+}
+
+.quick-login-admin-provider-actions {
+	padding: 0.5rem 1rem;
+}
+
+.quick-login-admin-provider-status {
+	display: inline-block;
+	width: 11px;
+	height: 11px;
+	border-radius: 50%;
+	background: black;
+	box-shadow: 0 0 3px 3px rgba(255, 255, 255, .3);
+	margin-right: 3px;
+}
+
+.quick-login-admin-provider-status.quick-login-status-needs-setup {
+	background: #dc3232;
+	animation: quick-login-glow 1s ease-in-out infinite alternate;
+}
+
+.quick-login-admin-provider-status.quick-login-status-disabled {
+	background: #ffb900;
+	animation: quick-login-glow 1s ease-in-out infinite alternate;
+}
+
+.quick-login-admin-provider-status.quick-login-status-enabled {
+	background: #46b450;
+}
+
+.quick-login-admin-provider-action {
+	float: right;
+	display: inline-block;
+	background: #fff;
+	padding: 0px 5px;
+	text-decoration: none;
+	border-radius: 3px;
+}
+
+.quick-login-wrap .form-table td {
+	vertical-align: top;
+}
+
+.quick-login-wrap .form-table th p.description {
+	font-size: 13px;
+	font-weight: normal;
+}
+
+.quick-login-wrap .form-table tr:not(:first-child) th,
+.quick-login-wrap .form-table tr:not(:first-child) td {
+	border-top: 1px solid #ccc;
+}
+
+.quick-login-wrap legend {
+	text-transform: uppercase;
+	font-weight: 600;
+	margin-bottom: 0.5rem;
+	font-size: 12px;
+	color: #666;
+}
+
+.quick-login-wrap .preview-login {
+	padding: 0.7rem 0.7rem 4px;
+	background: #fff;
+	box-shadow: 0 1px 3px rgba(0,0,0,.13);
+	width: 17rem;
+}
+
+.quick-login-wrap .preview-field {
+	background-color: #f0f0f0;
+	margin-bottom: 0.6rem;
+	border-radius: 3px;
+	min-height: 1rem;
+}
+
+.quick-login-wrap .preview-field.field-double {
+	min-height: 2rem;
+}
+
+.quick-login-wrap .preview-button {
+	background-color: #ccc;
+	margin-bottom: 0.6rem;
+	border-radius: 3px;
+	min-height: 1rem;
+	width: 40%;
+}
+
+.quick-login-wrap .quick-login-separator {
+	margin: 0.5rem 1rem;
+}
+
+.quick-login-wrap .preview-login .quick-login-buttons,
+.quick-login-wrap .preview-login .quick-login-icons {
+	width: 80%;
+}
+
+.quick-login-wrap .preview-login .quick-login-button {
+	min-height: 0.25rem;
+}
+
+.quick-login-wrap .preview-login .quick-login-icon {
+	min-height: 0.3rem;
+	width: 0.25rem;
+}
+
+.quick-login-wrap .preview-position-top .on-bottom,
+.quick-login-wrap .preview-position-bottom .on-top,
+.quick-login-wrap .preview-position-no .on-top,
+.quick-login-wrap .preview-position-no .on-bottom,
+.quick-login-wrap .preview-style-button .quick-login-icons,
+.quick-login-wrap .preview-style-icon .quick-login-buttons {
+	display: none;
+}
+
+.quick-login-provider-instructions {
+	display: none;
+}
+
+.quick-login-provider-instructions li {
+	line-height: 1.6;
+}
+
+.quick-login-provider-instructions ul {
+	list-style-type: circle;
+	margin-left: 2em;
+	margin-top: 0.3rem;
+}

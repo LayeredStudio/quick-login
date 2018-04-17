@@ -29,6 +29,27 @@ class WordPressCom extends Provider {
 		);
 	}
 
+	public function instructions() {
+		?>
+		<p><strong>WordPress.com Sign In</strong> requires credentials for a WordPress.com app. <button class="button quick-login-provider-instructions-btn">Show instructions</button></p>
+		<ol class="quick-login-provider-instructions">
+			<li>Create (or edit) a WordPress.com app on <a href="https://developer.wordpress.com/apps/" target="_blank">WordPress.com Apps page</a>
+				<ul>
+					<li>If creating, click on <strong>Create New Application</strong> button</li>
+					<li>If editing, click <strong>Manage Application -> Manage Settings</strong> on a specific app</li>
+					<li>Fill <strong>Name</strong>, <strong>Description</strong>, <strong>Icon</strong> and <strong>Website URL</strong> with site specific info</li>
+					<li>Fill <strong>Redirect URLs</strong> with <code><?php echo site_url('/wp-login.php?quick-login=wordpresscom') ?></code></li>
+					<li>Update or Save app</li>
+				</ul>
+			</li>
+			<li>On app page, scroll down to <strong>OAuth Information</strong> section
+				<ul>
+					<li>Copy and fill below the <strong>Client ID</strong> field</li>
+					<li>Copy and fill below the <strong>Client secret</strong> field</li>
+				</ul>
+			</li>
+		</ol>
+		<?php
 	}
 
 	protected function getClient() {
