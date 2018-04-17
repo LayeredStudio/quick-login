@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: Quick Social Login
-Plugin URI: https://wordpress.layered.studio
-Description: Quick social login for WordPress sites
+Plugin Name: Quick Login
+Plugin URI: https://wordpress.layered.studio/quick-login
+Description: Let your visitors log in with their existing accounts! Supports Twitter, Facebook, Google and WordPress.com
 Version: 0.1
-Text Domain: layered
+Text Domain: quick-login
 Author: Layered
 Author URI: https://layered.studio
 License: GPLv3
@@ -37,6 +37,6 @@ add_action('plugins_loaded', '\Layered\QuickLogin\Admin::start');
 
 /* Template Tags */
 
-function quickLoginButtons(string $style = 'button') {
-	return \Layered\QuickLogin\Buttons::renderLogins($style);
+function quickLoginButtons(array $options = []) {
+	return \Layered\QuickLogin\Buttons::renderLogins($options);
 }
