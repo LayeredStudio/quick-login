@@ -15,6 +15,8 @@ class Buttons {
 		$this->options = get_option('quick-login');
 
 		add_action('quick_login_separator', [$this, 'separator']);
+		add_action('quick_login_heading', [$this, 'heading']);
+		add_action('quick_login_label', [$this, 'label']);
 		add_action('wp_enqueue_scripts', [$this, 'globalAssets']);
 
 		// on login forms
@@ -40,48 +42,74 @@ class Buttons {
 		add_shortcode('quick-login', [$this, 'shortcode']);
 	}
 
+	public function globalAssets() {
+		wp_enqueue_style('quick-login', plugins_url('assets/quick-login.css', dirname(__FILE__)), [], 0.1);
+	}
+
 	public function separator(string $separator = '') {
 		return '<div class="quick-login-separator"><span>' . __('or', 'quick-login') . '</span></div>';
 	}
 
+	public function heading(string $heading = '') {
+		return __('Sign in with:', 'quick-login');
+	}
+
+	public function label(string $label = '') {
+		return __('Sign in with <strong>%s</strong>', 'quick-login');
+	}
+
 	public function onWooCommerceForms() {
 		$form = in_array(current_action(), ['woocommerce_register_form_start', 'woocommerce_register_form_end']) ? 'register' : 'login';
-		echo self::renderLogins($this->options[$form . '-style'], $this->options[$form . '-form'] == 'bottom' ? 'top' : 'bottom');
+		echo self::renderLogins([
+			'style'		=>	$this->options[$form . '-style'],
+			'separator'	=>	$this->options[$form . '-form'] == 'bottom' ? 'top' : 'bottom'
+		]);
 	}
 
 	public function onCommentsForm() {
 		if ($this->options['comment-form'] === 'top') {
-			echo self::renderLogins($this->options['comment-style']);
+			echo self::renderLogins(['style' => $this->options['comment-style']]);
 		}
 	}
 
 	public function shortcode(array $atts) {
 		$atts = shortcode_atts([
 			'style'			=>	'button',
-			'separator'		=>	'no'
+			'separator'		=>	'no',
+			'heading'		=>	apply_filters('quick_login_heading', '')
 		], $atts, 'quick-login');
 
-		return self::renderLogins($atts['style'], $atts['separator']);
-	}
-
-	public function globalAssets() {
-		wp_enqueue_style('quick-login', plugins_url('assets/quick-login.css', dirname(__FILE__)));
+		return self::renderLogins($atts);
 	}
 
 	public function loginAssets() {
-		wp_enqueue_style('quick-login', plugins_url('assets/quick-login.css', dirname(__FILE__)));
-		wp_register_script('quick-login', plugins_url('assets/quick-login.js', dirname(__FILE__)), ['jquery']);
+		wp_enqueue_style('quick-login', plugins_url('assets/quick-login.css', dirname(__FILE__)), [], 0.1);
+		wp_register_script('quick-login', plugins_url('assets/quick-login.js', dirname(__FILE__)), ['jquery'], 0.1);
 		wp_localize_script('quick-login', 'QuickLogin', [
 			'login'				=>	$this->options['login-form'],
+			'loginButtons'		=>	self::renderLogins([
+				'style' 	=>	$this->options['login-style'],
+				'separator'	=>	$this->options['login-style'] == 'bottom' ? 'top' : 'bottom'
+			]),
 			'register'			=>	$this->options['register-form'],
-			'loginButtons'		=>	self::renderLogins($this->options['login-style']),
-			'registerButtons'	=>	self::renderLogins($this->options['register-style'])
+			'registerButtons'	=>	self::renderLogins([
+				'style'		=>	$this->options['register-style'],
+				'separator'	=>	$this->options['register-style'] == 'bottom' ? 'top' : 'bottom'
+			])
 		]);
 
 		wp_enqueue_script('quick-login');
 	}
 
-	public static function renderLogins(string $style = 'button', string $separatorPosition = null) {
+	public static function renderLogins(array $options = []) {
+		$options = array_merge([
+			'style'			=>	'button',
+			'separator'		=>	'no',
+			'heading'		=>	apply_filters('quick_login_heading', ''),
+			'label'			=>	apply_filters('quick_login_label', ''),
+			'rel'			=>	apply_filters('quick_login_link_rle', 'nofollow')
+		], $options);
+
 		$providers = apply_filters('quick_login_providers', []);
 		$providers = array_filter($providers, function(Provider $provider) {
 			return $provider->getOption('status') === 'enabled';
@@ -93,24 +121,24 @@ class Buttons {
 			return $html;
 		}
 
-		if ($separatorPosition === 'top') {
+		if (!in_array($options['style'], ['button', 'icon'])) {
+			$options['style'] = 'button';
+		}
+
+		if ($options['separator'] === 'top') {
 			$html .= apply_filters('quick_login_separator', '');
+			$html .= '<div class="quick-login-clear"></div>';
 		}
 
 		$html .= '<div class="quick-login-buttons">';
-
-		if (!in_array($style, ['button', 'icon'])) {
-			$style = 'button';
-		}
-
-		$html .= '<p class="quick-login-label"><label>' . __('Sign in with:', 'quick-login') . '</label></p>';
+		$html .= '<p class="quick-login-label"><label>' . $options['heading'] . '</label></p>';
 
 		foreach ($providers as $provider) {
-			$label = sprintf(__('Sign in with <strong>%s</strong>', 'quick-login'), $provider->getLabel());
+			$label = sprintf($options['label'], $provider->getLabel());
 
-			$html .= '<a href="' . $provider->getLoginUrl() . '" rel="nofollow" class="quick-login-' . $style . ' quick-login-' . $provider->getId() . '" style="--quick-login-color: ' . $provider->getColor() . '" title="' . esc_attr(wp_strip_all_tags($label)) . '">';
+			$html .= '<a href="' . $provider->getLoginUrl() . '" rel="' . esc_attr($options['rel']) . '" class="quick-login-' . $options['style'] . ' quick-login-' . $provider->getId() . '" style="--quick-login-color: ' . $provider->getColor() . '" title="' . esc_attr(wp_strip_all_tags($label)) . '">';
 			$html .= $provider->getIcon();
-			if ($style === 'button') {
+			if ($options['style'] === 'button') {
 				$html .= '<span>' . $label . '</span>';
 			}
 			$html .= '</a>';
@@ -118,7 +146,8 @@ class Buttons {
 
 		$html .= '</div>';
 
-		if ($separatorPosition === 'bottom') {
+		if ($options['separator'] === 'bottom') {
+			$html .= '<div class="quick-login-clear"></div>';
 			$html .= apply_filters('quick_login_separator', '');
 		}
 

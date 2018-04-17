@@ -9,6 +9,7 @@ abstract class Provider {
 	protected $oAuthVersion;
 	protected $userSettings;
 	protected $id;
+	protected $scope;
 	protected $color;
 	protected $label;
 	protected $icon;
@@ -22,20 +23,24 @@ abstract class Provider {
 	}
 
 	public function getColor() {
-		return $this->color;
+		return apply_filters('quick_login_provider_color', $this->color, $this->id);
 	}
 
 	public function getLabel() {
-		return $this->label;
+		return apply_filters('quick_login_provider_label', $this->label, $this->id);
 	}
 
 	public function getIcon() {
-		return $this->icon;
+		return apply_filters('quick_login_provider_icon', $this->icon, $this->id);
+	}
+
+	public function getScope() {
+		return apply_filters('quick_login_provider_scope', $this->scope, $this->id);
 	}
 
 	public function getOption($key = null, $default = '') {
 
-		if (is_null($this->options)) {
+		if (!is_array($this->options)) {
 			$this->options = get_option('quick-login-' . $this->getId() . '-provider', array(
 				'status'		=>	'needs-setup',
 				'client_id'		=>	'',
@@ -48,8 +53,8 @@ abstract class Provider {
 	}
 
 	public function updateOptions(array $newOptions) {
-		$this->options = array_merge($this->options, $newOptions);
-		update_option('quick-login-' . $this->getId() . '-provider', $options);
+		$this->options = array_merge($this->getOption(), $newOptions);
+		update_option('quick-login-' . $this->getId() . '-provider', $this->options);
 
 		return $this->options;
 	}
@@ -59,7 +64,7 @@ abstract class Provider {
 
 		return add_query_arg([
 			'quick-login'	=>	$this->getId(),
-			'redirect_to'	=>	isset($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : home_url(add_query_arg(array(),$wp->request))
+			'redirect_to'	=>	isset($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : home_url(add_query_arg($_GET, $wp->request))
 		], site_url('/wp-login.php'));
 	}
 
@@ -76,7 +81,7 @@ abstract class Provider {
 
 		if (isset($_REQUEST['denied'])) {
 			add_filter('wp_login_errors', function($errors) {
-				$errors->add('denied', sprintf(__('%s - sign in cancelled'), $this->getLabel()));
+				$errors->add('denied', sprintf('%s - %s', $this->getLabel(), __('sign in cancelled', 'quick-login')));
 				return $errors;
 			});
 		} elseif (isset($_REQUEST['error'])) {
