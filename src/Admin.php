@@ -14,6 +14,7 @@ class Admin {
 		add_action('admin_init', [$this, 'actions']);
 		add_action('admin_menu', [$this, 'menu']);
 		add_action('admin_notices', [$this, 'notices']);
+		add_filter('plugin_action_links_quick-login/quick-login.php', [$this, 'actionLinks']);
 
 		$this->providers = apply_filters('quick_login_providers', []);
 	}
@@ -119,6 +120,12 @@ class Admin {
 			</div>
 			<?php
 		}
+	}
+
+	public function actionLinks(array $links) {
+		return array_merge([
+			'settings'	=>	'<a href="' . menu_page_url('quick-login-options', false) . '">' . __('Settings', 'quick-login') . '</a>'
+		], $links);
 	}
 
 	public function page() {

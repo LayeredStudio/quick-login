@@ -89,12 +89,12 @@ class Buttons {
 			'login'				=>	$this->options['login-form'],
 			'loginButtons'		=>	self::renderLogins([
 				'style' 	=>	$this->options['login-style'],
-				'separator'	=>	$this->options['login-style'] == 'bottom' ? 'top' : 'bottom'
+				'separator'	=>	$this->options['login-form'] == 'bottom' ? 'top' : 'bottom'
 			]),
 			'register'			=>	$this->options['register-form'],
 			'registerButtons'	=>	self::renderLogins([
 				'style'		=>	$this->options['register-style'],
-				'separator'	=>	$this->options['register-style'] == 'bottom' ? 'top' : 'bottom'
+				'separator'	=>	$this->options['register-form'] == 'bottom' ? 'top' : 'bottom'
 			])
 		]);
 
@@ -126,8 +126,8 @@ class Buttons {
 		}
 
 		if ($options['separator'] === 'top') {
-			$html .= apply_filters('quick_login_separator', '');
 			$html .= '<div class="quick-login-clear"></div>';
+			$html .= apply_filters('quick_login_separator', '');
 		}
 
 		$html .= '<div class="quick-login-buttons">';
