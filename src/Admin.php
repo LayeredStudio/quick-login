@@ -372,7 +372,7 @@ class Admin {
 				</form>
 
 				<div class="quick-login-clear"></div>
-				<h3><span>3.</span> <?php _e('Embed login buttons in more pages', 'quick-login') ?></h3>
+				<h3><span>3.</span> <?php _e('Embed login buttons on more pages', 'quick-login') ?></h3>
 
 				<table class="form-table" width="100%">
 					<tbody>

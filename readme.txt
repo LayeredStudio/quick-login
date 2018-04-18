@@ -16,7 +16,7 @@ Quick Login adds extra login methods on your site, letting your visitors quickly
 
 Faster log in or register will increase percent of logged in users on your site, especially helpful on e-commerce sites where the checkout should be as simple as possible.
 
-The plugin is easy to set up, each provider has detailed instructions for enabling each of them.
+The plugin is easy to set up, each provider has detailed instructions on how to enable it.
 
 Includes support for WooCommerce sections too!
 
@@ -35,7 +35,7 @@ Includes support for WooCommerce sections too!
   * On Register page
   * On WooCommerce pages: My account, Login, Register and Checkout
   * On page or article comments section
-  * Embed in any page with `quick-login` shortcode
+  * Embed in any page with `[quick-login]` shortcode
 
 == Frequently Asked Questions ==
 
@@ -51,7 +51,7 @@ Login buttons can be added in pages, articles or widgets with `[quick-login]` sh
 
 == Screenshots ==
 
-1. Login page example 
+1. Login page example
 2. WooCommerce checkout example
 3. Main settings page: Set-up and enable providers, control style & placement
 4. Provider set-up page, with instructions
