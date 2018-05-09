@@ -46,15 +46,15 @@ class Buttons {
 		wp_enqueue_style('quick-login', plugins_url('assets/quick-login.css', dirname(__FILE__)), [], 0.1);
 	}
 
-	public function separator(string $separator = '') {
+	public function separator($separator = '') {
 		return '<div class="quick-login-separator"><span>' . __('or', 'quick-login') . '</span></div>';
 	}
 
-	public function heading(string $heading = '') {
+	public function heading($heading = '') {
 		return __('Sign in with:', 'quick-login');
 	}
 
-	public function label(string $label = '') {
+	public function label($label = '') {
 		return __('Sign in with <strong>%s</strong>', 'quick-login');
 	}
 
@@ -136,7 +136,7 @@ class Buttons {
 		foreach ($providers as $provider) {
 			$label = sprintf($options['label'], $provider->getLabel());
 
-			$html .= '<a href="' . $provider->getLoginUrl() . '" rel="' . esc_attr($options['rel']) . '" class="quick-login-' . $options['style'] . ' quick-login-' . $provider->getId() . '" style="--quick-login-color: ' . $provider->getColor() . '" title="' . esc_attr(wp_strip_all_tags($label)) . '">';
+			$html .= '<a href="' . $provider->getLoginUrl() . '" rel="' . esc_attr($options['rel']) . '" class="quick-login-' . $options['style'] . ' quick-login-provider-' . $provider->getId() . '" style="--quick-login-color: ' . $provider->getColor() . '" title="' . esc_attr(wp_strip_all_tags($label)) . '">';
 			$html .= $provider->getIcon();
 			if ($options['style'] === 'button') {
 				$html .= '<span>' . $label . '</span>';

@@ -33,7 +33,7 @@ class Google extends Provider {
 		?>
 		<p><strong>Google Sign In</strong> requires credentials for a Project. <button class="button quick-login-provider-instructions-btn">Show instructions</button></p>
 		<ol class="quick-login-provider-instructions">
-			<li>Create (or edit) a Project on <a href="https://console.cloud.google.com/apis/credentials" target="_blank">Google Cloud Console</a></li>
+			<li>Create (or edit) a Project on <a href="https://console.cloud.google.com/project/_/apiui/credential" target="_blank">Google Cloud Console</a></li>
 			<li>Navigate to <strong>APIs &amp; Services -> Credentials</strong> page
 				<ul>
 					<li>On <strong>OAuth consent screen</strong> tab fill your site specific info</li>

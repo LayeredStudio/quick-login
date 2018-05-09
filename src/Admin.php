@@ -407,8 +407,8 @@ class Admin {
 							<td>
 								<fieldset>
 									<legend><?php _e('Parameters', 'quick-login') ?></legend>
-									<label><strong>quick-login</strong> - <code>google</code>, <code>facebook</code> or another enabled provider</label><br>
-									<label><strong>redirect_to</strong> - post login redirect URL, default is site homepage</label><br>
+									<label><strong>quick-login</strong> - <?php _e('<code>google</code>, <code>facebook</code> or another enabled provider', 'quick-login') ?></label><br>
+									<label><strong>redirect_to</strong> - <?php _e('post login redirect URL, default is site homepage', 'quick-login') ?></label>
 								</fieldset>
 							</td>
 						</tr>
