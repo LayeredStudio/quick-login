@@ -15,6 +15,8 @@ class Admin {
 		add_action('admin_menu', [$this, 'menu']);
 		add_action('admin_notices', [$this, 'notices']);
 		add_filter('plugin_action_links_quick-login/quick-login.php', [$this, 'actionLinks']);
+		add_filter('manage_users_columns', [$this, 'usersColumns']);
+		add_filter('manage_users_custom_column', [$this, 'usersColumnsValue'], 10, 3);
 
 		$this->providers = apply_filters('quick_login_providers', []);
 	}
@@ -417,6 +419,24 @@ class Admin {
 
 		</div>
 		<?php
+	}
+
+	public function usersColumns(array $columns) {
+		$columns['quick-login'] = 'Quick Login';
+		return $columns;
+	}
+
+	public function usersColumnsValue($value, $column, $userId) {
+
+		if ($column === 'quick-login') {
+			foreach ($this->providers as $provider) {
+				if (get_user_meta($userId, $provider->getId() . '_id', true) || get_user_meta($userId, $provider->getId() . '_login_id', true)) {
+					$value .= '<span class="quick-login-icon quick-login-icon-mini quick-login-provider-' . $provider->getId() . '" style="--quick-login-color: ' . $provider->getColor() . '" data-tooltip="' . esc_attr($provider->getLabel()) . '">' . $provider->getIcon() . '</span>';
+				}
+			}
+		}
+
+		return $value;
 	}
 
 }

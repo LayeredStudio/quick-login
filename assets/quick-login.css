@@ -67,6 +67,10 @@
 	cursor: pointer;
 }
 
+.quick-login-icon.quick-login-icon-mini {
+	padding: 0.3rem;
+}
+
 .quick-login-button:hover,
 .quick-login-icon:hover {
 	transform: scale(1.012);
@@ -89,6 +93,11 @@
 	width: 24px;
 	height: 24px;
 	fill: #fff;
+}
+
+.quick-login-icon-mini svg {
+	width: 15px;
+	height: 15px;
 }
 
 .quick-login-button span {

@@ -54,6 +54,10 @@ class Login {
 				'meta_key'		=>	$provider->getId() . '_login_id',
 				'meta_value'	=>	$data['id']
 			]);
+
+			if ($users) {
+				add_user_meta($users[0]->ID, $provider->getId() . '_id', $data['id']);
+			}
 		}
 
 		if ($users) {

@@ -58,5 +58,7 @@ Login buttons can be added in pages, articles or widgets with `[quick-login]` sh
 
 == Changelog ==
 
+* Added - Users' conected providers on Users page
+
 = 0.1 =
 * Plugin release. Includes Twitter, Google, Facebook and WordPress.com providers
