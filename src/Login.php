@@ -24,7 +24,9 @@ class Login {
 	}
 
 	public function checkAuth() {
-		$providers = apply_filters('quick_login_providers', []);
+		$providers = array_filter(apply_filters('quick_login_providers', []), function(Provider $provider) {
+			return $provider->getOption('status') === 'enabled';
+		});
 
 		if (isset($_REQUEST['quick-login']) && isset($providers[$_REQUEST['quick-login']])) {
 			if (isset($_REQUEST['redirect_to'])) {
@@ -120,7 +122,6 @@ class Login {
 			do_action('woocommerce_created_customer', $userId, $userData, true);
 
 			$user = get_user_by('id', $userId);
-			add_user_meta($user->ID, $provider->getId() . '_id', $data['id']);
 
 			if (class_exists('WooCommerce')) {
 				if ($data['first_name']) {

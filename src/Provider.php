@@ -59,13 +59,13 @@ abstract class Provider {
 		return $this->options;
 	}
 
-	public function getLoginUrl() {
-		global $wp;
-
-		return add_query_arg([
+	public function getLoginUrl(array $params = []) {
+		$params = array_merge($params, [
 			'quick-login'	=>	$this->getId(),
-			'redirect_to'	=>	isset($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : home_url(add_query_arg($_GET, $wp->request))
-		], site_url('/wp-login.php'));
+			'redirect_to'	=>	urlencode(isset($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : add_query_arg([]))
+		]);
+
+		return add_query_arg($params, site_url('/wp-login.php'));
 	}
 
 	public function doAuth() {
@@ -93,6 +93,7 @@ abstract class Provider {
 			$temporaryCredentials = $server->getTemporaryCredentials();
 			set_transient('quick-login-oauth1-temporary-credentials', $temporaryCredentials, 600);
 			$server->authorize($temporaryCredentials);
+			exit;
 		} elseif (!($temporaryCredentials = get_transient('quick-login-oauth1-temporary-credentials'))) {
 			add_filter('wp_login_errors', function($errors) {
 				$errors->add('error', sprintf(__('%s error - %s', 'quick-login'), $this->getLabel(), 'Invalid oAuth1 state, what you trying to do?'));
