@@ -40,9 +40,9 @@ class Login {
 			if ($_REQUEST['user_id'] == get_current_user_id() || current_user_can('edit_users')) {
 				$provider = $providers[$_REQUEST['quick-login-unlink']];
 				delete_user_meta($_REQUEST['user_id'], $provider->getId() . '_id');
-				delete_user_meta($_REQUEST['user_id'], $provider->getId() . '_login_id');
 				delete_user_meta($_REQUEST['user_id'], $provider->getId() . '_data');
 				delete_user_meta($_REQUEST['user_id'], $provider->getId() . '_token');
+				do_action('quick_login', get_user_by('id', $_REQUEST['user_id']), 'unlink', $provider);
 				$message = sprintf(__('%s account is unlinked', 'quick-login'), $provider->getLabel());
 			} else {
 				wp_die(__('Not authorised to unlink user accounts', 'quick-login'));
@@ -57,11 +57,12 @@ class Login {
 
 	public static function doAuth(Provider $provider, $token, $providerUserData) {
 		$user = false;
-		$users = [];
 		$data = $provider->convertFields($providerUserData);
+		$action = 'login';
 
 		if (is_user_logged_in()) {
 			$user = wp_get_current_user();
+			$action = 'link';
 		}
 
 		// check linked user by provider Id
@@ -72,20 +73,10 @@ class Login {
 				'meta_key'		=>	$provider->getId() . '_id',
 				'meta_value'	=>	$data['id']
 			]);
-		}
 
-		// check linked user by provider Id (support for other login plugins)
-		if (!$user && !count($users)) {
-			$users = get_users([
-				'count_total'	=>	false,
-				'number'		=>	1,
-				'meta_key'		=>	$provider->getId() . '_login_id',
-				'meta_value'	=>	$data['id']
-			]);
-		}
-
-		if ($users) {
-			$user = $users[0];
+			if ($users) {
+				$user = $users[0];
+			}
 		}
 
 		// check by email
@@ -95,6 +86,7 @@ class Login {
 
 		// register user
 		if (!$user) {
+			$action = 'register';
 
 			if (empty($data['user_login'])) {
 				if ($data['user_email']) {
@@ -144,22 +136,23 @@ class Login {
 
 			if (class_exists('WooCommerce')) {
 				if ($data['first_name']) {
-					add_user_meta($user->ID, 'billing_first_name', $data['first_name']);
-					add_user_meta($user->ID, 'shipping_first_name', $data['first_name']);
+					add_user_meta($user->ID, 'billing_first_name', $data['first_name'], true);
+					add_user_meta($user->ID, 'shipping_first_name', $data['first_name'], true);
 				}
 				if ($data['last_name']) {
-					add_user_meta($user->ID, 'billing_last_name', $data['last_name']);
-					add_user_meta($user->ID, 'shipping_last_name', $data['last_name']);
+					add_user_meta($user->ID, 'billing_last_name', $data['last_name'], true);
+					add_user_meta($user->ID, 'shipping_last_name', $data['last_name'], true);
 				}
 			}
 		}
 
-		add_user_meta($user->ID, $provider->getId() . '_id', $data['id']);
+		add_user_meta($user->ID, $provider->getId() . '_id', $data['id'], true);
 		update_user_meta($user->ID, $provider->getId() . '_data', $providerUserData);
 		update_user_meta($user->ID, $provider->getId() . '_token', $token);
 
 		wp_set_auth_cookie($user->ID, true);
 		do_action('wp_login', $user->user_login, $user);
+		do_action('quick_login', $user, $action, $provider);
 
 		wp_redirect(wp_validate_redirect(get_transient('quick-login-redirect') ?: site_url()));
 		exit;

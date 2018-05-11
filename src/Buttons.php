@@ -163,7 +163,7 @@ class Buttons {
 		?>
 		<?php foreach ($providers as $provider) : ?>
 			<?php
-			$linked = get_user_meta($user->ID, $provider->getId() . '_id', true) || get_user_meta($user->ID, $provider->getId() . '_login_id', true);
+			$linked = get_user_meta($user->ID, $provider->getId() . '_id', true);
 			?>
 			<div class="quick-login-user-provider quick-login-user-provider-<?php echo $linked ? 'linked' : 'unlinked' ?>" style="--quick-login-color: <?php echo $provider->getColor() ?>">
 				<div class="quick-login-user-provider-heading">

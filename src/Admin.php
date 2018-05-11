@@ -437,7 +437,7 @@ class Admin {
 
 		if ($column === 'quick-login') {
 			foreach ($this->enabledProviders as $provider) {
-				if (get_user_meta($userId, $provider->getId() . '_id', true) || get_user_meta($userId, $provider->getId() . '_login_id', true)) {
+				if (get_user_meta($userId, $provider->getId() . '_id', true)) {
 					$value .= '<span class="quick-login-icon quick-login-icon-mini quick-login-provider-' . $provider->getId() . '" style="--quick-login-color: ' . $provider->getColor() . '" data-tooltip="' . esc_attr($provider->getLabel()) . '">' . $provider->getIcon() . '</span>';
 				}
 			}
