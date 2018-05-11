@@ -185,7 +185,7 @@ class Admin {
 
 			<?php else : ?>
 
-				<p class="about-text"><?php _e('Let your visitors log in quicker with their existing accounts!', 'if-menu') ?></p>
+				<p class="about-text"><?php _e('Let your visitors log in quicker with their existing accounts!', 'quick-login') ?></p>
 
 				<h3><span>1.</span> <?php _e('Enable login providers', 'quick-login') ?></h3>
 

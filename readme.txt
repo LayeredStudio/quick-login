@@ -1,6 +1,6 @@
 === Quick Login ===
 Contributors: andrei.igna
-Tags: login, sign in, oauth, register, twitter, google, facebook
+Tags: login, sign in, twitter, google, facebook, oauth, register
 Requires at least: 4
 Tested up to: 4.9
 Requires PHP: 5.5
@@ -58,7 +58,9 @@ Login buttons can be added in pages, articles or widgets with `[quick-login]` sh
 
 == Changelog ==
 
+= 0.3 - 11 May 2018 =
 * Added - Link / Unlink accounts from User edit page & WooCommerce account page
+* Added - More WP hooks
 
 = 0.2 - 9 May 2018 =
 * Added - Users' conected providers on Users page
