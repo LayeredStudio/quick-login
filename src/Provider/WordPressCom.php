@@ -60,4 +60,18 @@ class WordPressCom extends Provider {
 		]);
 	}
 
+	public function convertFields($user) {
+		return [
+			'id'			=>	$user->getId(),
+			'email'			=>	$user->getEmail(),
+			'username'		=>	$user->getUsername(),
+			'display_name'	=>	$user->getDisplayName(),
+			'first_name'	=>	'',
+			'last_name'		=>	'',
+			'description'	=>	'',
+			'avatar'		=>	$user->getAvatarUrl(),
+			'url'			=>	$user->getProfileUrl()
+		];
+	}
+
 }

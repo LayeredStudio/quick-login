@@ -71,4 +71,18 @@ class Facebook extends Provider {
 		]);
 	}
 
+	public function convertFields($user) {
+		return [
+			'id'			=>	$user->getId(),
+			'email'			=>	$user->getEmail(),
+			'username'		=>	'',
+			'display_name'	=>	$user->getName(),
+			'first_name'	=>	$user->getFirstName(),
+			'last_name'		=>	$user->getLastName(),
+			'description'	=>	$user->getBio(),
+			'avatar'		=>	$user->getPictureUrl(),
+			'url'			=>	$user->getLink()
+		];
+	}
+
 }

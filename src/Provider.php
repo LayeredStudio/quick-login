@@ -100,18 +100,10 @@ abstract class Provider {
 			});
 		} else {
 			try {
-				$tokenCredentials = $server->getTokenCredentials($temporaryCredentials, $_GET['oauth_token'], $_GET['oauth_verifier']);
-				$userDetails = $server->getUserDetails($tokenCredentials);
+				$token = $server->getTokenCredentials($temporaryCredentials, $_GET['oauth_token'], $_GET['oauth_verifier']);
+				$user = $server->getUserDetails($token);
 
-				Login::doAuth($this, [
-					'id'			=>	$server->getUserUid($tokenCredentials),
-					'email'			=>	$userDetails->email,
-					'username'		=>	$userDetails->nickname,
-					'display_name'	=>	$userDetails->name,
-					'first_name'	=>	$userDetails->firstName,
-					'last_name'		=>	$userDetails->lastName,
-					'description'	=>	$userDetails->description
-				]);
+				Login::doAuth($this, $token, $user);
 			} catch (\Exception $e) {
 				add_filter('wp_login_errors', function($errors) use($e) {
 					$errors->add('error', sprintf('%s - %s', $this->getLabel(), $e->getMessage()));
@@ -146,15 +138,7 @@ abstract class Provider {
 				$token = $client->getAccessToken('authorization_code', ['code' => $_GET['code']]);
 				$user = $client->getResourceOwner($token);
 
-				Login::doAuth($this, [
-					'id'			=>	$user->getId(),
-					'email'			=>	$user->getEmail(),
-					'display_name'	=>	$user->getName(),
-					'username'		=>	method_exists($user, 'getUsername') ? $user->getUsername() : '',
-					'first_name'	=>	method_exists($user, 'getFirstName') ? $user->getFirstName() : '',
-					'last_name'		=>	method_exists($user, 'getLastName') ? $user->getLastName() : '',
-					'description'	=>	''
-				]);
+				Login::doAuth($this, $token, $user);
 			} catch (\Exception $e) {
 				add_filter('wp_login_errors', function($errors) use($e) {
 					$errors->add('error', sprintf('%s - %s', $this->getLabel(), $e->getMessage()));

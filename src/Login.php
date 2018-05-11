@@ -35,19 +35,27 @@ class Login {
 		}
 	}
 
-	public static function doAuth(Provider $provider, array $data) {
+	public static function doAuth(Provider $provider, $token, $providerUserData) {
 		$user = false;
+		$users = [];
+		$data = $provider->convertFields($providerUserData);
+
+		if (is_user_logged_in()) {
+			$user = wp_get_current_user();
+		}
 
 		// check linked user by provider Id
-		$users = get_users([
-			'count_total'	=>	false,
-			'number'		=>	1,
-			'meta_key'		=>	$provider->getId() . '_id',
-			'meta_value'	=>	$data['id']
-		]);
+		if (!$user) {
+			$users = get_users([
+				'count_total'	=>	false,
+				'number'		=>	1,
+				'meta_key'		=>	$provider->getId() . '_id',
+				'meta_value'	=>	$data['id']
+			]);
+		}
 
 		// check linked user by provider Id (support for other login plugins)
-		if (!count($users)) {
+		if (!$user && !count($users)) {
 			$users = get_users([
 				'count_total'	=>	false,
 				'number'		=>	1,
@@ -65,8 +73,8 @@ class Login {
 		}
 
 		// check by email
-		if (!$user && $data['email'] && ($user = get_user_by('email', $data['email']))) {
-			add_user_meta($user->ID, $provider->getId() . '_id', $data['id']);
+		if (!$user && $data['email']) {
+			$user = get_user_by('email', $data['email']);
 		}
 
 		// register user
@@ -125,6 +133,10 @@ class Login {
 				}
 			}
 		}
+
+		add_user_meta($user->ID, $provider->getId() . '_id', $data['id']);
+		update_user_meta($user->ID, $provider->getId() . '_data', $providerUserData);
+		update_user_meta($user->ID, $provider->getId() . '_token', $token);
 
 		wp_set_auth_cookie($user->ID, true);
 		do_action('wp_login', $user->user_login, $user);

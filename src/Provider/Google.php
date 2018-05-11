@@ -63,4 +63,18 @@ class Google extends Provider {
 		]);
 	}
 
+	public function convertFields($user) {
+		return [
+			'id'			=>	$user->getId(),
+			'email'			=>	$user->getEmail(),
+			'username'		=>	'',
+			'display_name'	=>	$user->getName(),
+			'first_name'	=>	$user->getFirstName(),
+			'last_name'		=>	$user->getLastName(),
+			'description'	=>	'',
+			'avatar'		=>	$user->getAvatar(),
+			'url'			=>	''
+		];
+	}
+
 }
