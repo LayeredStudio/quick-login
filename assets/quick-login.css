@@ -103,3 +103,71 @@
 .quick-login-button span {
 	margin-left: 0.8rem;
 }
+
+
+/* Quick Login User providers */
+
+.quick-login-user-provider {
+	background-color: var(--quick-login-color);
+	border-radius: 5px;
+	width: 200px;
+	padding: 0.5rem;
+	float: left;
+	margin: 0 1rem 1rem 0;
+	color: #fff;
+	cursor: default;
+	min-height: 50px;
+}
+
+.quick-login-user-provider-heading {
+	line-height: 16px;
+	margin-bottom: 0.6rem;
+}
+
+.quick-login-user-provider-content {
+	text-overflow: ellipsis;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.quick-login-user-provider a {
+	text-decoration: none;
+}
+
+.quick-login-user-provider svg {
+	width: 16px;
+	height: 16px;
+	fill: #fff;
+	float: left;
+	margin-right: 0.4rem;
+}
+
+.quick-login-user-provider-unlinked {
+	background-color: #ddd;
+	color: #666;
+}
+
+.quick-login-user-provider-unlinked svg {
+	fill: #666;
+}
+
+.quick-login-user-provider-linked .quick-login-user-provider-heading a {
+	color: pink;
+	border-bottom: 1px dotted currentColor;
+}
+
+.quick-login-user-provider-profile {
+	color: #fff;
+	line-height: 24px;
+}
+
+a.quick-login-user-provider-profile {
+	text-decoration: underline;
+}
+
+.quick-login-user-provider-profile img {
+	float: left;
+	border-radius: 50%;
+	margin-right: 0.4rem;
+}

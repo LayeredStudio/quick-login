@@ -2,6 +2,7 @@
 namespace Layered\QuickLogin;
 
 use Layered\QuickLogin\Provider;
+use WP_User;
 
 class Buttons {
 
@@ -152,6 +153,54 @@ class Buttons {
 		}
 
 		return $html;
+	}
+
+	public static function renderLinkedAccounts(WP_User $user) {
+		$providers = apply_filters('quick_login_providers', []);
+		$providers = array_filter($providers, function(Provider $provider) {
+			return $provider->getOption('status') === 'enabled';
+		});
+		?>
+		<?php foreach ($providers as $provider) : ?>
+			<?php
+			$linked = get_user_meta($user->ID, $provider->getId() . '_id', true) || get_user_meta($user->ID, $provider->getId() . '_login_id', true);
+			?>
+			<div class="quick-login-user-provider quick-login-user-provider-<?php echo $linked ? 'linked' : 'unlinked' ?>" style="--quick-login-color: <?php echo $provider->getColor() ?>">
+				<div class="quick-login-user-provider-heading">
+					<?php if ($linked) : ?>
+						<a href="<?php echo add_query_arg(['quick-login-unlink' => $provider->getId(), 'user_id' => $user->ID], site_url('/wp-login.php')) ?>" class="pull-right"><?php _e('Unlink', 'quick-login') ?></a>
+					<?php endif ?>
+					<?php echo $provider->getIcon() ?> <?php echo $provider->getLabel() ?>
+				</div>
+				<div class="quick-login-user-provider-content">
+					<?php if ($linked) : ?>
+						<?php
+						$userData = get_user_meta($user->ID, $provider->getId() . '_data', true);
+						?>
+
+						<?php if ($userData) : ?>
+							<?php $userData = $provider->convertFields($userData); ?>
+							<?php if ($userData['url']) : ?><a href="<?php echo $userData['url'] ?>" target="_blank" class="quick-login-user-provider-profile"><?php else : ?><span class="quick-login-user-provider-profile"><?php endif ?>
+								<img src="<?php echo $userData['avatar'] ?>" alt="<?php echo $userData['display_name'] ?>" width="24">
+								<?php echo $userData['username'] ?: $userData['email'] ?: $userData['display_name'] ?>
+							<?php if ($userData['url']) : ?></a><?php else : ?></span><?php endif ?>
+						<?php endif ?>
+
+						<?php
+						//print_pre($userData);
+						//print_pre(get_user_meta($user->ID, $provider->getId() . '_data', true));
+						//print_pre(get_user_meta($user->ID, $provider->getId() . '_token', true));
+						?>
+					<?php elseif ($user->ID == get_current_user_id()) : ?>
+						<a href="<?php echo $provider->getLoginUrl() ?>"><?php _e('Link account', 'quick-login') ?></a>
+					<?php else : ?>
+						<i><?php _e('not linked', 'quick-login') ?></i>
+					<?php endif ?>
+					
+				</div>
+			</div>
+		<?php endforeach ?>
+		<?php
 	}
 
 }

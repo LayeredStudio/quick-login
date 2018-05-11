@@ -35,6 +35,24 @@ class Login {
 
 			$providers[$_REQUEST['quick-login']]->doAuth();
 		}
+
+		if (isset($_REQUEST['quick-login-unlink']) && isset($providers[$_REQUEST['quick-login-unlink']])) {
+			if ($_REQUEST['user_id'] == get_current_user_id() || current_user_can('edit_users')) {
+				$provider = $providers[$_REQUEST['quick-login-unlink']];
+				delete_user_meta($_REQUEST['user_id'], $provider->getId() . '_id');
+				delete_user_meta($_REQUEST['user_id'], $provider->getId() . '_login_id');
+				delete_user_meta($_REQUEST['user_id'], $provider->getId() . '_data');
+				delete_user_meta($_REQUEST['user_id'], $provider->getId() . '_token');
+				$message = sprintf(__('%s account is unlinked', 'quick-login'), $provider->getLabel());
+			} else {
+				wp_die(__('Not authorised to unlink user accounts', 'quick-login'));
+			}
+
+			$redirectUrl = isset($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : wp_get_referer();
+
+			wp_redirect(add_query_arg(['quick-login-alert' => urlencode($message)], $redirectUrl));
+			exit;
+		}
 	}
 
 	public static function doAuth(Provider $provider, $token, $providerUserData) {

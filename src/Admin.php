@@ -2,6 +2,8 @@
 namespace Layered\QuickLogin;
 
 use Layered\QuickLogin\Provider;
+use Layered\QuickLogin\Buttons;
+use WP_User;
 
 class Admin {
 
@@ -17,8 +19,13 @@ class Admin {
 		add_filter('plugin_action_links_quick-login/quick-login.php', [$this, 'actionLinks']);
 		add_filter('manage_users_columns', [$this, 'usersColumns']);
 		add_filter('manage_users_custom_column', [$this, 'usersColumnsValue'], 10, 3);
+		add_filter('personal_options', [$this, 'adminLinkedAccounts']);
+		add_filter('woocommerce_edit_account_form', [$this, 'woocommerceLinkedAccounts']);
 
 		$this->providers = apply_filters('quick_login_providers', []);
+		$this->enabledProviders = array_filter($this->providers, function(Provider $provider) {
+			return $provider->getOption('status') === 'enabled';
+		});
 	}
 
 	public function assets() {
@@ -429,7 +436,7 @@ class Admin {
 	public function usersColumnsValue($value, $column, $userId) {
 
 		if ($column === 'quick-login') {
-			foreach ($this->providers as $provider) {
+			foreach ($this->enabledProviders as $provider) {
 				if (get_user_meta($userId, $provider->getId() . '_id', true) || get_user_meta($userId, $provider->getId() . '_login_id', true)) {
 					$value .= '<span class="quick-login-icon quick-login-icon-mini quick-login-provider-' . $provider->getId() . '" style="--quick-login-color: ' . $provider->getColor() . '" data-tooltip="' . esc_attr($provider->getLabel()) . '">' . $provider->getIcon() . '</span>';
 				}
@@ -437,6 +444,27 @@ class Admin {
 		}
 
 		return $value;
+	}
+
+	public function adminLinkedAccounts(WP_User $user) {
+		?>
+		<tr>
+			<th class="row"><?php esc_html_e('Quick Login connected accounts', 'quick-login') ?></th>
+			<td class="quick-login-user-providers">
+				<?php Buttons::renderLinkedAccounts($user) ?>
+			</td>
+		</tr>
+		<?php
+	}
+
+	public function woocommerceLinkedAccounts() {
+		?>
+		<fieldset>
+			<legend><?php esc_html_e('Quick Login connected accounts', 'quick-login') ?></legend>
+			<?php Buttons::renderLinkedAccounts(wp_get_current_user()) ?>
+		</fieldset>
+		<div class="clear"></div>
+		<?php
 	}
 
 }

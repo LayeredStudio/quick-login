@@ -58,6 +58,8 @@ Login buttons can be added in pages, articles or widgets with `[quick-login]` sh
 
 == Changelog ==
 
+* Added - Link / Unlink accounts from User edit page & WooCommerce account page
+
 = 0.2 - 9 May 2018 =
 * Added - Users' conected providers on Users page
 
