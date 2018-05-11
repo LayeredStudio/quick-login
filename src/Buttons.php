@@ -180,10 +180,10 @@ class Buttons {
 
 						<?php if ($userData) : ?>
 							<?php $userData = $provider->convertFields($userData); ?>
-							<?php if ($userData['url']) : ?><a href="<?php echo $userData['url'] ?>" target="_blank" class="quick-login-user-provider-profile"><?php else : ?><span class="quick-login-user-provider-profile"><?php endif ?>
+							<?php if ($userData['user_url']) : ?><a href="<?php echo $userData['user_url'] ?>" target="_blank" class="quick-login-user-provider-profile"><?php else : ?><span class="quick-login-user-provider-profile"><?php endif ?>
 								<img src="<?php echo $userData['avatar'] ?>" alt="<?php echo $userData['display_name'] ?>" width="24">
-								<?php echo $userData['username'] ?: $userData['email'] ?: $userData['display_name'] ?>
-							<?php if ($userData['url']) : ?></a><?php else : ?></span><?php endif ?>
+								<?php echo $userData['user_login'] ?: $userData['user_email'] ?: $userData['display_name'] ?>
+							<?php if ($userData['user_url']) : ?></a><?php else : ?></span><?php endif ?>
 						<?php endif ?>
 
 						<?php

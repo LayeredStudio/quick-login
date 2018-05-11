@@ -74,14 +74,15 @@ class Facebook extends Provider {
 	public function convertFields($user) {
 		return [
 			'id'			=>	$user->getId(),
-			'email'			=>	$user->getEmail(),
-			'username'		=>	'',
+			'user_email'	=>	$user->getEmail(),
+			'user_login'	=>	'',
 			'display_name'	=>	$user->getName(),
 			'first_name'	=>	$user->getFirstName(),
 			'last_name'		=>	$user->getLastName(),
 			'description'	=>	$user->getBio(),
-			'avatar'		=>	$user->getPictureUrl(),
-			'url'			=>	$user->getLink()
+			'user_url'		=>	$user->getLink(),
+			'locale'		=>	$user->getLocale(),
+			'avatar'		=>	$user->getPictureUrl()
 		];
 	}
 

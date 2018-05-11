@@ -63,14 +63,15 @@ class WordPressCom extends Provider {
 	public function convertFields($user) {
 		return [
 			'id'			=>	$user->getId(),
-			'email'			=>	$user->getEmail(),
-			'username'		=>	$user->getUsername(),
+			'user_email'	=>	$user->getEmail(),
+			'user_login'	=>	$user->getUsername(),
 			'display_name'	=>	$user->getDisplayName(),
 			'first_name'	=>	'',
 			'last_name'		=>	'',
 			'description'	=>	'',
-			'avatar'		=>	$user->getAvatarUrl(),
-			'url'			=>	$user->getProfileUrl()
+			'user_url'		=>	$user->getProfileUrl(),
+			'locale'		=>	'', // TODO process $user->getLanguage() to 'locale'
+			'avatar'		=>	$user->getAvatarUrl()
 		];
 	}
 

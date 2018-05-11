@@ -64,16 +64,19 @@ class Google extends Provider {
 	}
 
 	public function convertFields($user) {
+		$userArray = $user->toArray();
+
 		return [
 			'id'			=>	$user->getId(),
-			'email'			=>	$user->getEmail(),
-			'username'		=>	'',
+			'user_email'	=>	$user->getEmail(),
+			'user_login'	=>	'',
 			'display_name'	=>	$user->getName(),
 			'first_name'	=>	$user->getFirstName(),
 			'last_name'		=>	$user->getLastName(),
 			'description'	=>	'',
-			'avatar'		=>	$user->getAvatar(),
-			'url'			=>	''
+			'user_url'		=>	'',
+			'locale'		=>	str_replace('-', '_', $userArray['locale']),
+			'avatar'		=>	$user->getAvatar()
 		];
 	}
 

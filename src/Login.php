@@ -82,10 +82,6 @@ class Login {
 				'meta_key'		=>	$provider->getId() . '_login_id',
 				'meta_value'	=>	$data['id']
 			]);
-
-			if ($users) {
-				add_user_meta($users[0]->ID, $provider->getId() . '_id', $data['id']);
-			}
 		}
 
 		if ($users) {
@@ -93,48 +89,53 @@ class Login {
 		}
 
 		// check by email
-		if (!$user && $data['email']) {
-			$user = get_user_by('email', $data['email']);
+		if (!$user && $data['user_email']) {
+			$user = get_user_by('email', $data['user_email']);
 		}
 
 		// register user
 		if (!$user) {
 
-			if (empty($data['username'])) {
-				if ($data['email']) {
-					$emailParts = explode('@', $data['email']);
-					$data['username'] = $emailParts[0];
+			if (empty($data['user_login'])) {
+				if ($data['user_email']) {
+					$emailParts = explode('@', $data['user_email']);
+					$data['user_login'] = $emailParts[0];
 				} else {
-					$data['username'] = $data['display_name'];
+					$data['user_login'] = $data['display_name'];
 				}
 			}
 
-			$data['username'] = sanitize_user($data['username'], true);
+			$data['user_login'] = sanitize_user($data['user_login'], true);
 
-			if (!validate_username($data['username'])) {
-				$data['username'] = sanitize_user($provider->getId() . '_' . uniqid());
+			if (!validate_username($data['user_login'])) {
+				$data['user_login'] = sanitize_user($provider->getId() . '_' . uniqid());
 			}
 
-			$usernameTmp = $data['username'];
+			$usernameTmp = $data['user_login'];
 
 			$index = 1;
-			while (username_exists($data['username'])) {
-				$data['username'] = $usernameTmp . $index++;
+			while (username_exists($data['user_login'])) {
+				$data['user_login'] = $usernameTmp . $index++;
 			}
 
-			if (empty($data['email'])) {
-				$data['email'] = $data['id'] . '@' . $provider->getId() . '.unknown';
+			if (empty($data['user_email'])) {
+				$data['user_email'] = $data['id'] . '@' . $provider->getId() . '.unknown';
 			}
 
 			$userData = [
-				'user_login'	=>	$data['username'],
-				'user_email'	=>	$data['email'],
+				'user_login'	=>	$data['user_login'],
+				'user_email'	=>	$data['user_email'],
 				'user_pass'		=>	wp_generate_password(8),
 				'display_name'	=>	$data['display_name'],
 				'first_name'	=>	$data['first_name'],
 				'last_name'		=>	$data['last_name'],
-				'description'	=>	$data['description']
+				'description'	=>	$data['description'],
+				'user_url'		=>	$data['user_url']
 			];
+
+			if ($data['locale'] && in_array($data['locale'], get_available_languages())) {
+				$userData['locale'] = $data['locale'];
+			}
 
 			$userId = wp_insert_user($userData);
 			do_action('woocommerce_created_customer', $userId, $userData, true);
@@ -163,6 +164,5 @@ class Login {
 		wp_redirect(wp_validate_redirect(get_transient('quick-login-redirect') ?: site_url()));
 		exit;
 	}
-
 
 }

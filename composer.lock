@@ -309,16 +309,16 @@
         },
         {
             "name": "layered/oauth2-wordpress-com",
-            "version": "v1.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LayeredStudio/oauth2-wordpress-com.git",
-                "reference": "4e22f1e3aa62c5b018cb7ba0d79389edb41d0708"
+                "reference": "c3b16ed3903d42ea19f8329bf935b4d87bfc6426"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LayeredStudio/oauth2-wordpress-com/zipball/4e22f1e3aa62c5b018cb7ba0d79389edb41d0708",
-                "reference": "4e22f1e3aa62c5b018cb7ba0d79389edb41d0708",
+                "url": "https://api.github.com/repos/LayeredStudio/oauth2-wordpress-com/zipball/c3b16ed3903d42ea19f8329bf935b4d87bfc6426",
+                "reference": "c3b16ed3903d42ea19f8329bf935b4d87bfc6426",
                 "shasum": ""
             },
             "require": {
@@ -350,7 +350,7 @@
                 "wordpress",
                 "wordpress.com"
             ],
-            "time": "2018-03-22T15:27:25+00:00"
+            "time": "2018-05-11T14:57:57+00:00"
         },
         {
             "name": "league/oauth1-client",

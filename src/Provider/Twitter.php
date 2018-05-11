@@ -63,14 +63,15 @@ class Twitter extends Provider {
 	public function convertFields($user) {
 		return [
 			'id'			=>	$user->uid,
-			'email'			=>	$user->email,
-			'username'		=>	$user->nickname,
+			'user_email'	=>	$user->email,
+			'user_login'	=>	$user->nickname,
 			'display_name'	=>	$user->name,
 			'first_name'	=>	$user->firstName,
 			'last_name'		=>	$user->lastName,
 			'description'	=>	$user->description,
-			'avatar'		=>	$user->imageUrl,
-			'url'			=>	'https://twitter.com/' . $user->nickname
+			'user_url'		=>	'https://twitter.com/' . $user->nickname,
+			'locale'		=>	'', // TODO process $user->extra['lang'] to 'locale'
+			'avatar'		=>	$user->imageUrl
 		];
 	}
 
