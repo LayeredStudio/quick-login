@@ -58,6 +58,8 @@ Login buttons can be added in pages, articles or widgets with `[quick-login]` sh
 
 == Changelog ==
 
+* Fixed - Login form in comments only if user is logged out
+
 = 0.3 - 11 May 2018 =
 * Added - Link / Unlink accounts from User edit page & WooCommerce account page
 * Added - More WP hooks

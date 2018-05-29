@@ -36,7 +36,9 @@ class Buttons {
 		}
 
 		// on comment forms
-		add_action('comment_form_top', [$this, 'onCommentsForm']);
+		if (!is_user_logged_in()) {
+			add_action('comment_form_top', [$this, 'onCommentsForm']);
+		}
 		add_action('comment_form_must_log_in_after', [$this, 'onCommentsForm']);
 
 		// in shortcode
