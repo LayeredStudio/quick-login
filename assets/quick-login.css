@@ -96,12 +96,20 @@
 }
 
 .quick-login-icon-mini svg {
-	width: 15px;
-	height: 15px;
+	width: 20px;
+	height: 20px;
 }
 
 .quick-login-button span {
 	margin-left: 0.8rem;
+}
+
+.quick-login .quick-login-avatar {
+	position: absolute;
+	top: -10px;
+	right: -5px;
+	border-radius: 50%;
+	box-shadow: 0px 1px 3px 2px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -110,7 +118,7 @@
 .quick-login-user-provider {
 	background-color: var(--quick-login-color);
 	border-radius: 5px;
-	width: 200px;
+	width: 230px;
 	padding: 0.5rem;
 	float: left;
 	margin: 0 1rem 1rem 0;

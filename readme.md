@@ -11,9 +11,9 @@ Includes support for WooCommerce sections too!
 
 > This repo is used only for development, downloading & installing from here won't work as expected. Install from [WordPress.org plugin page](https://wordpress.org/plugins/quick-login/)
 
-## Features & options
+## Features
 
-* Popular login providers
+* One-click login with popular providers
   * Twitter
   * Google
   * Facebook
@@ -21,12 +21,13 @@ Includes support for WooCommerce sections too!
 * Button style options
   * Icons
   * Buttons with icon & text
-* Logins placement
+* Control buttons placement
   * On Login page
   * On Register page
   * On WooCommerce pages: My account, Login, Register and Checkout
   * On page or article comments section
   * Embed in any page with `[quick-login]` shortcode
+* Link / Unlink providers from profile page (WordPress and WooCommerce)
 
 
 ## WordPress.org

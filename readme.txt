@@ -58,6 +58,8 @@ Login buttons can be added in pages, articles or widgets with `[quick-login]` sh
 
 == Changelog ==
 
+= 0.4 - 29 May 2018 =
+* Updated - Display connected providers on Users list page
 * Fixed - Login form in comments only if user is logged out
 
 = 0.3 - 11 May 2018 =

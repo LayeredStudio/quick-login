@@ -438,7 +438,20 @@ class Admin {
 		if ($column === 'quick-login') {
 			foreach ($this->enabledProviders as $provider) {
 				if (get_user_meta($userId, $provider->getId() . '_id', true)) {
-					$value .= '<span class="quick-login-icon quick-login-icon-mini quick-login-provider-' . $provider->getId() . '" style="--quick-login-color: ' . $provider->getColor() . '" data-tooltip="' . esc_attr($provider->getLabel()) . '">' . $provider->getIcon() . '</span>';
+					$userData = get_user_meta($userId, $provider->getId() . '_data', true);
+					$name = '';
+
+					if ($userData) {
+						$userData = $provider->convertFields($userData);
+						$name = $userData['user_login'] ?: $userData['user_email'] ?: $userData['display_name'];
+					}
+
+					$value .= '<span class="quick-login-icon quick-login-icon-mini quick-login-provider-' . $provider->getId() . '" style="--quick-login-color: ' . $provider->getColor() . '" data-tooltip="' . esc_attr($provider->getLabel()) . ' - ' . $name . '">';
+					if ($userData && $userData['avatar']) {
+						$value .= '<img src="' . $userData['avatar'] . '" alt="' . $name . '" class="quick-login-avatar" width="18" />';
+					}
+					$value .= $provider->getIcon();
+					$value .= '</span>';
 				}
 			}
 		}
