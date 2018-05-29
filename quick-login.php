@@ -3,7 +3,7 @@
 Plugin Name: Quick Login
 Plugin URI: https://wordpress.layered.studio/quick-login
 Description: Let your visitors log in with their existing accounts! Supports Twitter, Facebook, Google and WordPress.com
-Version: 0.3
+Version: 0.4
 Text Domain: quick-login
 Author: Layered
 Author URI: https://layered.studio
