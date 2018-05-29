@@ -54,7 +54,8 @@ Login buttons can be added in pages, articles or widgets with `[quick-login]` sh
 1. Login page example
 2. WooCommerce checkout example
 3. Main settings page: Set-up and enable providers, control style & placement
-4. Provider set-up page, with instructions
+4. Link / Unlink providers on User profile page
+5. Provider set-up page, with instructions
 
 == Changelog ==
 
