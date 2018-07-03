@@ -19,6 +19,7 @@ class Login {
 		$providers['twitter'] = new \Layered\QuickLogin\Provider\Twitter;
 		$providers['google'] = new \Layered\QuickLogin\Provider\Google;
 		$providers['wordpresscom'] = new \Layered\QuickLogin\Provider\WordPressCom;
+		$providers['linkedin'] = new \Layered\QuickLogin\Provider\LinkedIn;
 
 		return $providers;
 	}
