@@ -463,8 +463,10 @@ class Admin {
 		?>
 		<tr>
 			<th class="row"><?php esc_html_e('Quick Login connected accounts', 'quick-login') ?></th>
-			<td class="quick-login-user-providers">
-				<?php Buttons::renderLinkedAccounts($user) ?>
+			<td>
+				<div class="quick-login-user-providers">
+					<?php Buttons::renderLinkedAccounts($user) ?>
+				</div>
 			</td>
 		</tr>
 		<?php

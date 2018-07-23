@@ -41,8 +41,7 @@ class Login {
 			if ($_REQUEST['user_id'] == get_current_user_id() || current_user_can('edit_users')) {
 				$provider = $providers[$_REQUEST['quick-login-unlink']];
 				delete_user_meta($_REQUEST['user_id'], $provider->getId() . '_id');
-				delete_user_meta($_REQUEST['user_id'], $provider->getId() . '_data');
-				delete_user_meta($_REQUEST['user_id'], $provider->getId() . '_token');
+				delete_user_meta($_REQUEST['user_id'], $provider->getId() . '_info');
 				do_action('quick_login', get_user_by('id', $_REQUEST['user_id']), 'unlink', $provider);
 				$message = sprintf(__('%s account is unlinked', 'quick-login'), $provider->getLabel());
 			} else {
@@ -147,9 +146,12 @@ class Login {
 			}
 		}
 
-		add_user_meta($user->ID, $provider->getId() . '_id', $data['id'], true);
-		update_user_meta($user->ID, $provider->getId() . '_data', $providerUserData);
-		update_user_meta($user->ID, $provider->getId() . '_token', $token);
+		update_user_meta($user->ID, $provider->getId() . '_id', $data['id']);
+		update_user_meta($user->ID, $provider->getId() . '_info', [
+			'user'	=>	$providerUserData,
+			'token'	=>	$token,
+			'scope'	=>	$provider->getScope()
+		]);
 
 		wp_set_auth_cookie($user->ID, true);
 		do_action('wp_login', $user->user_login, $user);

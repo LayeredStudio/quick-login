@@ -133,6 +133,14 @@
 }
 
 .quick-login-user-provider-content {
+	
+}
+
+.quick-login-user-provider-content ul {
+	margin-bottom: 0;
+}
+
+.quick-login-user-provider-user {
 	text-overflow: ellipsis;
 	width: 100%;
 	white-space: nowrap;
@@ -163,6 +171,7 @@
 .quick-login-user-provider-linked .quick-login-user-provider-heading a {
 	color: pink;
 	border-bottom: 1px dotted currentColor;
+	float: right;
 }
 
 .quick-login-user-provider-profile {
