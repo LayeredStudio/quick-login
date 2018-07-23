@@ -46,7 +46,7 @@ class Buttons {
 	}
 
 	public function globalAssets() {
-		wp_enqueue_style('quick-login', plugins_url('assets/quick-login.css', dirname(__FILE__)), [], 0.4);
+		wp_enqueue_style('quick-login', plugins_url('assets/quick-login.css', dirname(__FILE__)), [], 0.5);
 	}
 
 	public function separator($separator = '') {
@@ -86,8 +86,8 @@ class Buttons {
 	}
 
 	public function loginAssets() {
-		wp_enqueue_style('quick-login', plugins_url('assets/quick-login.css', dirname(__FILE__)), [], 0.4);
-		wp_register_script('quick-login', plugins_url('assets/quick-login.js', dirname(__FILE__)), ['jquery'], 0.1);
+		wp_enqueue_style('quick-login', plugins_url('assets/quick-login.css', dirname(__FILE__)), [], 0.5);
+		wp_register_script('quick-login', plugins_url('assets/quick-login.js', dirname(__FILE__)), ['jquery'], 0.5);
 		wp_localize_script('quick-login', 'QuickLogin', [
 			'login'				=>	$this->options['login-form'],
 			'loginButtons'		=>	self::renderLogins([

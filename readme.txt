@@ -1,32 +1,33 @@
 === Quick Login ===
-Contributors: andrei.igna
-Tags: login, sign in, twitter, google, facebook, oauth, register
+Contributors: andreiigna
+Tags: login, sign in, twitter, google, facebook, linkedin, oauth, register
 Requires at least: 4
 Tested up to: 4.9
-Requires PHP: 5.4
+Requires PHP: 5.5
 Stable tag: trunk
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Let your visitors log in with their existing accounts! Supports Twitter, Facebook, Google and WordPress.com
+Let your visitors log in with their existing accounts! Supports Twitter, Facebook, Google, WordPress.com and LinkedIn
 
 == Description ==
 
-Quick Login adds extra login methods on your site, letting your visitors quickly log in or register with an existing account. Has support for the most popular logins: Twitter, Google, Facebook and WordPress.com
+Quick Login adds extra login methods on your site, letting your visitors quickly log in or register with an existing account. Has support for the most popular logins: Twitter, Google, Facebook, WordPress.com and LinkedIn
 
 Faster log in or register will increase percent of logged in users on your site, especially helpful on e-commerce sites where the checkout should be as simple as possible.
 
 The plugin is easy to set up, each provider has detailed instructions on how to enable it.
 
-Includes support for WooCommerce sections too!
+Includes **support for WooCommerce** sections too!
 
 ## Features & options
 
-* Popular login providers
+* One-click login with popular providers
   * Twitter
   * Google
   * Facebook
   * WordPress.com
+  * LinkedIn
 * Button style options
   * Icons
   * Buttons with icon & text
@@ -37,6 +38,8 @@ Includes support for WooCommerce sections too!
   * On page or article comments section
   * Embed in any page with `[quick-login]` shortcode
 * Link / Unlink providers from profile page (WordPress and WooCommerce)
+
+> Be aware that Quick Login requires the PHP version to be at least 5.5
 
 == Frequently Asked Questions ==
 
@@ -50,6 +53,11 @@ Each provider has detailed instructions for set up, including info on how to cre
 Quick Login can add buttons on Login, Register, Comment and WooCommerce pages through plugin options.
 Login buttons can be added in pages, articles or widgets with `[quick-login]` shortcode. There are more details on how to embed this shortcode and it's options in 'WP Admin -> Settings -> Quick Login -> Embed section' on your site.
 
+= Quick Login doesn't work, with errors on pages or logins not showing up =
+
+Because of newer functionality & security in PHP, this plugin requires the PHP version to be at least 5.5.
+If the server already has PHP >5.5 and the plugin still doesn't work, please send a support request either on WordPress support forum or [plugin GitHub page](https://github.com/LayeredStudio/quick-login)
+
 == Screenshots ==
 
 1. Login page example
@@ -60,6 +68,8 @@ Login buttons can be added in pages, articles or widgets with `[quick-login]` sh
 
 == Changelog ==
 
+= 0.5 - 23 July 2018 =
+* Added - LinkedIn provider
 * Updated - Show info & scope for each connected provider
 
 = 0.4 - 29 May 2018 =
