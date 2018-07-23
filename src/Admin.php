@@ -438,11 +438,11 @@ class Admin {
 		if ($column === 'quick-login') {
 			foreach ($this->enabledProviders as $provider) {
 				if (get_user_meta($userId, $provider->getId() . '_id', true)) {
-					$userData = get_user_meta($userId, $provider->getId() . '_data', true);
+					$userData = get_user_meta($userId, $provider->getId() . '_info', true);
 					$name = '';
 
 					if ($userData) {
-						$userData = $provider->convertFields($userData);
+						$userData = $provider->convertFields($userData['user']);
 						$name = $userData['user_login'] ?: $userData['user_email'] ?: $userData['display_name'];
 					}
 
