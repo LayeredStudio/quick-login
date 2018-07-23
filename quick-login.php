@@ -11,7 +11,7 @@ License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 */
 
-include 'vendor/autoload.php';
+require plugin_dir_path(__FILE__) . 'vendor/autoload.php';
 
 
 // default options
@@ -30,9 +30,9 @@ add_filter('default_option_quick-login', function($default) {
 
 // start the plugin
 
-add_action('plugins_loaded', 'Layered\QuickLogin\Login::start');
-add_action('plugins_loaded', 'Layered\QuickLogin\Buttons::start');
-add_action('plugins_loaded', 'Layered\QuickLogin\Admin::start');
+add_action('plugins_loaded', '\Layered\QuickLogin\Login::start');
+add_action('plugins_loaded', '\Layered\QuickLogin\Buttons::start');
+add_action('plugins_loaded', '\Layered\QuickLogin\Admin::start');
 
 
 /* Template Tags */
