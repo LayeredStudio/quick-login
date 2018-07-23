@@ -1,6 +1,7 @@
 <?php
 namespace Layered\QuickLogin\Provider;
 
+use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use Layered\QuickLogin\Provider;
 
 class LinkedIn extends Provider {
@@ -60,7 +61,7 @@ class LinkedIn extends Provider {
 		]);
 	}
 
-	public function convertFields($user) {
+	public function convertFields(ResourceOwnerInterface $user) {
 		return [
 			'id'			=>	$user->getId(),
 			'user_login'	=>	'',

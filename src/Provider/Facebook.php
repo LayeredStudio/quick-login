@@ -1,6 +1,7 @@
 <?php
 namespace Layered\QuickLogin\Provider;
 
+use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use Layered\QuickLogin\Provider;
 
 class Facebook extends Provider {
@@ -71,11 +72,11 @@ class Facebook extends Provider {
 		]);
 	}
 
-	public function convertFields($user) {
+	public function convertFields(ResourceOwnerInterface $user) {
 		return [
 			'id'			=>	$user->getId(),
-			'user_email'	=>	$user->getEmail(),
 			'user_login'	=>	'',
+			'user_email'	=>	$user->getEmail(),
 			'display_name'	=>	$user->getName(),
 			'first_name'	=>	$user->getFirstName(),
 			'last_name'		=>	$user->getLastName(),

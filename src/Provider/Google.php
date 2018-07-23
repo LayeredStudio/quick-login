@@ -1,6 +1,7 @@
 <?php
 namespace Layered\QuickLogin\Provider;
 
+use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use Layered\QuickLogin\Provider;
 
 class Google extends Provider {
@@ -54,7 +55,7 @@ class Google extends Provider {
 	}
 
 	protected function getClient() {
-		return new \League\OAuth2\Client\Provider\Google([
+		return new League\OAuth2\Client\Provider\Google([
 			'clientId'					=>	$this->getOption('clientId'),
 			'clientSecret'				=>	$this->getOption('clientSecret'),
 			'redirectUri'				=>	site_url('/wp-login.php?quick-login=google'),
@@ -63,13 +64,13 @@ class Google extends Provider {
 		]);
 	}
 
-	public function convertFields($user) {
+	public function convertFields(ResourceOwnerInterface $user) {
 		$userArray = $user->toArray();
 
 		return [
 			'id'			=>	$user->getId(),
-			'user_email'	=>	$user->getEmail(),
 			'user_login'	=>	'',
+			'user_email'	=>	$user->getEmail(),
 			'display_name'	=>	$user->getName(),
 			'first_name'	=>	$user->getFirstName(),
 			'last_name'		=>	$user->getLastName(),

@@ -1,6 +1,7 @@
 <?php
 namespace Layered\QuickLogin\Provider;
 
+use League\OAuth1\Client\Server\User;
 use Layered\QuickLogin\Provider;
 
 class Twitter extends Provider {
@@ -60,11 +61,11 @@ class Twitter extends Provider {
 		]);
 	}
 
-	public function convertFields($user) {
+	public function convertFields(User $user) {
 		return [
 			'id'			=>	$user->uid,
-			'user_email'	=>	$user->email,
 			'user_login'	=>	$user->nickname,
+			'user_email'	=>	$user->email,
 			'display_name'	=>	$user->name,
 			'first_name'	=>	$user->firstName,
 			'last_name'		=>	$user->lastName,
