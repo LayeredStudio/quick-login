@@ -162,6 +162,16 @@ class Buttons {
 		$providers = array_filter($providers, function(Provider $provider) {
 			return $provider->getOption('status') === 'enabled';
 		});
+		$fieldLabels = [
+			'id'			=>	__('User ID', 'quick-login'),
+			'user_email'	=>	__('Email', 'quick-login'),
+			'user_login'	=>	__('Username', 'quick-login'),
+			'display_name'	=>	__('Name', 'quick-login'),
+			'first_name'	=>	__('First Name', 'quick-login'),
+			'last_name'		=>	__('Last Name', 'quick-login'),
+			'description'	=>	__('Description', 'quick-login'),
+			'locale'		=>	__('Language', 'quick-login')
+		];
 		?>
 		<?php foreach ($providers as $provider) : ?>
 			<?php
@@ -183,7 +193,8 @@ class Buttons {
 						<?php if ($userInfo) : ?>
 							<?php $userData = $provider->convertFields($userInfo['user']); ?>
 
-							<div class="quick-login-user-provider--user">
+							<span class="quick-login-user-provider-more">&darr;</span>
+							<div class="quick-login-user-provider-user">
 								<?php if ($userData['user_url']) : ?><a href="<?php echo $userData['user_url'] ?>" target="_blank" class="quick-login-user-provider-profile"><?php else : ?><span class="quick-login-user-provider-profile"><?php endif ?>
 									<?php if ($userData['avatar']) : ?>
 										<img src="<?php echo $userData['avatar'] ?>" alt="<?php echo $userData['display_name'] ?>" width="24">
@@ -192,7 +203,6 @@ class Buttons {
 								<?php if ($userData['user_url']) : ?></a><?php else : ?></span><?php endif ?>
 							</div>
 
-							<!--
 							<ul>
 								<?php foreach ($userData as $field => $value) : ?>
 									<?php if ($value && isset($fieldLabels[$field])) : ?>
@@ -201,15 +211,8 @@ class Buttons {
 								<?php endforeach ?>
 								<li><strong>Scope</strong>: <?php echo implode(', ', $userInfo['scope']) ?></li>
 							</ul>
-							-->
 
 						<?php endif ?>
-
-						<?php
-						//print_pre($userData);
-						//print_pre(get_user_meta($user->ID, $provider->getId() . '_data', true));
-						//print_pre(get_user_meta($user->ID, $provider->getId() . '_token', true));
-						?>
 					<?php elseif ($user->ID == get_current_user_id()) : ?>
 						<a href="<?php echo $provider->getLoginUrl() ?>"><?php _e('Link account', 'quick-login') ?></a>
 					<?php else : ?>
@@ -219,6 +222,11 @@ class Buttons {
 				</div>
 			</div>
 		<?php endforeach ?>
+		<script>
+		jQuery('.quick-login-user-provider-more').click(function() {
+			jQuery(this).closest('.quick-login-user-provider').toggleClass('expanded');
+		});
+		</script>
 		<?php
 	}
 

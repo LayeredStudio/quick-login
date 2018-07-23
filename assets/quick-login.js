@@ -12,4 +12,8 @@ jQuery(function($) {
 		}
 	});
 
+	$('.quick-login-user-provider-more').click(function() {
+		$(this).closest('.quick-login-user-provider').toggleClass('expanded');
+	});
+
 });

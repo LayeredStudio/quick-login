@@ -55,7 +55,7 @@ class Google extends Provider {
 	}
 
 	protected function getClient() {
-		return new League\OAuth2\Client\Provider\Google([
+		return new \League\OAuth2\Client\Provider\Google([
 			'clientId'					=>	$this->getOption('clientId'),
 			'clientSecret'				=>	$this->getOption('clientSecret'),
 			'redirectUri'				=>	site_url('/wp-login.php?quick-login=google'),

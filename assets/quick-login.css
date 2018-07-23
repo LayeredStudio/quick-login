@@ -125,6 +125,13 @@
 	color: #fff;
 	cursor: default;
 	min-height: 50px;
+	max-height: 50px;
+	overflow: hidden;
+	transition: max-height 0.2s ease-out;
+}
+
+.quick-login-user-provider.expanded {
+	max-height: 500px;
 }
 
 .quick-login-user-provider-heading {
@@ -142,7 +149,6 @@
 
 .quick-login-user-provider-user {
 	text-overflow: ellipsis;
-	width: 100%;
 	white-space: nowrap;
 	overflow: hidden;
 }
@@ -177,6 +183,26 @@
 .quick-login-user-provider-profile {
 	color: #fff;
 	line-height: 24px;
+}
+
+.quick-login-user-provider-more {
+	float: right;
+	background: #fff;
+	border: 0;
+	padding: 0;
+	line-height: 1rem;
+	width: 1rem;
+	text-align: center;
+	border-radius: 50%;
+	opacity: 0.8;
+	color: #666;
+	margin-top: calc((24px - 1rem) / 2);
+	cursor: pointer;
+	transition: opacity 0.2s ease-in;
+}
+
+.quick-login-user-provider-more:hover {
+	opacity: 1;
 }
 
 a.quick-login-user-provider-profile {

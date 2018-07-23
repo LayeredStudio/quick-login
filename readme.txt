@@ -36,6 +36,7 @@ Includes support for WooCommerce sections too!
   * On WooCommerce pages: My account, Login, Register and Checkout
   * On page or article comments section
   * Embed in any page with `[quick-login]` shortcode
+* Link / Unlink providers from profile page (WordPress and WooCommerce)
 
 == Frequently Asked Questions ==
 
@@ -58,6 +59,8 @@ Login buttons can be added in pages, articles or widgets with `[quick-login]` sh
 5. Provider set-up page, with instructions
 
 == Changelog ==
+
+* Updated - Show info & scope for each connected provider
 
 = 0.4 - 29 May 2018 =
 * Updated - Display connected providers on Users list page
