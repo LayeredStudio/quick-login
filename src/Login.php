@@ -10,24 +10,11 @@ class Login {
 	}
 
 	public function __construct() {
-		add_filter('quick_login_providers', [$this, 'defaultProviders']);
 		add_action('init', [$this, 'checkAuth']);
 	}
 
-	public function defaultProviders(array $providers) {
-		$providers['facebook'] = new \Layered\QuickLogin\Provider\Facebook;
-		$providers['twitter'] = new \Layered\QuickLogin\Provider\Twitter;
-		$providers['google'] = new \Layered\QuickLogin\Provider\Google;
-		$providers['wordpresscom'] = new \Layered\QuickLogin\Provider\WordPressCom;
-		$providers['linkedin'] = new \Layered\QuickLogin\Provider\LinkedIn;
-
-		return $providers;
-	}
-
 	public function checkAuth() {
-		$providers = array_filter(apply_filters('quick_login_providers', []), function(Provider $provider) {
-			return $provider->getOption('status') === 'enabled';
-		});
+		$providers = quickLoginProviders();
 
 		if (isset($_REQUEST['quick-login']) && isset($providers[$_REQUEST['quick-login']])) {
 			if (isset($_REQUEST['redirect_to'])) {

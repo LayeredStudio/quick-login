@@ -113,10 +113,7 @@ class Buttons {
 			'rel'			=>	apply_filters('quick_login_link_rle', 'nofollow')
 		], $options);
 
-		$providers = apply_filters('quick_login_providers', []);
-		$providers = array_filter($providers, function(Provider $provider) {
-			return $provider->getOption('status') === 'enabled';
-		});
+		$providers = quickLoginProviders(['status' => 'enabled']);
 
 		$html = '';
 
@@ -158,10 +155,7 @@ class Buttons {
 	}
 
 	public static function renderLinkedAccounts(WP_User $user) {
-		$providers = apply_filters('quick_login_providers', []);
-		$providers = array_filter($providers, function(Provider $provider) {
-			return $provider->getOption('status') === 'enabled';
-		});
+		$providers = quickLoginProviders(['status' => 'enabled']);
 		$fieldLabels = [
 			'id'			=>	__('User ID', 'quick-login'),
 			'user_email'	=>	__('Email', 'quick-login'),

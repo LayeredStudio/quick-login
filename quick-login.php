@@ -28,6 +28,21 @@ add_filter('default_option_quick-login', function($default) {
 });
 
 
+// default providers
+
+add_filter('quick_login_providers', function(array $providers) {
+
+	$providers['facebook'] = new \Layered\QuickLogin\Provider\Facebook;
+	$providers['twitter'] = new \Layered\QuickLogin\Provider\Twitter;
+	$providers['google'] = new \Layered\QuickLogin\Provider\Google;
+	$providers['wordpresscom'] = new \Layered\QuickLogin\Provider\WordPressCom;
+	$providers['linkedin'] = new \Layered\QuickLogin\Provider\LinkedIn;
+	$providers['pinterest'] = new \Layered\QuickLogin\Provider\Pinterest;
+
+	return $providers;
+});
+
+
 // start the plugin
 
 add_action('plugins_loaded', '\Layered\QuickLogin\Login::start');
@@ -35,8 +50,23 @@ add_action('plugins_loaded', '\Layered\QuickLogin\Buttons::start');
 add_action('plugins_loaded', '\Layered\QuickLogin\Admin::start');
 
 
-/* Template Tags */
+/* Helper functions */
 
 function quickLoginButtons(array $options = []) {
 	return Layered\QuickLogin\Buttons::renderLogins($options);
+}
+
+function quickLoginProviders(array $options = []) {
+	$options = wp_parse_args($options, [
+		'status'	=>	'any'
+	]);
+	$providers = apply_filters('quick_login_providers', []);
+
+	if ($options['status'] !== 'any') {
+		$providers = array_filter($providers, function(Provider $provider) use($options) {
+			return $provider->getOption('status') === $options['status'];
+		});
+	}
+
+	return $providers;
 }

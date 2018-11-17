@@ -22,10 +22,7 @@ class Admin {
 		add_filter('personal_options', [$this, 'adminLinkedAccounts']);
 		add_filter('woocommerce_edit_account_form', [$this, 'woocommerceLinkedAccounts']);
 
-		$this->providers = apply_filters('quick_login_providers', []);
-		$this->enabledProviders = array_filter($this->providers, function(Provider $provider) {
-			return $provider->getOption('status') === 'enabled';
-		});
+		$this->providers = quickLoginProviders();
 	}
 
 	public function assets() {
@@ -102,12 +99,8 @@ class Admin {
 
 	public function notices() {
 		$notices = [];
-		$providers = apply_filters('quick_login_providers', []);
-		$providers = array_filter($providers, function(Provider $provider) {
-			return $provider->getOption('status') === 'enabled';
-		});
 
-		if (!count($providers)) {
+		if (!count(quickLoginProviders(['status' => 'enabled']))) {
 			$notices[] = [
 				'type'		=>	'warning',
 				'message'	=>	sprintf(__('<strong>Quick Login</strong> plugin is active, but no login providers are enabled. <a href="%s">Enable providers now</a> and let visitors log in with Facebook, Twitter or Google', 'quick-login'), admin_url('options-general.php?page=quick-login-options'))
@@ -436,7 +429,7 @@ class Admin {
 	public function usersColumnsValue($value, $column, $userId) {
 
 		if ($column === 'quick-login') {
-			foreach ($this->enabledProviders as $provider) {
+			foreach (quickLoginProviders(['status' => 'enabled']) as $provider) {
 				if (get_user_meta($userId, $provider->getId() . '_id', true)) {
 					$userData = get_user_meta($userId, $provider->getId() . '_info', true);
 					$name = '';
