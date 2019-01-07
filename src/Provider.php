@@ -62,7 +62,7 @@ abstract class Provider {
 	public function getLoginUrl(array $params = []) {
 		$params = array_merge($params, [
 			'quick-login'	=>	$this->getId(),
-			'redirect_to'	=>	urlencode(isset($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : add_query_arg([]))
+			'redirect_to'	=>	urlencode(isset($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : add_query_arg(['quick-login-alert' => null]))
 		]);
 
 		return add_query_arg($params, site_url('/wp-login.php'));
@@ -80,12 +80,12 @@ abstract class Provider {
 		$server = $this->getServer();
 
 		if (isset($_REQUEST['denied'])) {
-			add_filter('wp_login_errors', function($errors) {
+			add_filter('wp_login_errors', function(\WP_Error $errors) {
 				$errors->add('denied', sprintf('%s - %s', $this->getLabel(), __('sign in cancelled', 'quick-login')));
 				return $errors;
 			});
 		} elseif (isset($_REQUEST['error'])) {
-			add_filter('wp_login_errors', function($errors) {
+			add_filter('wp_login_errors', function(\WP_Error $errors) {
 				$errors->add('error', sprintf(__('%s error - %s', 'quick-login'), $this->getLabel(), $_REQUEST['error']));
 				return $errors;
 			});
@@ -95,8 +95,8 @@ abstract class Provider {
 			$server->authorize($temporaryCredentials);
 			exit;
 		} elseif (!($temporaryCredentials = get_transient('quick-login-oauth1-temporary-credentials'))) {
-			add_filter('wp_login_errors', function($errors) {
-				$errors->add('error', sprintf(__('%s error - %s', 'quick-login'), $this->getLabel(), 'Invalid oAuth1 state, what you trying to do?'));
+			add_filter('wp_login_errors', function(\WP_Error $errors) {
+				$errors->add('error', sprintf(__('%s error - %s', 'quick-login'), $this->getLabel(), 'Invalid OAuth1 state, what you trying to do?'));
 				return $errors;
 			});
 		} else {
@@ -106,7 +106,7 @@ abstract class Provider {
 
 				Login::doAuth($this, $token, $user);
 			} catch (\Exception $e) {
-				add_filter('wp_login_errors', function($errors) use($e) {
+				add_filter('wp_login_errors', function(\WP_Error $errors) use($e) {
 					$errors->add('error', sprintf('%s - %s', $this->getLabel(), $e->getMessage()));
 					return $errors;
 				});
@@ -118,7 +118,7 @@ abstract class Provider {
 		$client = $this->getClient();
 
 		if (isset($_REQUEST['error'])) {
-			add_filter('wp_login_errors', function($errors) {
+			add_filter('wp_login_errors', function(\WP_Error $errors) {
 				$errors->add('error', sprintf('%s - %s', $this->getLabel(), isset($_REQUEST['error_description']) ? $_REQUEST['error_description'] : $_REQUEST['error']));
 				return $errors;
 			});
@@ -130,8 +130,8 @@ abstract class Provider {
 			wp_redirect($authUrl);
 			exit;
 		} elseif (!isset($_REQUEST['state']) || ($_REQUEST['state'] !== get_transient('quick-login-state'))) {
-			add_filter('wp_login_errors', function($errors) {
-				$errors->add('error', sprintf(__('%s error - %s', 'quick-login'), $this->getLabel(), 'Invalid oAuth2 state, what you trying to do?'));
+			add_filter('wp_login_errors', function(\WP_Error $errors) {
+				$errors->add('error', sprintf(__('%s error - %s', 'quick-login'), $this->getLabel(), 'Invalid OAuth2 state, what you trying to do?'));
 				return $errors;
 			});
 		} else {
@@ -141,7 +141,7 @@ abstract class Provider {
 
 				Login::doAuth($this, $token, $user);
 			} catch (\Exception $e) {
-				add_filter('wp_login_errors', function($errors) use($e) {
+				add_filter('wp_login_errors', function(\WP_Error $errors) use($e) {
 					$errors->add('error', sprintf('%s - %s', $this->getLabel(), $e->getMessage()));
 					return $errors;
 				});

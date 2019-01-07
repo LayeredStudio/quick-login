@@ -63,7 +63,7 @@ function quickLoginProviders(array $options = []) {
 	$providers = apply_filters('quick_login_providers', []);
 
 	if ($options['status'] !== 'any') {
-		$providers = array_filter($providers, function(Provider $provider) use($options) {
+		$providers = array_filter($providers, function(\Layered\QuickLogin\Provider $provider) use($options) {
 			return $provider->getOption('status') === $options['status'];
 		});
 	}

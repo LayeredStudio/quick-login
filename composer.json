@@ -28,13 +28,13 @@
 		"source": "https://github.com/LayeredStudio/quick-login"
 	},
     "require": {
-    	"php": "^5.5|^7.0",
+    	"php": "^5.6|^7.0",
         "composer/installers": "~1.5",
         "league/oauth1-client": "~1.7",
-        "league/oauth2-google": "~2.2",
+        "league/oauth2-google": "~3.0",
         "league/oauth2-facebook": "~2.0",
         "layered/oauth2-wordpress-com": "~1.0",
-        "league/oauth2-linkedin": "~3.1"
+        "league/oauth2-linkedin": "~4.1"
     },
     "autoload": {
         "psr-4": {
