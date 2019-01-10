@@ -86,6 +86,13 @@
 	top: 5px;
 }
 
+.quick-login-admin-provider-name a .dashicons {
+	width: 14px;
+	height: 14px;
+	font-size: 14px;
+	vertical-align: middle;
+}
+
 .quick-login-admin-provider-actions {
 	padding: 0.5rem 1rem;
 }

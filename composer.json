@@ -14,7 +14,7 @@
         "linkedin",
         "identity"
     ],
-    "homepage": "https://wordpress.layered.studio/quick-login",
+    "homepage": "https://wordpress.layered.studio/plugins/quick-login",
     "license": "GPL-3.0-or-later",
     "authors": [
         {
@@ -24,7 +24,6 @@
     ],
     "support": {
 		"issues": "https://github.com/LayeredStudio/quick-login/issues",
-		"forum": "https://wordpress.org/support/plugin/quick-login",
 		"source": "https://github.com/LayeredStudio/quick-login"
 	},
     "require": {

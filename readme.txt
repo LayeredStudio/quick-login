@@ -2,8 +2,8 @@
 Contributors: andreiigna
 Tags: login, sign in, twitter, google, facebook, linkedin, oauth, register
 Requires at least: 4
-Tested up to: 4.9
-Requires PHP: 5.5
+Tested up to: 5.0
+Requires PHP: 5.6
 Stable tag: trunk
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -12,7 +12,7 @@ Let your visitors log in with their existing accounts! Supports Twitter, Faceboo
 
 == Description ==
 
-Quick Login adds extra login methods on your site, letting your visitors quickly log in or register with an existing account. Has support for the most popular logins: Twitter, Google, Facebook, WordPress.com and LinkedIn
+Quick Login adds extra login methods on your site, letting your visitors quickly log in or register with an existing account. Has support for the most popular logins: Twitter, Google, Facebook, WordPress.com and LinkedIn.
 
 Faster log in or register will increase percent of logged in users on your site, especially helpful on e-commerce sites where the checkout should be as simple as possible.
 
@@ -39,7 +39,7 @@ Includes **support for WooCommerce** sections too!
   * Embed in any page with `[quick-login]` shortcode
 * Link / Unlink providers from profile page (WordPress and WooCommerce)
 
-> Be aware that Quick Login requires the PHP version to be at least 5.5
+> Be aware that Quick Login requires the PHP version to be at least 5.6
 
 == Frequently Asked Questions ==
 
@@ -67,6 +67,10 @@ If the server already has PHP >5.5 and the plugin still doesn't work, please sen
 5. Provider set-up page, with instructions
 
 == Changelog ==
+
+= 0.6 - 10 January 2018 =
+* Updated - Security & functionality updates for login providers
+* Updated - Do not allow registration for users without email address
 
 = 0.5 - 23 July 2018 =
 * Added - LinkedIn provider
