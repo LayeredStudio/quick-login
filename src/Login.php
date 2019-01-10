@@ -71,17 +71,23 @@ class Login {
 			$user = get_user_by('email', $data['user_email']);
 		}
 
+		// unknown user and unknown email
+		if (!$user && empty($data['user_email'])) {
+			$errorMessage = sprintf(__('This account is not linked to our site. Please <strong>Log In</strong> or <strong>Register</strong> first, then link your %s account.', 'quick-login'), $provider->getLabel());
+
+			wp_redirect($provider->getLoginUrl([
+				'error'	=>	urlencode($errorMessage)
+			]));
+			exit;
+		}
+
 		// register user
 		if (!$user) {
 			$action = 'register';
 
 			if (empty($data['user_login'])) {
-				if ($data['user_email']) {
-					$emailParts = explode('@', $data['user_email']);
-					$data['user_login'] = $emailParts[0];
-				} else {
-					$data['user_login'] = $data['display_name'];
-				}
+				$emailParts = explode('@', $data['user_email']);
+				$data['user_login'] = $emailParts[0];
 			}
 
 			$data['user_login'] = sanitize_user($data['user_login'], true);
@@ -95,10 +101,6 @@ class Login {
 			$index = 1;
 			while (username_exists($data['user_login'])) {
 				$data['user_login'] = $usernameTmp . $index++;
-			}
-
-			if (empty($data['user_email'])) {
-				$data['user_email'] = $data['id'] . '@' . $provider->getId() . '.unknown';
 			}
 
 			$userData = [

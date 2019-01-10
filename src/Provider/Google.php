@@ -59,14 +59,11 @@ class Google extends Provider {
 			'clientId'					=>	$this->getOption('clientId'),
 			'clientSecret'				=>	$this->getOption('clientSecret'),
 			'redirectUri'				=>	site_url('/wp-login.php?quick-login=google'),
-			'include_granted_scopes'	=>	true,
-			'useOidcMode'				=>	true
+			'include_granted_scopes'	=>	true
 		]);
 	}
 
 	public function convertFields(ResourceOwnerInterface $user) {
-		$userArray = $user->toArray();
-
 		return [
 			'id'			=>	$user->getId(),
 			'user_login'	=>	'',
@@ -76,7 +73,7 @@ class Google extends Provider {
 			'last_name'		=>	$user->getLastName(),
 			'description'	=>	'',
 			'user_url'		=>	'',
-			'locale'		=>	str_replace('-', '_', $userArray['locale']),
+			'locale'		=>	str_replace('-', '_', $user->getLocale()),
 			'avatar'		=>	$user->getAvatar()
 		];
 	}

@@ -169,53 +169,46 @@ class Buttons {
 		?>
 		<?php foreach ($providers as $provider) : ?>
 			<?php
-			$linked = get_user_meta($user->ID, $provider->getId() . '_id', true);
+			$providerInfo = get_user_meta($user->ID, $provider->getId() . '_info', true);
 			?>
-			<div class="quick-login-user-provider quick-login-user-provider-<?php echo $linked ? 'linked' : 'unlinked' ?>" style="--quick-login-color: <?php echo $provider->getColor() ?>">
+			<div class="quick-login-user-provider quick-login-user-provider-<?php echo $providerInfo ? 'linked' : 'unlinked' ?>" style="--quick-login-color: <?php echo $provider->getColor() ?>">
 				<div class="quick-login-user-provider-heading">
-					<?php if ($linked) : ?>
+					<?php if ($providerInfo) : ?>
 						<a href="<?php echo add_query_arg(['quick-login-unlink' => $provider->getId(), 'user_id' => $user->ID], site_url('/wp-login.php')) ?>"><?php _e('Unlink', 'quick-login') ?></a>
 					<?php endif ?>
 					<?php echo $provider->getIcon() ?> <?php echo $provider->getLabel() ?>
 				</div>
 				<div class="quick-login-user-provider-content">
-					<?php if ($linked) : ?>
-						<?php
-						$userInfo = get_user_meta($user->ID, $provider->getId() . '_info', true);
-						?>
+					<?php if ($providerInfo) : ?>
+						<?php $userData = $provider->convertFields($providerInfo['user']); ?>
 
-						<?php if ($userInfo) : ?>
-							<?php $userData = $provider->convertFields($userInfo['user']); ?>
+						<span class="quick-login-user-provider-more">&darr;</span>
+						<div class="quick-login-user-provider-user">
+							<?php if ($userData['user_url']) : ?><a href="<?php echo $userData['user_url'] ?>" target="_blank" class="quick-login-user-provider-profile"><?php else : ?><span class="quick-login-user-provider-profile"><?php endif ?>
+								<?php if ($userData['avatar']) : ?>
+									<img src="<?php echo $userData['avatar'] ?>" alt="<?php echo $userData['display_name'] ?>" width="24">
+								<?php endif ?>
+								<?php echo $userData['user_login'] ?: $userData['user_email'] ?: $userData['display_name'] ?>
+							<?php if ($userData['user_url']) : ?></a><?php else : ?></span><?php endif ?>
+						</div>
 
-							<span class="quick-login-user-provider-more">&darr;</span>
-							<div class="quick-login-user-provider-user">
-								<?php if ($userData['user_url']) : ?><a href="<?php echo $userData['user_url'] ?>" target="_blank" class="quick-login-user-provider-profile"><?php else : ?><span class="quick-login-user-provider-profile"><?php endif ?>
-									<?php if ($userData['avatar']) : ?>
-										<img src="<?php echo $userData['avatar'] ?>" alt="<?php echo $userData['display_name'] ?>" width="24">
-									<?php endif ?>
-									<?php echo $userData['user_login'] ?: $userData['user_email'] ?: $userData['display_name'] ?>
-								<?php if ($userData['user_url']) : ?></a><?php else : ?></span><?php endif ?>
-							</div>
-
-							<ul>
-								<?php foreach ($userData as $field => $value) : ?>
-									<?php if ($value && isset($fieldLabels[$field])) : ?>
-										<li><strong><?php echo $fieldLabels[$field] ?></strong>: <?php echo $value ?></li>
-									<?php endif ?>
-								<?php endforeach ?>
-								<li><strong>Scope</strong>: <?php echo implode(', ', $userInfo['scope']) ?></li>
-							</ul>
-
-						<?php endif ?>
+						<ul>
+							<?php foreach ($userData as $field => $value) : ?>
+								<?php if ($value && isset($fieldLabels[$field])) : ?>
+									<li><strong><?php echo $fieldLabels[$field] ?></strong>: <?php echo $value ?></li>
+								<?php endif ?>
+							<?php endforeach ?>
+							<li><strong>Scope</strong>: <?php echo implode(', ', $providerInfo['scope']) ?></li>
+						</ul>
 					<?php elseif ($user->ID == get_current_user_id()) : ?>
 						<a href="<?php echo $provider->getLoginUrl() ?>"><?php _e('Link account', 'quick-login') ?></a>
 					<?php else : ?>
 						<i><?php _e('not linked', 'quick-login') ?></i>
 					<?php endif ?>
-					
 				</div>
 			</div>
 		<?php endforeach ?>
+
 		<script>
 		jQuery('.quick-login-user-provider-more').click(function() {
 			jQuery(this).closest('.quick-login-user-provider').toggleClass('expanded');

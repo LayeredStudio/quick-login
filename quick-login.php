@@ -37,7 +37,6 @@ add_filter('quick_login_providers', function(array $providers) {
 	$providers['google'] = new \Layered\QuickLogin\Provider\Google;
 	$providers['wordpresscom'] = new \Layered\QuickLogin\Provider\WordPressCom;
 	$providers['linkedin'] = new \Layered\QuickLogin\Provider\LinkedIn;
-	$providers['pinterest'] = new \Layered\QuickLogin\Provider\Pinterest;
 
 	return $providers;
 });
@@ -53,7 +52,7 @@ add_action('plugins_loaded', '\Layered\QuickLogin\Admin::start');
 /* Helper functions */
 
 function quickLoginButtons(array $options = []) {
-	return Layered\QuickLogin\Buttons::renderLogins($options);
+	return \Layered\QuickLogin\Buttons::renderLogins($options);
 }
 
 function quickLoginProviders(array $options = []) {

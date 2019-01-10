@@ -190,7 +190,7 @@ class Admin {
 								<p><?php echo $provider->getLabel() ?></p>
 
 								<?php if ($provider->getOption('status') !== 'needs-setup') : ?>
-									<a href="<?php echo admin_url('options-general.php?page=quick-login-options&quick-login-provider-settings=' . $provider->getId()) ?>"><?php _e('Settings', 'quick-login') ?></a>
+									<a href="<?php echo admin_url('options-general.php?page=quick-login-options&quick-login-provider-settings=' . $provider->getId()) ?>"><span class="dashicons dashicons-admin-generic"></span> <?php _e('Settings', 'quick-login') ?></a>
 								<?php endif ?>
 							</div>
 							<div class="quick-login-admin-provider-actions">
@@ -210,7 +210,7 @@ class Admin {
 				</div>
 
 				<div class="quick-login-clear"></div>
-				<h3><span>2.</span> <?php _e('Where should the logins be displayed?', 'quick-login') ?></h3>
+				<h3><span>2.</span> <?php _e('Where should the login buttons be displayed?', 'quick-login') ?></h3>
 
 				<form method="post">
 					<table class="form-table">
@@ -430,21 +430,18 @@ class Admin {
 
 		if ($column === 'quick-login') {
 			foreach (quickLoginProviders(['status' => 'enabled']) as $provider) {
-				if (get_user_meta($userId, $provider->getId() . '_id', true)) {
-					$userData = get_user_meta($userId, $provider->getId() . '_info', true);
-					$name = '';
+				$providerData = get_user_meta($userId, $provider->getId() . '_info', true);
 
-					if ($userData) {
-						$userData = $provider->convertFields($userData['user']);
-						$name = $userData['user_login'] ?: $userData['user_email'] ?: $userData['display_name'];
-					}
+				if ($providerData) {
+					$userData = $provider->convertFields($providerData['user']);
+					$name = $userData['user_login'] ?: $userData['user_email'] ?: $userData['display_name'];
 
-					$value .= '<span class="quick-login-icon quick-login-icon-mini quick-login-provider-' . $provider->getId() . '" style="--quick-login-color: ' . $provider->getColor() . '" data-tooltip="' . esc_attr($provider->getLabel()) . ' - ' . $name . '">';
-					if ($userData && $userData['avatar']) {
+					$value .= '<a ' . ($userData['user_url'] ? 'href="' . $userData['user_url'] . '"' : '') . ' target="_blank" class="quick-login-icon quick-login-icon-mini quick-login-provider-' . $provider->getId() . '" style="--quick-login-color: ' . $provider->getColor() . '" data-tooltip="' . esc_attr($provider->getLabel() . ' - ' . $name) . '">';
+					if ($userData['avatar']) {
 						$value .= '<img src="' . $userData['avatar'] . '" alt="' . $name . '" class="quick-login-avatar" width="18" />';
 					}
 					$value .= $provider->getIcon();
-					$value .= '</span>';
+					$value .= '</a>';
 				}
 			}
 		}
