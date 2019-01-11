@@ -45,18 +45,29 @@ Includes **support for WooCommerce** sections too!
 
 = How to enable login providers? =
 
-All login providers are available on 'WP Admin -> Settings -> Quick Login' page.
-Each provider has detailed instructions for set up, including info on how to create or edit specific integrations and adding the codes on your site.
+All login providers are available on “WP Admin -> Settings -> Quick Login” page.
+Each provider has detailed instructions for set up, including info on how to create or edit specific integrations and adding the cutom codes on your site.
 
 = How to embed login buttons on a page, article or widget? =
 
 Quick Login can add buttons on Login, Register, Comment and WooCommerce pages through plugin options.
-Login buttons can be added in pages, articles or widgets with `[quick-login]` shortcode. There are more details on how to embed this shortcode and it's options in 'WP Admin -> Settings -> Quick Login -> Embed section' on your site.
+Login buttons can be added in pages, articles or widgets with `[quick-login]` shortcode. There are more details on how to embed this shortcode in “WP Admin -> Settings -> Quick Login -> Embed section” on your site.
+
+= How the log in or register process works? =
+
+When a site visitor clicks on a Quick Login button, ex: `Sign in with Google`, the following process takes place:
+* User is redirected to Google to authorise your website to read account info
+* If authorised, user is sent back to your WordPress site
+* If Google account is already linked to WordPress user, the WordPress user is logged in
+* If Google account is not linked to a WordPress user AND the email matches a WordPress user, the Google account is linked to WordPress user and the user is logged in
+* If Google account is not linked AND email doesn't match a WordPress user, a new WordPress is registered with details (username, email, name) from Google account
+
+The process is similar for the other providers, except in the case when the provider (ex: Pinterest, Instagram) doesn't allow the WordPress site to read user's email. In this case, the user can't be authenticated on website and needs to Log in or Register first, then link the provider account in User Edit page.
 
 = Quick Login doesn't work, with errors on pages or logins not showing up =
 
-Because of newer functionality & security in PHP, this plugin requires the PHP version to be at least 5.5.
-If the server already has PHP >5.5 and the plugin still doesn't work, please send a support request either on WordPress support forum or [plugin GitHub page](https://github.com/LayeredStudio/quick-login)
+Because of newer functionality & security in PHP, this plugin requires the PHP version to be at least 5.6.
+If the website server already has PHP >= 5.6 and the plugin still doesn't work, please send a support request either on WordPress support forum or [plugin GitHub page](https://github.com/LayeredStudio/quick-login)
 
 == Screenshots ==
 
