@@ -60,10 +60,15 @@ abstract class Provider {
 	}
 
 	public function getLoginUrl(array $params = []) {
-		$params = array_merge($params, [
-			'quick-login'	=>	$this->getId(),
-			'redirect_to'	=>	urlencode(isset($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : add_query_arg(['quick-login-alert' => null]))
-		]);
+		$params['quick-login'] = $this->getId();
+
+		if (!isset($params['redirect_to'])) {
+			$redirectUrl = isset($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : add_query_arg(['quick-login-alert' => null]);
+		
+			if (strpos($redirectUrl, 'wp-login.php') === false) {
+				$params['redirect_to'] = urlencode($redirectUrl);
+			}
+		}
 
 		return add_query_arg($params, site_url('/wp-login.php'));
 	}
