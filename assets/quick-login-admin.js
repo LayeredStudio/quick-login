@@ -16,4 +16,9 @@ jQuery(function($) {
 		$('.quick-login-provider-instructions').slideToggle();
 	});
 
+	// Filter User list by connected provider
+	$('.js-quick-login-filter-provider').change(function() {
+		$(this).closest('form').submit();
+	});
+
 });

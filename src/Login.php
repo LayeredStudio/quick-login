@@ -137,6 +137,7 @@ class Login {
 
 		update_user_meta($user->ID, $provider->getId() . '_id', $data['id']);
 		update_user_meta($user->ID, $provider->getId() . '_info', [
+			'date'	=>	new \DateTime,
 			'user'	=>	$providerUserData,
 			'token'	=>	$token,
 			'scope'	=>	$provider->getScope()

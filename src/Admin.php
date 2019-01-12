@@ -4,6 +4,7 @@ namespace Layered\QuickLogin;
 use Layered\QuickLogin\Provider;
 use Layered\QuickLogin\Buttons;
 use WP_User;
+use WP_User_Query;
 
 class Admin {
 
@@ -19,6 +20,8 @@ class Admin {
 		add_filter('plugin_action_links_quick-login/quick-login.php', [$this, 'actionLinks']);
 		add_filter('manage_users_columns', [$this, 'usersColumns']);
 		add_filter('manage_users_custom_column', [$this, 'usersColumnsValue'], 10, 3);
+		add_action('manage_users_extra_tablenav', [$this, 'usersProviderFilter']);
+		add_action('pre_get_users', [$this, 'usersQuery']);
 		add_filter('personal_options', [$this, 'adminLinkedAccounts']);
 		add_filter('woocommerce_edit_account_form', [$this, 'woocommerceLinkedAccounts']);
 
@@ -26,7 +29,7 @@ class Admin {
 	}
 
 	public function assets() {
-		wp_enqueue_script('quick-login-admin', plugins_url('assets/quick-login-admin.js', dirname(__FILE__)), ['jquery'], '1.0', true);
+		wp_enqueue_script('quick-login-admin', plugins_url('assets/quick-login-admin.js', dirname(__FILE__)), ['jquery'], '0.7');
 		wp_enqueue_style('quick-login', plugins_url('assets/quick-login.css', dirname(__FILE__)));
 		wp_enqueue_style('quick-login-admin', plugins_url('assets/quick-login-admin.css', dirname(__FILE__)));
 	}
@@ -438,7 +441,7 @@ class Admin {
 
 					$value .= '<a ' . ($userData['user_url'] ? 'href="' . $userData['user_url'] . '"' : '') . ' target="_blank" class="quick-login-icon quick-login-icon-mini quick-login-provider-' . $provider->getId() . '" style="--quick-login-color: ' . $provider->getColor() . '" data-tooltip="' . esc_attr($provider->getLabel() . ' - ' . $name) . '">';
 					if ($userData['avatar']) {
-						$value .= '<img src="' . $userData['avatar'] . '" alt="' . $name . '" class="quick-login-avatar" width="18" />';
+						$value .= '<img src="' . $userData['avatar'] . '" alt="' . $name . '" class="quick-login-avatar" width="18" height="18" />';
 					}
 					$value .= $provider->getIcon();
 					$value .= '</a>';
@@ -449,10 +452,55 @@ class Admin {
 		return $value;
 	}
 
+	public function usersProviderFilter($which) {
+		if ($which === 'top') {
+			$selectedProvider = isset($_GET['quick-login-filter-provider']) ? $_GET['quick-login-filter-provider'] : '';
+			?>
+			<div class="alignleft actions">
+				<label class="screen-reader-text" for="quick-login-filter-provider"><?php _e('Filter by linked account:', 'quick-login') ?></label>
+				<select id="quick-login-filter-provider" name="quick-login-filter-provider" class="js-quick-login-filter-provider" style="float: none; margin-left: 6px">
+					<option value=""><?php esc_html_e('Linked accounts..', 'quick-login') ?></option>
+					<!--<option value="any" <?php selected('any', $selectedProvider) ?>><?php esc_html_e('Any provider', 'quick-login') ?></option>-->
+
+					<?php foreach (quickLoginProviders(['status' => 'enabled']) as $provider) : ?>
+						<option value="<?php echo $provider->getId() ?>" <?php selected($provider->getId(), $selectedProvider) ?>><?php echo $provider->getLabel() ?></option>
+					<?php endforeach ?>
+				</select>
+			</div>
+			<?php
+		}
+	}
+
+	function usersQuery(WP_User_Query $query) {
+
+		if (isset($_GET['quick-login-filter-provider']) && ($selectedProvider = $_GET['quick-login-filter-provider'])) {
+			$metaQuery = [];
+
+			if ($selectedProvider === 'any') {
+				$metaQuery['relation'] = 'OR';
+
+				foreach (quickLoginProviders(['status' => 'enabled']) as $provider) {
+					$meta = [];
+					$meta['key'] = $provider->getId() . '_id';
+					$meta['compare'] = 'EXISTS';
+					$metaQuery[] = $meta;
+				}
+			} else {
+				$meta = [];
+				$meta['key'] = $selectedProvider . '_id';
+				$meta['compare'] = 'EXISTS';
+				$metaQuery[] = $meta;
+			}
+
+			$query->set('meta_query', $metaQuery);
+		}
+
+	}
+
 	public function adminLinkedAccounts(WP_User $user) {
 		?>
 		<tr>
-			<th class="row"><?php esc_html_e('Quick Login connected accounts', 'quick-login') ?></th>
+			<th class="row"><?php esc_html_e('Quick Login linked accounts', 'quick-login') ?></th>
 			<td>
 				<div class="quick-login-user-providers">
 					<?php Buttons::renderLinkedAccounts($user) ?>
@@ -465,7 +513,7 @@ class Admin {
 	public function woocommerceLinkedAccounts() {
 		?>
 		<fieldset>
-			<legend><?php esc_html_e('Quick Login connected accounts', 'quick-login') ?></legend>
+			<legend><?php esc_html_e('Quick Login linked accounts', 'quick-login') ?></legend>
 			<?php Buttons::renderLinkedAccounts(wp_get_current_user()) ?>
 		</fieldset>
 		<div class="clear"></div>
