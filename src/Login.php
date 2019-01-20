@@ -118,10 +118,21 @@ class Login {
 				$userData['locale'] = $data['locale'];
 			}
 
-			$userId = wp_insert_user($userData);
-			do_action('woocommerce_created_customer', $userId, $userData, true);
+			$userId = register_new_user($data['user_login'], $data['user_email']);
+			if ( is_wp_error($userId) ) {
+				wp_redirect($provider->getLoginUrl([
+			      'error' => urlencode($userId->get_error_message())
+			    ]));
+				exit();
+			}
 
 			$user = get_user_by('id', $userId);
+			update_user_option( $user->ID, 'default_password_nag', false, false );
+
+			$updateData = ['ID' => $user->ID] + $userData;
+			wp_update_user($updateData);
+
+			do_action('woocommerce_created_customer', $user->ID, $userData, true);
 
 			if (class_exists('WooCommerce')) {
 				if ($data['first_name']) {
