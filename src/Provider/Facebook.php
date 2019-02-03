@@ -12,7 +12,7 @@ class Facebook extends Provider {
 		$this->label = 'Facebook';
 		$this->color = '#3B5998';
 		$this->icon = '<svg aria-labelledby="simpleicons-facebook-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.676 0H1.324C.593 0 0 .593 0 1.324v21.352C0 23.408.593 24 1.324 24h11.494v-9.294H9.689v-3.621h3.129V8.41c0-3.099 1.894-4.785 4.659-4.785 1.325 0 2.464.097 2.796.141v3.24h-1.921c-1.5 0-1.792.721-1.792 1.771v2.311h3.584l-.465 3.63H16.56V24h6.115c.733 0 1.325-.592 1.325-1.324V1.324C24 .593 23.408 0 22.676 0"/></svg>';
-		$this->scope = ['public_profile', 'email'];
+		$this->scope = ['email'];
 
 		$this->userSettings = array(
 			'clientId'		=>	array(
@@ -68,7 +68,7 @@ class Facebook extends Provider {
 			'clientId'					=>	$this->getOption('clientId'),
 			'clientSecret'				=>	$this->getOption('clientSecret'),
 			'redirectUri'				=>	site_url('/wp-login.php?quick-login=facebook'),
-			'graphApiVersion'			=>	'v2.12'
+			'graphApiVersion'			=>	'v3.2'
 		]);
 	}
 
@@ -80,9 +80,9 @@ class Facebook extends Provider {
 			'display_name'	=>	$user->getName(),
 			'first_name'	=>	$user->getFirstName(),
 			'last_name'		=>	$user->getLastName(),
-			'description'	=>	$user->getBio(),
+			'description'	=>	'',
 			'user_url'		=>	$user->getLink(),
-			'locale'		=>	$user->getLocale(),
+			'locale'		=>	'',
 			'avatar'		=>	$user->getPictureUrl()
 		];
 	}

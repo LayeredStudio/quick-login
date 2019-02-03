@@ -79,10 +79,13 @@ If the website server already has PHP >= 5.6 and the plugin still doesn't work, 
 
 == Changelog ==
 
-= 0.7 - 12 January 2018 =
+= 0.8 - 3 Feb 2019 =
+* Updated - Facebook integration to use latest Facebook Graph API & fields
+
+= 0.7 - 12 January 2019 =
 * Added - Filter users in WP Admin by the linked provider
 
-= 0.6 - 10 January 2018 =
+= 0.6 - 10 January 2019 =
 * Updated - Security & functionality updates for login providers
 * Updated - Do not allow registration for users without email address
 
