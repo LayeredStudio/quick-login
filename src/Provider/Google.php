@@ -26,6 +26,12 @@ class Google extends Provider {
 				'required'	=>	true,
 				'type'		=>	'text',
 				'default'	=>	''
+			),
+			'hostedDomain'  =>  array(
+				'name'		=>	__('Hosted Domain', 'quick-login'),
+				'required'	=>	false,
+				'type'		=>	'text',
+				'default'	=>	'*'
 			)
 		);
 	}
@@ -59,7 +65,8 @@ class Google extends Provider {
 			'clientId'					=>	$this->getOption('clientId'),
 			'clientSecret'				=>	$this->getOption('clientSecret'),
 			'redirectUri'				=>	site_url('/wp-login.php?quick-login=google'),
-			'include_granted_scopes'	=>	true
+			'include_granted_scopes'	=>	true,
+			'hostedDomain'				=>	$this->getOption('hostedDomain', '*'),
 		]);
 	}
 
