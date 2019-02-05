@@ -103,10 +103,20 @@ class Login {
 				$data['user_login'] = $usernameTmp . $index++;
 			}
 
+			$userId = function_exists('wc_create_new_customer') ? wc_create_new_customer($data['user_email'], $data['user_login'], wp_generate_password()) : register_new_user($data['user_login'], $data['user_email']);
+
+			if (is_wp_error($userId)) {
+				wp_redirect($provider->getLoginUrl([
+					'error'		=>	urlencode($userId->get_error_message())
+				]));
+				exit;
+			}
+
+			$user = get_user_by('id', $userId);
+			update_user_option($user->ID, 'default_password_nag', false, false);
+
 			$userData = [
-				'user_login'	=>	$data['user_login'],
-				'user_email'	=>	$data['user_email'],
-				'user_pass'		=>	wp_generate_password(8),
+				'ID'			=>	$user->ID,
 				'display_name'	=>	$data['display_name'],
 				'first_name'	=>	$data['first_name'],
 				'last_name'		=>	$data['last_name'],
@@ -118,21 +128,7 @@ class Login {
 				$userData['locale'] = $data['locale'];
 			}
 
-			$userId = register_new_user($data['user_login'], $data['user_email']);
-			if ( is_wp_error($userId) ) {
-				wp_redirect($provider->getLoginUrl([
-			      'error' => urlencode($userId->get_error_message())
-			    ]));
-				exit();
-			}
-
-			$user = get_user_by('id', $userId);
-			update_user_option( $user->ID, 'default_password_nag', false, false );
-
-			$updateData = ['ID' => $user->ID] + $userData;
-			wp_update_user($updateData);
-
-			do_action('woocommerce_created_customer', $user->ID, $userData, true);
+			wp_update_user($userData);
 
 			if (class_exists('WooCommerce')) {
 				if ($data['first_name']) {
