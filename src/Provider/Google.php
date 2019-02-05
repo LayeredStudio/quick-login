@@ -16,29 +16,32 @@ class Google extends Provider {
 
 		$this->userSettings = array(
 			'clientId'		=>	array(
-				'name'		=>	__('Client ID', 'quick-login'),
-				'required'	=>	true,
-				'type'		=>	'text',
-				'default'	=>	''
+				'name'			=>	__('Client ID', 'quick-login'),
+				'placeholder'	=>	__('Your project\'s client ID', 'quick-login'),
+				'required'		=>	true,
+				'type'			=>	'text',
+				'default'		=>	''
 			),
 			'clientSecret'	=>	array(
-				'name'		=>	__('Client secret', 'quick-login'),
-				'required'	=>	true,
-				'type'		=>	'text',
-				'default'	=>	''
+				'name'			=>	__('Client secret', 'quick-login'),
+				'placeholder'	=>	__('Your project\'s client secret', 'quick-login'),
+				'required'		=>	true,
+				'type'			=>	'text',
+				'default'		=>	''
 			),
-			'hostedDomain'  =>  array(
-				'name'		=>	__('Hosted Domain', 'quick-login'),
-				'required'	=>	false,
-				'type'		=>	'text',
-				'default'	=>	'*'
+			'hostedDomain'	=>	array(
+				'name'			=>	__('Hosted Domain', 'quick-login'),
+				'placeholder'	=>	__('Restrict authentication to G Suite domain', 'quick-login'),
+				'required'		=>	false,
+				'type'			=>	'text',
+				'default'		=>	''
 			)
 		);
 	}
 
 	public function instructions() {
 		?>
-		<p><strong>Google Sign In</strong> requires credentials for a Project. <button class="button quick-login-provider-instructions-btn">Show instructions</button></p>
+		<p><strong>Google Sign In</strong> requires credentials for a Google Cloud Project. <button class="button quick-login-provider-instructions-btn">Show instructions</button></p>
 		<ol class="quick-login-provider-instructions">
 			<li>Create (or edit) a Project on <a href="https://console.cloud.google.com/project/_/apiui/credential" target="_blank">Google Cloud Console</a></li>
 			<li>Navigate to <strong>APIs &amp; Services -> Credentials</strong> page

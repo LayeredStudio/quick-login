@@ -161,7 +161,7 @@ class Admin {
 								<tr>
 									<th scope="row"><label for="<?php echo esc_attr($key) ?>"><?php echo $setting['name'] ?></label></th>
 									<td>
-										<input name="<?php echo esc_attr($key) ?>" type="<?php echo esc_attr($setting['type']) ?>" id="<?php echo esc_attr($key) ?>" <?php if ($setting['required']) echo 'required'  ?> value="<?php echo $provider->getOption($key, $setting['default']) ?>" class="regular-text">
+										<input name="<?php echo esc_attr($key) ?>" type="<?php echo esc_attr($setting['type']) ?>" id="<?php echo esc_attr($key) ?>" <?php if ($setting['required']) echo 'required'  ?> value="<?php echo $provider->getOption($key, $setting['default']) ?>" placeholder="<?php echo isset($setting['placeholder']) ? $setting['placeholder'] : '' ?>" class="regular-text">
 									</td>
 								</tr>
 							<?php endforeach ?>
