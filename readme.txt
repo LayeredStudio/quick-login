@@ -2,7 +2,7 @@
 Contributors: andreiigna
 Tags: login, sign in, twitter, google, facebook, linkedin, oauth, register
 Requires at least: 4
-Tested up to: 5.0
+Tested up to: 5.1
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPL-3.0-or-later
@@ -78,6 +78,11 @@ If the website server already has PHP >= 5.6 and the plugin still doesn't work, 
 5. Provider set-up page, with instructions
 
 == Changelog ==
+
+= 1.0 - 28 Feb 2019 =
+* Added - Support for Google G Suite domain. [Thanks Jeffrey](https://github.com/LayeredStudio/quick-login/pull/2)
+* Updated - Register user with built-in WordPress functions. [Thanks Jeffrey](https://github.com/LayeredStudio/quick-login/pull/1)
+* Updated - Register user through WooCommerce functions, when installed
 
 = 0.8 - 3 Feb 2019 =
 * Updated - Facebook integration to use latest Facebook Graph API & fields

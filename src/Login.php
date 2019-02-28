@@ -86,8 +86,7 @@ class Login {
 			$action = 'register';
 
 			if (empty($data['user_login'])) {
-				$emailParts = explode('@', $data['user_email']);
-				$data['user_login'] = $emailParts[0];
+				$data['user_login'] = current(explode('@', $data['user_email']));
 			}
 
 			$data['user_login'] = sanitize_user($data['user_login'], true);

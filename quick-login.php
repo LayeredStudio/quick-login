@@ -1,12 +1,12 @@
 <?php
 /*
 Plugin Name: Quick Login
-Plugin URI: https://wordpress.layered.studio/plugins/quick-login
+Plugin URI: https://layered.market/plugins/quick-login
 Description: Let your visitors sign in with their existing accounts! Supports Twitter, Facebook, Google, WordPress.com and LinkedIn
-Version: 0.8
+Version: 1.0
 Text Domain: quick-login
 Author: Layered
-Author URI: https://wordpress.layered.studio
+Author URI: https://layered.market
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 */
