@@ -19,6 +19,7 @@ Faster login or register will increase percent of logged in users and conversion
 = Included Providers =
 
 The plugin is easy to set up, each provider has detailed instructions on how to enable it. These OAuth providers are available:
+
 * Twitter
 * Google
 * Facebook
@@ -28,6 +29,7 @@ The plugin is easy to set up, each provider has detailed instructions on how to 
 = Flexible placement =
 
 Login buttons can be added on any page one can think of:
+
 * Login form
 * Register form
 * WooCommerce pages: My account, Login, Register and Checkout
@@ -62,6 +64,7 @@ Login buttons can be added in pages, articles or widgets with `[quick-login]` sh
 = How the log in or register process works? =
 
 When a site visitor clicks on a Quick Login button, ex: `Sign in with Google`, the following process takes place:
+
 * User is redirected to Google to authorise your website to read account info
 * If authorised, user is sent back to your WordPress site
 * If Google account is already linked to WordPress user, the WordPress user is logged in
