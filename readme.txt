@@ -79,6 +79,9 @@ If the website server already has PHP >= 5.6 and the plugin still doesn't work, 
 
 == Changelog ==
 
+* Updated - Blacklist common bad usernames (admin, office, mail, etc) when creating new accounts
+* Updated - When creating a new account, name is converted to username
+
 = 1.0 - 28 Feb 2019 =
 * Added - Support for Google G Suite domain. [Thanks Jeffrey](https://github.com/LayeredStudio/quick-login/pull/2)
 * Updated - Register user with built-in WordPress functions. [Thanks Jeffrey](https://github.com/LayeredStudio/quick-login/pull/1)

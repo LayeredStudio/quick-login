@@ -11,6 +11,7 @@ class Login {
 
 	public function __construct() {
 		add_action('init', [$this, 'checkAuth']);
+		add_filter('illegal_user_logins', [$this, 'blacklistedLogins']);
 	}
 
 	public function checkAuth() {
@@ -40,6 +41,27 @@ class Login {
 			wp_redirect(add_query_arg(['quick-login-alert' => urlencode($message)], $redirectUrl));
 			exit;
 		}
+	}
+
+	public function blacklistedLogins(array $logins) {
+
+		$logins = array_merge($logins, [
+			'admin',
+			'hello',
+			'office',
+			'mail',
+			'contact',
+			'info',
+			'privacy',
+			'support',
+			'sales',
+			'billing',
+			'list',
+			'noreply',
+			'no-reply'
+		]);
+
+		return array_unique($logins);
 	}
 
 	public static function doAuth(Provider $provider, $token, $providerUserData) {
@@ -81,18 +103,24 @@ class Login {
 			exit;
 		}
 
-		// register user
+		// Register user
 		if (!$user) {
 			$action = 'register';
 
+			// use Name as username
+			if (empty($data['user_login']) && $data['display_name']) {
+				$data['user_login'] = str_replace(' ', '', $data['display_name']);
+			}
+
+			// use Email name as username 
 			if (empty($data['user_login'])) {
 				$data['user_login'] = current(explode('@', $data['user_email']));
 			}
 
-			$data['user_login'] = sanitize_user($data['user_login'], true);
+			$data['user_login'] = sanitize_user(strtolower($data['user_login']), true);
 
-			if (!validate_username($data['user_login'])) {
-				$data['user_login'] = sanitize_user($provider->getId() . '_' . uniqid());
+			if (empty($data['user_login']) || in_array($data['user_login'], apply_filters('illegal_user_logins', []))) {
+				$data['user_login'] = sanitize_user($provider->getId() . '-' . uniqid());
 			}
 
 			$usernameTmp = $data['user_login'];
