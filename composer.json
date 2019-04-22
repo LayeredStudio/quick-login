@@ -2,6 +2,8 @@
     "name": "layered/quick-login",
     "type": "wordpress-plugin",
     "description": "Quick social login for WordPress sites",
+    "homepage": "https://layered.market/plugins/quick-login",
+    "license": "GPL-3.0-or-later",
     "keywords": [
         "wordpress",
         "oauth",
@@ -14,8 +16,6 @@
         "linkedin",
         "identity"
     ],
-    "homepage": "https://layered.market/plugins/quick-login",
-    "license": "GPL-3.0-or-later",
     "authors": [
         {
             "name": "Andrei Igna",
@@ -23,11 +23,11 @@
         }
     ],
     "support": {
-		"issues": "https://github.com/LayeredStudio/quick-login/issues",
-		"source": "https://github.com/LayeredStudio/quick-login"
-	},
+        "issues": "https://github.com/LayeredStudio/quick-login/issues",
+        "source": "https://github.com/LayeredStudio/quick-login"
+    },
     "require": {
-    	"php": "^5.6|^7.0",
+        "php": "^5.6|^7.0",
         "composer/installers": "~1.5",
         "league/oauth1-client": "~1.7",
         "league/oauth2-google": "~3.0",

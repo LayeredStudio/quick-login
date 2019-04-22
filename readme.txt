@@ -2,42 +2,48 @@
 Contributors: andreiigna
 Tags: login, sign in, twitter, google, facebook, linkedin, oauth, register
 Requires at least: 4
-Tested up to: 5.1
+Tested up to: 5.2
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Let your visitors log in with their existing accounts! Supports Twitter, Facebook, Google, WordPress.com and LinkedIn
+Let your visitors login with their existings social accounts! Supports Twitter, Facebook, Google, WordPress.com and LinkedIn
 
 == Description ==
 
-Quick Login adds extra login methods on your site, letting your visitors quickly log in or register with an existing account. Has support for the most popular logins: Twitter, Google, Facebook, WordPress.com and LinkedIn.
+**Quick Login** lets your visitors register and login with a single click! Adds login with Facebook, Google, Twitter, LinkedIn and WordPress.com on Login page, Register page, Comment forms and WooCommerce Checkout.
 
-Faster log in or register will increase percent of logged in users on your site, especially helpful on e-commerce sites where the checkout should be as simple as possible.
+Faster login or register will increase percent of logged in users and conversion on your site, especially helpful on e-commerce sites where the checkout should be as simple as possible.
 
-The plugin is easy to set up, each provider has detailed instructions on how to enable it.
+= Included Providers =
 
-Includes **support for WooCommerce** sections too!
+The plugin is easy to set up, each provider has detailed instructions on how to enable it. These OAuth providers are available:
+* Twitter
+* Google
+* Facebook
+* WordPress.com
+* LinkedIn
 
-## Features & options
+= Flexible placement =
 
-* One-click login with popular providers
-  * Twitter
-  * Google
-  * Facebook
-  * WordPress.com
-  * LinkedIn
-* Button style options
+Login buttons can be added on any page one can think of:
+* Login form
+* Register form
+* WooCommerce pages: My account, Login, Register and Checkout
+* Comment form
+* Any page, with `[quick-login]` shortcode
+
+
+= Other Features =
+
+* Button style options - Choose the style of login buttons for your site
   * Icons
   * Buttons with icon & text
-* Logins placement
-  * On Login page
-  * On Register page
-  * On WooCommerce pages: My account, Login, Register and Checkout
-  * On page or article comments section
-  * Embed in any page with `[quick-login]` shortcode
-* Link / Unlink providers from profile page (WordPress and WooCommerce)
+* Link / Unlink provider - Button on Users' profile page to link/unlink login provider
+
+Social accounts are linked to a WordPress user account, and every account can be accessed with and without social account.
+Newly created accounts are assigned the default User Role defined in WordPress Settings, usually the role being `Subscriber`.
 
 > Be aware that Quick Login requires the PHP version to be at least 5.6
 
@@ -71,14 +77,16 @@ If the website server already has PHP >= 5.6 and the plugin still doesn't work, 
 
 == Screenshots ==
 
-1. Login page example
-2. WooCommerce checkout example
+1. Login form with Quick Login buttons
+2. WooCommerce Checkout with Quick Login buttons
 3. Main settings page: Set-up and enable providers, control style & placement
 4. Link / Unlink providers on User profile page
-5. Provider set-up page, with instructions
+5. Provider set-up page, with detailed instructions
 
 == Changelog ==
 
+= 1.1 - 22 April 2019 =
+* Updated - Compatibility with WordPress 5.2
 * Updated - Blacklist common bad usernames (admin, office, mail, etc) when creating new accounts
 * Updated - When creating a new account, name is converted to username
 
