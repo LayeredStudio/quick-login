@@ -88,6 +88,9 @@ If the website server already has PHP >= 5.6 and the plugin still doesn't work, 
 
 == Changelog ==
 
+= 1.2 - 13 May 2019 =
+* Updated - LinkedIn provider to use v2 API and scope
+
 = 1.1 - 22 April 2019 =
 * Updated - Compatibility with WordPress 5.2
 * Updated - Blacklist common bad usernames (admin, office, mail, etc) when creating new accounts

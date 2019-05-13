@@ -33,7 +33,7 @@
         "league/oauth2-google": "~3.0",
         "league/oauth2-facebook": "~2.0",
         "layered/oauth2-wordpress-com": "~1.0",
-        "league/oauth2-linkedin": "~4.1"
+        "league/oauth2-linkedin": "~5.0"
     },
     "autoload": {
         "psr-4": {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ed1fd11e3fd56c5355421e916d4c0774",
+    "content-hash": "2ce5cfff21e796c432b7339c24e8fabb",
     "packages": [
         {
             "name": "composer/installers",
@@ -592,16 +592,16 @@
         },
         {
             "name": "league/oauth2-linkedin",
-            "version": "4.1.1",
+            "version": "5.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/oauth2-linkedin.git",
-                "reference": "0dfb338db84cb87c3d24b0205ec7f3e3a9457b81"
+                "reference": "84613702fc21ea44fc6a5f493b95c20224fcf952"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/oauth2-linkedin/zipball/0dfb338db84cb87c3d24b0205ec7f3e3a9457b81",
-                "reference": "0dfb338db84cb87c3d24b0205ec7f3e3a9457b81",
+                "url": "https://api.github.com/repos/thephpleague/oauth2-linkedin/zipball/84613702fc21ea44fc6a5f493b95c20224fcf952",
+                "reference": "84613702fc21ea44fc6a5f493b95c20224fcf952",
                 "shasum": ""
             },
             "require": {
@@ -643,7 +643,7 @@
                 "oauth",
                 "oauth2"
             ],
-            "time": "2018-07-23T15:43:54+00:00"
+            "time": "2019-05-11T20:17:01+00:00"
         },
         {
             "name": "paragonie/random_compat",
