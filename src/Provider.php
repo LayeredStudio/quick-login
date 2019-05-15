@@ -49,7 +49,7 @@ abstract class Provider {
 			));
 		}
 
-		return $key ? (isset($this->options[$key]) ? $this->options[$key] : $default) : $this->options;
+		return $key ? (isset($this->options[$key]) && $this->options[$key] ? $this->options[$key] : $default) : $this->options;
 	}
 
 	public function updateOptions(array $newOptions) {

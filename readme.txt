@@ -8,7 +8,7 @@ Stable tag: trunk
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Let your visitors login with their existings social accounts! Supports Twitter, Facebook, Google, WordPress.com and LinkedIn
+Enable login with social accounts! Supports Twitter, Facebook, Google, WordPress.com and LinkedIn
 
 == Description ==
 
@@ -87,6 +87,9 @@ If the website server already has PHP >= 5.6 and the plugin still doesn't work, 
 5. Provider set-up page, with detailed instructions
 
 == Changelog ==
+
+= 1.2.1 - 15 May 2019 =
+* Fixed - If specified, properly set Domain for Google G Suite
 
 = 1.2 - 13 May 2019 =
 * Updated - LinkedIn provider to use v2 API and scope
