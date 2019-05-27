@@ -67,7 +67,7 @@ class LinkedIn extends Provider {
 		return [
 			'id'			=>	$user->getId(),
 			'user_login'	=>	$user->getAttribute('vanityName'),
-			'user_email'	=>	$user->email,
+			'user_email'	=>	$user->getEmail(),
 			'display_name'	=>	$user->getFirstName() . ' ' . $user->getLastName(),
 			'first_name'	=>	$user->getFirstName(),
 			'last_name'		=>	$user->getLastName(),

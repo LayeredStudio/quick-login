@@ -144,11 +144,6 @@ abstract class Provider {
 				$token = $client->getAccessToken('authorization_code', ['code' => $_GET['code']]);
 				$user = $client->getResourceOwner($token);
 
-				// Workaround for LinkedIn provider 🙁 - get email directly from OAuth client
-				if ($this->getId() === 'linkedin') {
-					$user->email = $client->getResourceOwnerEmail($token);
-				}
-
 				Login::doAuth($this, $token, $user);
 			} catch (\Exception $e) {
 				add_filter('wp_login_errors', function(\WP_Error $errors) use($e) {
