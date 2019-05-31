@@ -88,7 +88,7 @@ class Admin {
 			]);
 
 			update_option('quick-login', $options);
-			$message = __('Quick Login options are updated', 'quick-login');
+			$message = __('Quick Social Login options are updated', 'quick-login');
 
 			wp_redirect(admin_url('options-general.php?page=quick-login-options&quick-login-alert=' . urlencode($message)));
 			exit;
@@ -97,7 +97,7 @@ class Admin {
 	}
 
 	public function menu() {
-		add_options_page(__('Quick Login Options', 'quick-login'), __('Quick Login', 'quick-login'), 'manage_options', 'quick-login-options', [$this, 'page']);
+		add_options_page(__('Quick Social Login Options', 'quick-login'), __('Quick Social Login', 'quick-login'), 'manage_options', 'quick-login-options', [$this, 'page']);
 	}
 
 	public function notices() {
@@ -106,7 +106,7 @@ class Admin {
 		if (!count(quickLoginProviders(['status' => 'enabled']))) {
 			$notices[] = [
 				'type'		=>	'warning',
-				'message'	=>	sprintf(__('<strong>Quick Login</strong> plugin is active, but no login providers are enabled. <a href="%s">Enable providers now</a> and let visitors log in with Facebook, Twitter or Google', 'quick-login'), admin_url('options-general.php?page=quick-login-options'))
+				'message'	=>	sprintf(__('<strong>Quick Social Login</strong> plugin is active, but no login providers are enabled. <a href="%s">Enable providers now</a> and let visitors login with Facebook, Twitter or Google', 'quick-login'), admin_url('options-general.php?page=quick-login-options'))
 			];
 		}
 
@@ -143,7 +143,7 @@ class Admin {
 		?>
 
 		<div class="wrap about-wrap quick-login-wrap">
-			<h1><?php _e('Quick Login', 'quick-login') ?></h1>
+			<h1><?php _e('Quick Social Login', 'quick-login') ?></h1>
 
 			<?php if (isset($_REQUEST['quick-login-provider-settings']) && isset($this->providers[$_REQUEST['quick-login-provider-settings']])) : ?>
 				<?php
@@ -157,6 +157,12 @@ class Admin {
 				<form method="post">
 					<table class="form-table">
 						<tbody>
+							<tr>
+								<th scope="row"><label for="redirect_url"><?php _e('Redirect URL', 'quick-login') ?></label></th>
+								<td>
+									<input type="text" id="redirect_url" readonly value="<?php echo site_url('/wp-login.php?quick-login=' . $provider->getId()) ?>" class="regular-text">
+								</td>
+							</tr>
 							<?php foreach ($provider->getUserSettings() as $key => $setting) : ?>
 								<tr>
 									<th scope="row"><label for="<?php echo esc_attr($key) ?>"><?php echo $setting['name'] ?></label></th>
@@ -181,7 +187,7 @@ class Admin {
 
 			<?php else : ?>
 
-				<p class="about-text"><?php _e('Let your visitors log in quicker with their existing accounts!', 'quick-login') ?></p>
+				<p class="about-text"><?php _e('Let your visitors login or register quicker with their existing accounts!', 'quick-login') ?></p>
 
 				<h3><span>1.</span> <?php _e('Enable login providers', 'quick-login') ?></h3>
 
@@ -394,7 +400,7 @@ class Admin {
 									<legend><?php _e('Attributes', 'quick-login') ?></legend>
 									<label><strong>style</strong> - <code>button</code> or <code>link</code></label><br>
 									<label><strong>separator</strong> - <code>no</code>, <code>top</code> or <code>bottom</code></label><br>
-									<label><strong>heading</strong> - <?php _e('custom heading text, ex:', 'quick-login') ?> <code>Sign in here:</code></label>
+									<label><strong>heading</strong> - <?php _e('custom heading text, ex:', 'quick-login') ?> <code>Login here:</code></label>
 								</fieldset>
 							</td>
 						</tr>
@@ -425,7 +431,7 @@ class Admin {
 	}
 
 	public function usersColumns(array $columns) {
-		$columns['quick-login'] = 'Quick Login';
+		$columns['quick-login'] = 'Quick Social Login';
 		return $columns;
 	}
 
@@ -500,7 +506,7 @@ class Admin {
 	public function adminLinkedAccounts(WP_User $user) {
 		?>
 		<tr>
-			<th class="row"><?php esc_html_e('Quick Login linked accounts', 'quick-login') ?></th>
+			<th class="row"><?php esc_html_e('Quick Social Login accounts', 'quick-login') ?></th>
 			<td>
 				<div class="quick-login-user-providers">
 					<?php Buttons::renderLinkedAccounts($user) ?>
@@ -513,7 +519,7 @@ class Admin {
 	public function woocommerceLinkedAccounts() {
 		?>
 		<fieldset>
-			<legend><?php esc_html_e('Quick Login linked accounts', 'quick-login') ?></legend>
+			<legend><?php esc_html_e('Quick Social Login accounts', 'quick-login') ?></legend>
 			<?php Buttons::renderLinkedAccounts(wp_get_current_user()) ?>
 		</fieldset>
 		<div class="clear"></div>

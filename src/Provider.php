@@ -86,7 +86,7 @@ abstract class Provider {
 
 		if (isset($_REQUEST['denied'])) {
 			add_filter('wp_login_errors', function(\WP_Error $errors) {
-				$errors->add('denied', sprintf('%s - %s', $this->getLabel(), __('sign in cancelled', 'quick-login')));
+				$errors->add('denied', sprintf('%s - %s', $this->getLabel(), __('Login cancelled', 'quick-login')));
 				return $errors;
 			});
 		} elseif (isset($_REQUEST['error'])) {

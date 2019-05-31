@@ -1,9 +1,9 @@
-Quick Login
+Quick Social Login
 =========
 
-**Quick Login** lets you add extra login methods on your WordPress site!
+**Quick Social Login** lets you add extra login methods on your WordPress site!
 
-Faster log in or register will increase percent of logged in users on your site, especially helpful on e-commerce sites where the checkout should be as simple as possible.
+Faster login or register will increase percent of logged in users on your site, especially helpful on e-commerce sites where the checkout should be as simple as possible.
 
 The plugin is easy to set up, each provider has detailed instructions on how to enable it.
 

@@ -95,7 +95,7 @@ class Login {
 
 		// unknown user and unknown email
 		if (!$user && empty($data['user_email'])) {
-			$errorMessage = sprintf(__('This account is not linked to our site. Please <strong>Log In</strong> or <strong>Register</strong> first, then link your %s account.', 'quick-login'), $provider->getLabel());
+			$errorMessage = sprintf(__('This account is not linked to our site. Please <strong>Login</strong> or <strong>Register</strong> first, then link your %s account.', 'quick-login'), $provider->getLabel());
 
 			wp_redirect($provider->getLoginUrl([
 				'error'	=>	urlencode($errorMessage)

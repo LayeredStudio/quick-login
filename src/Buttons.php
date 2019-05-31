@@ -54,11 +54,11 @@ class Buttons {
 	}
 
 	public function heading($heading = '') {
-		return __('Sign in with:', 'quick-login');
+		return __('Login with:', 'quick-login');
 	}
 
 	public function label($label = '') {
-		return __('Sign in with <strong>%s</strong>', 'quick-login');
+		return __('Continue with <strong>%s</strong>', 'quick-login');
 	}
 
 	public function onWooCommerceForms() {
@@ -97,7 +97,8 @@ class Buttons {
 			'register'			=>	$this->options['register-form'],
 			'registerButtons'	=>	self::renderLogins([
 				'style'		=>	$this->options['register-style'],
-				'separator'	=>	$this->options['register-form'] == 'bottom' ? 'top' : 'bottom'
+				'separator'	=>	$this->options['register-form'] == 'bottom' ? 'top' : 'bottom',
+				'heading'	=>	__('Register with:', 'quick-login')
 			])
 		]);
 
@@ -110,7 +111,7 @@ class Buttons {
 			'separator'		=>	'no',
 			'heading'		=>	apply_filters('quick_login_heading', ''),
 			'label'			=>	apply_filters('quick_login_label', ''),
-			'rel'			=>	apply_filters('quick_login_link_rle', 'nofollow')
+			'rel'			=>	apply_filters('quick_login_link_rel', 'nofollow')
 		], $options);
 
 		$providers = quickLoginProviders(['status' => 'enabled']);
