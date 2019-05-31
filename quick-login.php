@@ -2,7 +2,7 @@
 /*
 Plugin Name: Quick Social Login
 Plugin URI: https://layered.market/plugins/quick-login
-Description: Enable secure login & registration with social accounts! Supports Twitter, Facebook, Google, WordPress.com and LinkedIn.
+Description: Enable secure login & registration with social accounts! Supports Twitter, Facebook, Google, WordPress.com, LinkedIn and Slack.
 Version: 1.2.1
 Text Domain: quick-login
 Author: Layered
@@ -37,6 +37,7 @@ add_filter('quick_login_providers', function(array $providers) {
 	$providers['google'] = new \Layered\QuickLogin\Provider\Google;
 	$providers['wordpresscom'] = new \Layered\QuickLogin\Provider\WordPressCom;
 	$providers['linkedin'] = new \Layered\QuickLogin\Provider\LinkedIn;
+	$providers['slack'] = new \Layered\QuickLogin\Provider\Slack;
 
 	return $providers;
 });

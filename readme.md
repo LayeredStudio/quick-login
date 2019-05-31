@@ -19,6 +19,7 @@ Includes support for WooCommerce sections too!
   * Facebook
   * WordPress.com
   * LinkedIn
+  * Slack
 * Button style options
   * Icons
   * Buttons with icon & text

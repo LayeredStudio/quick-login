@@ -1,6 +1,6 @@
 === Quick Social Login ===
 Contributors: andreiigna
-Tags: login, social login, twitter, google, facebook, linkedin, oauth, register
+Tags: login, social login, twitter, google, facebook, linkedin, slack, oauth, register
 Requires at least: 4
 Tested up to: 5.2
 Requires PHP: 5.6
@@ -8,11 +8,11 @@ Stable tag: trunk
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Enable secure login & registration with social accounts! Supports Twitter, Facebook, Google, WordPress.com and LinkedIn.
+Enable secure login & registration with social accounts! Supports Twitter, Facebook, Google, WordPress.com, LinkedIn and Slack.
 
 == Description ==
 
-**Quick Social Login** lets your visitors login or register with a single click! Adds login with Facebook, Google, Twitter, LinkedIn and WordPress.com on Login page, Register page, Comment forms and WooCommerce Checkout.
+**Quick Social Login** lets your visitors login or register with a single click! Adds login with Facebook, Google, Twitter, LinkedIn, Slack and WordPress.com on Login page, Register page, Comment forms and WooCommerce Checkout.
 
 Faster login or register will increase percent of logged in users and conversion on your site, especially helpful on e-commerce sites where the checkout should be as simple as possible.
 
@@ -25,6 +25,7 @@ The plugin is easy to set up, each provider has detailed instructions on how to 
 * Facebook
 * WordPress.com
 * LinkedIn
+* Slack
 
 = Flexible placement =
 
@@ -89,6 +90,7 @@ If the website server already has PHP >= 5.6 and the plugin still doesn't work, 
 
 == Changelog ==
 
+* Added - Slack provider. Enable login with Slack for your team
 * Updated - Plugin name is changed from "Quick Login" to "Quick Social Login" to better reflect what feature it adds to a website
 
 = 1.2.1 - 15 May 2019 =

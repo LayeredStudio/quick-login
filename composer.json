@@ -13,6 +13,7 @@
         "twitter",
         "google",
         "linkedin",
+        "slack",
         "identity"
     ],
     "authors": [
