@@ -90,8 +90,10 @@ If the website server already has PHP >= 5.6 and the plugin still doesn't work, 
 
 == Changelog ==
 
+= 1.3 - 28 Jun 2019 =
 * Added - Slack provider. Enable login with Slack for your team
 * Updated - Plugin name is changed from "Quick Login" to "Quick Social Login" to better reflect what feature it adds to a website
+* Updated - LinkedIn integration text, to specify the correct scope needed for OAuth app
 
 = 1.2.1 - 15 May 2019 =
 * Fixed - If specified, properly set Domain for Google G Suite

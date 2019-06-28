@@ -40,7 +40,7 @@ class LinkedIn extends Provider {
 			<li>Navigate to app page
 				<ul>
 					<li>Select the <strong>Authentication</strong> tab</li>
-					<li>In <strong>Default Application Permissions</strong> section enable the following: <code>r_basicprofile</code> and <code>r_emailaddress</code></li>
+					<li>In <strong>Default Application Permissions</strong> section enable the following: <code>r_liteprofile</code> and <code>r_emailaddress</code></li>
 					<li>In <strong>Authorized Redirect URLs</strong> add <code><?php echo site_url('/wp-login.php?quick-login=linkedin') ?></code></li>
 				</ul>
 			</li>
