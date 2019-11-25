@@ -597,16 +597,16 @@
         },
         {
             "name": "league/oauth2-linkedin",
-            "version": "5.1.0",
+            "version": "5.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/oauth2-linkedin.git",
-                "reference": "1cbe8756539e37da0f0ed2ab9ae03ada25942596"
+                "reference": "56614cd8c946a388410fb1ae2c980f9d6cf6915b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/oauth2-linkedin/zipball/1cbe8756539e37da0f0ed2ab9ae03ada25942596",
-                "reference": "1cbe8756539e37da0f0ed2ab9ae03ada25942596",
+                "url": "https://api.github.com/repos/thephpleague/oauth2-linkedin/zipball/56614cd8c946a388410fb1ae2c980f9d6cf6915b",
+                "reference": "56614cd8c946a388410fb1ae2c980f9d6cf6915b",
                 "shasum": ""
             },
             "require": {
@@ -649,7 +649,7 @@
                 "oauth",
                 "oauth2"
             ],
-            "time": "2019-05-22T11:40:46+00:00"
+            "time": "2019-11-11T16:54:51+00:00"
         },
         {
             "name": "paragonie/random_compat",
