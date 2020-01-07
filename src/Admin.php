@@ -17,6 +17,7 @@ class Admin {
 		add_action('admin_init', [$this, 'actions']);
 		add_action('admin_menu', [$this, 'menu']);
 		add_action('admin_notices', [$this, 'notices']);
+		add_action('wp_ajax_quick-login-dismiss-notice', [ $this, 'noticesDismiss' ] );
 		add_filter('plugin_action_links_quick-login/quick-login.php', [$this, 'actionLinks']);
 		add_filter('manage_users_columns', [$this, 'usersColumns']);
 		add_filter('manage_users_custom_column', [$this, 'usersColumnsValue'], 10, 3);
@@ -29,7 +30,7 @@ class Admin {
 	}
 
 	public function assets() {
-		wp_enqueue_script('quick-login-admin', plugins_url('assets/quick-login-admin.js', dirname(__FILE__)), ['jquery'], '0.7');
+		wp_enqueue_script('quick-login-admin', plugins_url('assets/quick-login-admin.js', dirname(__FILE__)), ['jquery'], '0.8');
 		wp_enqueue_style('quick-login', plugins_url('assets/quick-login.css', dirname(__FILE__)));
 		wp_enqueue_style('quick-login-admin', plugins_url('assets/quick-login-admin.css', dirname(__FILE__)));
 	}
@@ -103,10 +104,11 @@ class Admin {
 	public function notices() {
 		$notices = [];
 
-		if (!count(quickLoginProviders(['status' => 'enabled']))) {
+		if (!count(quickLoginProviders(['status' => 'enabled'])) && !get_transient('quick-login-notice-enable-providers')) {
 			$notices[] = [
-				'type'		=>	'warning',
-				'message'	=>	sprintf(__('<strong>Quick Social Login</strong> plugin is active, but no login providers are enabled. <a href="%s">Enable providers now</a> and let visitors login with Facebook, Twitter or Google', 'quick-login'), admin_url('options-general.php?page=quick-login-options'))
+				'type'			=>	'warning',
+				'message'		=>	sprintf(__('<strong>Quick Social Login</strong> plugin is active, but no login providers are enabled. <a href="%s">Enable providers now</a> and let visitors login with Facebook, Twitter or Google', 'quick-login'), admin_url('options-general.php?page=quick-login-options')),
+				'class'			=>	'is-dismissible notice-quick-login-enable-providers',
 			];
 		}
 
@@ -114,17 +116,24 @@ class Admin {
 			$notices[] = [
 				'type'			=>	isset($_REQUEST['alert-type']) ? $_REQUEST['alert-type'] : 'success',
 				'message'		=>	$_REQUEST['quick-login-alert'],
-				'dismissable'	=>	true
+				'class'			=>	'is-dismissible',
 			];
 		}
 
 		foreach ($notices as $notice) {
 			?>
-			<div class="notice notice-<?php echo esc_attr($notice['type']) ?> <?php if (isset($notice['dismissable']) && $notice['dismissable'] === true) echo 'is-dismissible' ?>">
+			<div class="notice notice-<?php echo esc_attr($notice['type']) ?> <?php if (isset($notice['class'])) echo $notice['class'] ?>">
 				<p><?php echo wp_kses($notice['message'], ['a' => ['href' => [], 'title' => []], 'strong' => []]) ?></p>
 			</div>
 			<?php
 		}
+	}
+
+	public function noticesDismiss() {
+
+		set_transient('quick-login-notice-' . $_POST['notice'], 1, DAY_IN_SECONDS * 30);
+
+		wp_die(1);
 	}
 
 	public function actionLinks(array $links) {

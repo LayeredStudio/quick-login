@@ -1,5 +1,6 @@
 jQuery(function($) {
 
+
 	// Logins preview
 	$('.quick-login-form-preview input').change(function() {
 		let form = $(this).closest('.quick-login-form-preview');
@@ -11,14 +12,26 @@ jQuery(function($) {
 			.addClass('preview-position-' + position + ' preview-style-' + style);
 	});
 
-	// Display or hide setup instructions
+
+	// WP Admin -> Settings -> Quick Login: Display or hide setup instructions
 	$('.quick-login-provider-instructions-btn').click(function() {
 		$('.quick-login-provider-instructions').slideToggle();
 	});
 
-	// Filter User list by connected provider
+
+	// WP Admin -> Users: Filter User list by connected provider
 	$('.js-quick-login-filter-provider').change(function() {
 		$(this).closest('form').submit();
 	});
+
+
+	// WP Admin: Hide "No providers enabled" notice
+	$('.notice-quick-login-enable-providers').on('click', '.notice-dismiss', function() {
+		$.post(ajaxurl, {
+			action:	'quick-login-dismiss-notice',
+			notice:	'enable-providers',
+		})
+	})
+
 
 });

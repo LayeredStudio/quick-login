@@ -90,6 +90,8 @@ If the website server already has PHP >= 5.6 and the plugin still doesn't work, 
 
 == Changelog ==
 
+* Updated - Added close button to Quick Login notices in WordPress Admin
+
 = 1.3 - 28 Jun 2019 =
 * Added - Slack provider. Enable login with Slack for your team
 * Updated - Plugin name is changed from "Quick Login" to "Quick Social Login" to better reflect what feature it adds to a website
