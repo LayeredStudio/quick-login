@@ -2,7 +2,7 @@
 Contributors: andreiigna
 Tags: login, social login, twitter, google, facebook, linkedin, slack, oauth, register
 Requires at least: 4
-Tested up to: 5.2
+Tested up to: 5.3
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPL-3.0-or-later
@@ -14,7 +14,7 @@ Enable secure login & registration with social accounts! Supports Twitter, Faceb
 
 **Quick Social Login** lets your visitors login or register with a single click! Adds login with Facebook, Google, Twitter, LinkedIn, Slack and WordPress.com on Login page, Register page, Comment forms and WooCommerce Checkout.
 
-Faster login or register will increase percent of logged in users and conversion on your site, especially helpful on e-commerce sites where the checkout should be as simple as possible.
+Faster login or register will increase percent of logged in users and conversion on your site, especially helpful on e-commerce sites where the Checkout flow should be as simple as possible.
 
 = Included Providers =
 
@@ -46,7 +46,7 @@ Login buttons can be added on any page one can think of:
 * Secure authentication - User details are verified by the selected platform
 * Link / Unlink provider - Button on Users' profile page to link/unlink login provider
 
-Social accounts are linked to a WordPress user account, and every account can be accessed with and without social account.
+Social accounts are linked to a WordPress user account, and every account can be accessed with and without an social account. Ex: Users can login with Google and/or their email-password combination.
 Newly created accounts are assigned the default User Role defined in WordPress Settings, usually the role being `Subscriber`.
 
 > Be aware that Quick Social Login requires the PHP version to be at least 5.6
@@ -90,6 +90,8 @@ If the website server already has PHP >= 5.6 and the plugin still doesn't work, 
 
 == Changelog ==
 
+= 1.3.2 - 7 Jan 2020 =
+* Updated - Texts to be more descriptive
 * Updated - Added close button to Quick Login notices in WordPress Admin
 
 = 1.3 - 28 Jun 2019 =
