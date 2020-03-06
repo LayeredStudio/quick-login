@@ -12,9 +12,9 @@ Enable secure login & registration with social accounts! Supports Twitter, Faceb
 
 == Description ==
 
-**Quick Social Login** lets your visitors login or register with a single click! Adds login with Facebook, Google, Twitter, LinkedIn, Slack and WordPress.com on Login page, Register page, Comment forms and WooCommerce Checkout.
+**Quick Social Login** lets site visitors login or register **with a single click**! Adds login with Facebook, Google, Twitter, LinkedIn, Slack and WordPress.com on Login page, Register page, Comment forms and WooCommerce Checkout.
 
-Faster login or register will increase percent of logged in users and conversion on your site, especially helpful on e-commerce sites where the Checkout flow should be as simple as possible.
+Faster login or register will increase the percent of logged in users and conversion on your site, especially helpful on e-commerce sites where the Checkout flow should be as simple as possible.
 
 = Included Providers =
 

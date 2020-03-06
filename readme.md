@@ -1,13 +1,13 @@
 Quick Social Login
 =========
 
-**Quick Social Login** lets you add extra login methods on your WordPress site!
+**Quick Social Login** adds integration for OAuth 2.0 service providers on your WordPress site!
 
-Faster login or register will increase percent of logged in users on your site, especially helpful on e-commerce sites where the checkout should be as simple as possible.
+Faster login or register will increase the percent of logged in users on your site, especially helpful on e-commerce sites where the checkout should be as simple as possible.
 
 The plugin is easy to set up, each provider has detailed instructions on how to enable it.
 
-Includes support for WooCommerce sections too!
+Includes support for WooCommerce pages too!
 
 > This repo is used only for development, downloading & installing from here won't work as expected. Install from [WordPress.org plugin page](https://wordpress.org/plugins/quick-login/)
 
@@ -34,4 +34,4 @@ Includes support for WooCommerce sections too!
 
 ## WordPress.org
 
-Head over to [plugin's page on WordPress.org](https://wordpress.org/plugins/quick-login/) for more info, reviews and support
+Head over to [plugin's page on WordPress.org](https://wordpress.org/plugins/quick-login/) for more info, reviews and support.
