@@ -32,7 +32,7 @@ class Facebook extends Provider {
 
 	public function instructions() {
 		?>
-		<p><strong>Facebook Login</strong> requires credentials for a Facebook App. <button class="button quick-login-provider-instructions-btn">Show instructions</button></p>
+		<p><strong>Facebook Login</strong> requires credentials for a Facebook App. <button class="button button-small quick-login-provider-instructions-btn">Show instructions ↕</button></p>
 
 		<?php if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') : ?>
 			<div class="notice notice-error">
@@ -68,7 +68,7 @@ class Facebook extends Provider {
 			'clientId'					=>	$this->getOption('clientId'),
 			'clientSecret'				=>	$this->getOption('clientSecret'),
 			'redirectUri'				=>	site_url('/wp-login.php?quick-login=facebook'),
-			'graphApiVersion'			=>	'v3.2'
+			'graphApiVersion'			=>	'v6.0'
 		]);
 	}
 

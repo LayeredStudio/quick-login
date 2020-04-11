@@ -2,7 +2,7 @@
 Contributors: andreiigna
 Tags: login, social login, twitter, google, facebook, linkedin, slack, oauth, register
 Requires at least: 4
-Tested up to: 5.3
+Tested up to: 5.4
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPL-3.0-or-later
@@ -89,6 +89,10 @@ If the website server already has PHP >= 5.6 and the plugin still doesn't work, 
 5. Provider set-up page, with detailed instructions
 
 == Changelog ==
+
+= 1.4 - 11 April 2020 =
+* Updated - Texts & WP version compatibility
+* Updated - Version of Facebook OAuth API used
 
 = 1.3.2 - 7 Jan 2020 =
 * Updated - Texts to be more descriptive

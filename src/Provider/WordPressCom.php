@@ -32,7 +32,7 @@ class WordPressCom extends Provider {
 
 	public function instructions() {
 		?>
-		<p><strong>WordPress.com Sign In</strong> requires credentials for a WordPress.com app. <button class="button quick-login-provider-instructions-btn">Show instructions</button></p>
+		<p><strong>WordPress.com Sign In</strong> requires credentials for a WordPress.com app. <button class="button button-small quick-login-provider-instructions-btn">Show instructions ↕</button></p>
 		<ol class="quick-login-provider-instructions">
 			<li>Create (or edit) a WordPress.com app on <a href="https://developer.wordpress.com/apps/" target="_blank">WordPress.com Apps page</a>
 				<ul>

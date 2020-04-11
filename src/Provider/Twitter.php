@@ -32,7 +32,7 @@ class Twitter extends Provider {
 
 	public function instructions() {
 		?>
-		<p><strong>Twitter Sign In</strong> requires credentials for a Twitter App. <button class="button quick-login-provider-instructions-btn">Show instructions</button></p>
+		<p><strong>Twitter Sign In</strong> requires credentials for a Twitter App. <button class="button button-small quick-login-provider-instructions-btn">Show instructions ↕</button></p>
 		<ol class="quick-login-provider-instructions">
 			<li>Create (or edit) a Twitter app on <a href="https://apps.twitter.com" target="_blank">Twitter Apps page</a>
 				<ul>

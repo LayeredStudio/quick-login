@@ -33,7 +33,7 @@ class Slack extends Provider {
 
 	public function instructions() {
 		?>
-		<p><strong>Slack Login</strong> requires credentials for a Slack App. <button class="button quick-login-provider-instructions-btn">Show instructions</button></p>
+		<p><strong>Slack Login</strong> requires credentials for a Slack App. <button class="button button-small quick-login-provider-instructions-btn">Show instructions ↕</button></p>
 		<ol class="quick-login-provider-instructions">
 			<li>Create (or edit) an App on <a href="https://api.slack.com/apps" target="_blank">Slack API page</a></li>
 			<li>Open the app page

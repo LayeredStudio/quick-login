@@ -169,14 +169,14 @@ class Admin {
 							<tr>
 								<th scope="row"><label for="redirect_url"><?php _e('Redirect URL', 'quick-login') ?></label></th>
 								<td>
-									<input type="text" id="redirect_url" readonly value="<?php echo site_url('/wp-login.php?quick-login=' . $provider->getId()) ?>" class="regular-text">
+									<input type="text" id="redirect_url" readonly value="<?php echo site_url('/wp-login.php?quick-login=' . $provider->getId()) ?>" class="large-text">
 								</td>
 							</tr>
 							<?php foreach ($provider->getUserSettings() as $key => $setting) : ?>
 								<tr>
 									<th scope="row"><label for="<?php echo esc_attr($key) ?>"><?php echo $setting['name'] ?></label></th>
 									<td>
-										<input name="<?php echo esc_attr($key) ?>" type="<?php echo esc_attr($setting['type']) ?>" id="<?php echo esc_attr($key) ?>" <?php if ($setting['required']) echo 'required'  ?> value="<?php echo $provider->getOption($key, $setting['default']) ?>" placeholder="<?php echo isset($setting['placeholder']) ? $setting['placeholder'] : '' ?>" class="regular-text">
+										<input name="<?php echo esc_attr($key) ?>" type="<?php echo esc_attr($setting['type']) ?>" id="<?php echo esc_attr($key) ?>" <?php if ($setting['required']) echo 'required'  ?> value="<?php echo $provider->getOption($key, $setting['default']) ?>" placeholder="<?php echo isset($setting['placeholder']) ? $setting['placeholder'] : '' ?>" class="large-text">
 									</td>
 								</tr>
 							<?php endforeach ?>
@@ -468,7 +468,9 @@ class Admin {
 	}
 
 	public function usersProviderFilter($which) {
-		if ($which === 'top') {
+		$providers = quickLoginProviders(['status' => 'enabled']);
+
+		if ($which === 'top' && count($providers)) {
 			$selectedProvider = isset($_GET['quick-login-filter-provider']) ? $_GET['quick-login-filter-provider'] : '';
 			?>
 			<div class="alignleft actions">
@@ -477,7 +479,7 @@ class Admin {
 					<option value=""><?php esc_html_e('Linked accounts..', 'quick-login') ?></option>
 					<!--<option value="any" <?php selected('any', $selectedProvider) ?>><?php esc_html_e('Any provider', 'quick-login') ?></option>-->
 
-					<?php foreach (quickLoginProviders(['status' => 'enabled']) as $provider) : ?>
+					<?php foreach ($providers as $provider) : ?>
 						<option value="<?php echo $provider->getId() ?>" <?php selected($provider->getId(), $selectedProvider) ?>><?php echo $provider->getLabel() ?></option>
 					<?php endforeach ?>
 				</select>

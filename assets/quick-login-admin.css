@@ -16,7 +16,7 @@
 .quick-login-wrap h3 {
 	line-height: 3rem;
 	color: #333;
-	margin-top: 4rem;
+	margin-top: 3rem;
 }
 
 .quick-login-wrap h3 span {
@@ -51,6 +51,7 @@
 	color: #fff;
 	float: left;
 	cursor: default;
+	box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, .05);
 }
 
 .quick-login-admin-provider-name {

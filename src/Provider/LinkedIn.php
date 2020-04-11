@@ -34,7 +34,7 @@ class LinkedIn extends Provider {
 
 	public function instructions() {
 		?>
-		<p><strong>LinkedIn Login</strong> requires credentials for a LinkedIn App. <button class="button quick-login-provider-instructions-btn">Show instructions</button></p>
+		<p><strong>LinkedIn Login</strong> requires credentials for a LinkedIn App. <button class="button button-small quick-login-provider-instructions-btn">Show instructions ↕</button></p>
 		<ol class="quick-login-provider-instructions">
 			<li>Create (or edit) an App on <a href="https://www.linkedin.com/developer/apps" target="_blank">LinkedIn Developers page</a></li>
 			<li>Navigate to app page

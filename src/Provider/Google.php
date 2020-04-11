@@ -41,7 +41,7 @@ class Google extends Provider {
 
 	public function instructions() {
 		?>
-		<p><strong>Google Sign In</strong> requires credentials for a Google Cloud Project. <button class="button quick-login-provider-instructions-btn">Show instructions</button></p>
+		<p><strong>Google Sign In</strong> requires credentials for a Google Cloud Project. <button class="button button-small quick-login-provider-instructions-btn">Show instructions ↕</button></p>
 		<ol class="quick-login-provider-instructions">
 			<li>Create (or edit) a Project on <a href="https://console.cloud.google.com/project/_/apiui/credential" target="_blank">Google Cloud Console</a></li>
 			<li>Navigate to <strong>APIs &amp; Services -> Credentials</strong> page
