@@ -41,12 +41,12 @@ abstract class Provider {
 	public function getOption($key = null, $default = '') {
 
 		if (!is_array($this->options)) {
-			$this->options = get_option('quick-login-' . $this->getId() . '-provider', array(
+			$this->options = get_option('quick-login-' . $this->getId() . '-provider', [
 				'status'		=>	'needs-setup',
 				'client_id'		=>	'',
 				'client_secret'	=>	'',
 				'priority'		=>	100
-			));
+			]);
 		}
 
 		return $key ? (isset($this->options[$key]) && $this->options[$key] ? $this->options[$key] : $default) : $this->options;

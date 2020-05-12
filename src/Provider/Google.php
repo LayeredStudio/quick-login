@@ -31,7 +31,7 @@ class Google extends Provider {
 			),
 			'hostedDomain'	=>	array(
 				'name'			=>	__('Hosted Domain', 'quick-login'),
-				'placeholder'	=>	__('Restrict authentication to G Suite domain', 'quick-login'),
+				'placeholder'	=>	__('Ex: company.com - restrict authentication to a hosted G Suite domain', 'quick-login'),
 				'required'		=>	false,
 				'type'			=>	'text',
 				'default'		=>	''
@@ -41,9 +41,9 @@ class Google extends Provider {
 
 	public function instructions() {
 		?>
-		<p><strong>Google Sign In</strong> requires credentials for a Google Cloud Project. <button class="button button-small quick-login-provider-instructions-btn">Show instructions ↕</button></p>
+		<p><strong>Google Login</strong> requires credentials for a Google Cloud Project. <button class="button button-small quick-login-provider-instructions-btn">Show instructions ↕</button></p>
 		<ol class="quick-login-provider-instructions">
-			<li>Create (or edit) a Project on <a href="https://console.cloud.google.com/project/_/apiui/credential" target="_blank">Google Cloud Console</a></li>
+			<li>Create (or edit) a Project on <a href="https://console.cloud.google.com/apis/credentials?project=_" target="_blank">Google Cloud Console</a></li>
 			<li>Navigate to <strong>APIs &amp; Services -> Credentials</strong> page
 				<ul>
 					<li>On <strong>OAuth consent screen</strong> tab fill your site specific info</li>
@@ -64,13 +64,18 @@ class Google extends Provider {
 	}
 
 	protected function getClient() {
-		return new \League\OAuth2\Client\Provider\Google([
+		$options = [
 			'clientId'					=>	$this->getOption('clientId'),
 			'clientSecret'				=>	$this->getOption('clientSecret'),
 			'redirectUri'				=>	site_url('/wp-login.php?quick-login=google'),
 			'include_granted_scopes'	=>	true,
-			'hostedDomain'				=>	$this->getOption('hostedDomain', '*'),
-		]);
+		];
+
+		if ($this->getOption('hostedDomain')) {
+			$options['hostedDomain'] = $this->getOption('hostedDomain');
+		}
+
+		return new \League\OAuth2\Client\Provider\Google($options);
 	}
 
 	public function convertFields(ResourceOwnerInterface $user) {
