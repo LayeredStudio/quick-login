@@ -32,9 +32,9 @@ class Twitter extends Provider {
 
 	public function instructions() {
 		?>
-		<p><strong>Twitter Sign In</strong> requires credentials for a Twitter App. <button class="button button-small quick-login-provider-instructions-btn">Show instructions ↕</button></p>
+		<p><strong>Twitter Login</strong> requires credentials for a Twitter App. <button class="button button-small quick-login-provider-instructions-btn">Show instructions ↕</button></p>
 		<ol class="quick-login-provider-instructions">
-			<li>Create (or edit) a Twitter app on <a href="https://apps.twitter.com" target="_blank">Twitter Apps page</a>
+			<li>Create (or edit) a Twitter app on <a href="https://developer.twitter.com/en/apps" target="_blank">Twitter Apps page</a>
 				<ul>
 					<li>Fill <strong>Name</strong>, <strong>Description</strong> and <strong>Website</strong> with site's info</li>
 					<li>Fill <strong>Callback URL</strong> with <code><?php echo site_url('/wp-login.php?quick-login=twitter') ?></code></li>

@@ -39,14 +39,14 @@ class LinkedIn extends Provider {
 			<li>Create (or edit) an App on <a href="https://www.linkedin.com/developer/apps" target="_blank">LinkedIn Developers page</a></li>
 			<li>Navigate to app page
 				<ul>
-					<li>Select the <strong>Authentication</strong> tab</li>
-					<li>In <strong>Default Application Permissions</strong> section enable the following: <code>r_liteprofile</code> and <code>r_emailaddress</code></li>
-					<li>In <strong>Authorized Redirect URLs</strong> add <code><?php echo site_url('/wp-login.php?quick-login=linkedin') ?></code></li>
+					<li>Select the <strong>Auth</strong> tab</li>
+					<li>In <strong>Permissions</strong> section enable the following: <code>r_liteprofile</code> and <code>r_emailaddress</code></li>
+					<li>In <strong>OAuth 2.0 settings</strong> add the following Redirect URL: <code><?php echo site_url('/wp-login.php?quick-login=linkedin') ?></code></li>
 				</ul>
 			</li>
 			<li>Select the <strong>Authentication</strong> tab
 				<ul>
-					<li>Scroll to <strong>Authentication Keys</strong> section</li>
+					<li>Scroll to <strong>Application credentials</strong> section</li>
 					<li>Copy and fill below the <strong>Client ID</strong> field</li>
 					<li>Copy and fill below the <strong>Client secret</strong> field</li>
 				</ul>
