@@ -169,7 +169,7 @@ class Admin {
 							<tr>
 								<th scope="row"><label for="redirect_url"><?php _e('Redirect URL', 'quick-login') ?></label></th>
 								<td>
-									<input type="text" id="redirect_url" readonly value="<?php echo site_url('/wp-login.php?quick-login=' . $provider->getId()) ?>" class="large-text">
+									<input type="text" id="redirect_url" readonly value="<?php echo site_url($provider->getId() === 'twitter' ? '/wp-login.php' : '/wp-login.php?quick-login=' . $provider->getId()) ?>" class="large-text">
 								</td>
 							</tr>
 							<?php foreach ($provider->getUserSettings() as $key => $setting) : ?>

@@ -90,6 +90,9 @@ If the website server already has PHP >= 5.6 and the plugin still doesn't work, 
 
 == Changelog ==
 
+= 1.4.2 - 26 May 2020 =
+* Updated - Instructions text for Twitter integration
+
 = 1.4.1 - 12 May 2020 =
 * Fixed - Error for Google Login when logging in without a G Suite account 
 
