@@ -1,9 +1,9 @@
 === Quick Social Login ===
 Contributors: andreiigna
 Tags: login, social login, twitter, google, facebook, linkedin, slack, oauth, register
-Requires at least: 4
+Requires at least: 5
 Tested up to: 5.6
-Requires PHP: 5.6
+Requires PHP: 7.0
 Stable tag: trunk
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -49,7 +49,7 @@ Login buttons can be added on any page one can think of:
 Social accounts are linked to a WordPress user account, and every account can be accessed with and without an social account. Ex: Users can login with Google and/or their email-password combination.
 Newly created accounts are assigned the default User Role defined in WordPress Settings, usually the role being `Subscriber`.
 
-> Be aware that Quick Social Login requires the PHP version to be at least 5.6
+> Be aware that Quick Social Login requires the PHP version to be at least 7.0
 
 == Frequently Asked Questions ==
 
@@ -89,6 +89,8 @@ If the website server already has PHP >= 5.6 and the plugin still doesn't work, 
 5. Provider set-up page, with detailed instructions
 
 == Changelog ==
+
+* Updated - Dependencies for OAuth code libraries and requirement for min PHP v7
 
 = 1.4.4 - 18 January 2020 =
 * Updated - Compatibility with WordPress 5.6
