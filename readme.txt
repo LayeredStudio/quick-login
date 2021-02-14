@@ -90,7 +90,9 @@ If the website server already has PHP >= 5.6 and the plugin still doesn't work, 
 
 == Changelog ==
 
+= 1.4.5 - 14 February 2020 =
 * Updated - Dependencies for OAuth code libraries and requirement for min PHP v7
+* Removed - Logos from plugin icon
 
 = 1.4.4 - 18 January 2020 =
 * Updated - Compatibility with WordPress 5.6
