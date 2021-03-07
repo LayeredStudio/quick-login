@@ -63,8 +63,8 @@ abstract class Provider {
 		$params['quick-login'] = $this->getId();
 
 		if (!isset($params['redirect_to'])) {
-			$redirectUrl = isset($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : add_query_arg(['quick-login-alert' => null]);
-		
+			$redirectUrl = $_REQUEST['redirect_to'] ?? add_query_arg(['quick-login-alert' => null]);
+
 			if (strpos($redirectUrl, 'wp-login.php') === false) {
 				$params['redirect_to'] = urlencode($redirectUrl);
 			}
@@ -91,7 +91,7 @@ abstract class Provider {
 			});
 		} elseif (isset($_REQUEST['error'])) {
 			add_filter('wp_login_errors', function(\WP_Error $errors) {
-				$errors->add('error', sprintf(__('%s error - %s', 'quick-login'), $this->getLabel(), $_REQUEST['error']));
+				$errors->add('error', sprintf(__('%s error - %s', 'quick-login'), $this->getLabel(), sanitize_key($_REQUEST['error'])));
 				return $errors;
 			});
 		} elseif (!isset($_GET['oauth_token']) || !isset($_GET['oauth_verifier'])) {
@@ -124,7 +124,8 @@ abstract class Provider {
 
 		if (isset($_REQUEST['error'])) {
 			add_filter('wp_login_errors', function(\WP_Error $errors) {
-				$errors->add('error', sprintf('%s - %s', $this->getLabel(), isset($_REQUEST['error_description']) ? $_REQUEST['error_description'] : $_REQUEST['error']));
+				$errorMessage = sanitize_text_field($_REQUEST['error_description'] ?? $_REQUEST['error']);
+				$errors->add('error', sprintf('%s - %s', $this->getLabel(), $errorMessage));
 				return $errors;
 			});
 		} elseif (!isset($_REQUEST['code'])) {

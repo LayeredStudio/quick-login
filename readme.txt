@@ -91,6 +91,7 @@ If the website server already has PHP >= 5.6 and the plugin still doesn't work, 
 == Changelog ==
 
 * Updated - Google OAuth library, fixes OAuth token URL
+* Fixed - Sanitize & escape user provided data
 
 = 1.4.5 - 14 February 2020 =
 * Updated - Dependencies for OAuth code libraries and requirement for min PHP v7

@@ -19,7 +19,7 @@ class Login {
 
 		if (isset($_REQUEST['quick-login']) && isset($providers[$_REQUEST['quick-login']])) {
 			if (isset($_REQUEST['redirect_to'])) {
-				set_transient('quick-login-redirect', $_REQUEST['redirect_to'], 600);
+				set_transient('quick-login-redirect', esc_url_raw($_REQUEST['redirect_to']), 600);
 			}
 
 			$providers[$_REQUEST['quick-login']]->doAuth();
@@ -27,16 +27,17 @@ class Login {
 
 		if (isset($_REQUEST['quick-login-unlink']) && isset($providers[$_REQUEST['quick-login-unlink']])) {
 			if ($_REQUEST['user_id'] == get_current_user_id() || current_user_can('edit_users')) {
+				$userId = sanitize_key($_REQUEST['user_id']);
 				$provider = $providers[$_REQUEST['quick-login-unlink']];
-				delete_user_meta($_REQUEST['user_id'], $provider->getId() . '_id');
-				delete_user_meta($_REQUEST['user_id'], $provider->getId() . '_info');
-				do_action('quick_login', get_user_by('id', $_REQUEST['user_id']), 'unlink', $provider);
+				delete_user_meta($userId, $provider->getId() . '_id');
+				delete_user_meta($userId, $provider->getId() . '_info');
+				do_action('quick_login', get_user_by('id', $userId), 'unlink', $provider);
 				$message = sprintf(__('%s account is unlinked', 'quick-login'), $provider->getLabel());
 			} else {
 				wp_die(__('Not authorised to unlink user accounts', 'quick-login'));
 			}
 
-			$redirectUrl = isset($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : wp_get_referer();
+			$redirectUrl = esc_url_raw($_REQUEST['redirect_to'] ?? wp_get_referer());
 
 			wp_redirect(add_query_arg(['quick-login-alert' => urlencode($message)], $redirectUrl));
 			exit;

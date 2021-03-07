@@ -137,7 +137,7 @@ class Buttons {
 		foreach ($providers as $provider) {
 			$label = sprintf($options['label'], $provider->getLabel());
 
-			$html .= '<a href="' . $provider->getLoginUrl() . '" rel="' . esc_attr($options['rel']) . '" class="quick-login-' . $options['style'] . ' quick-login-provider-' . $provider->getId() . '" style="--quick-login-color: ' . $provider->getColor() . '" title="' . esc_attr(wp_strip_all_tags($label)) . '">';
+			$html .= '<a href="' . esc_url($provider->getLoginUrl()) . '" rel="' . esc_attr($options['rel']) . '" class="quick-login-' . esc_attr($options['style']) . ' quick-login-provider-' . esc_attr($provider->getId()) . '" style="--quick-login-color: ' . $provider->getColor() . '" title="' . esc_attr(wp_strip_all_tags($label)) . '">';
 			$html .= $provider->getIcon();
 			if ($options['style'] === 'button') {
 				$html .= '<span>' . $label . '</span>';
@@ -175,7 +175,7 @@ class Buttons {
 			<div class="quick-login-user-provider quick-login-user-provider-<?php echo $providerInfo ? 'linked' : 'unlinked' ?>" style="--quick-login-color: <?php echo $provider->getColor() ?>">
 				<div class="quick-login-user-provider-heading">
 					<?php if ($providerInfo) : ?>
-						<a href="<?php echo add_query_arg(['quick-login-unlink' => $provider->getId(), 'user_id' => $user->ID], site_url('/wp-login.php')) ?>"><?php _e('Unlink', 'quick-login') ?></a>
+						<a href="<?php echo esc_url(add_query_arg(['quick-login-unlink' => $provider->getId(), 'user_id' => $user->ID], site_url('/wp-login.php'))) ?>"><?php _e('Unlink', 'quick-login') ?></a>
 					<?php endif ?>
 					<?php echo $provider->getIcon() ?> <?php echo $provider->getLabel() ?>
 				</div>
@@ -185,9 +185,9 @@ class Buttons {
 
 						<span class="quick-login-user-provider-more">&darr;</span>
 						<div class="quick-login-user-provider-user">
-							<?php if ($userData['user_url']) : ?><a href="<?php echo $userData['user_url'] ?>" target="_blank" class="quick-login-user-provider-profile"><?php else : ?><span class="quick-login-user-provider-profile"><?php endif ?>
+							<?php if ($userData['user_url']) : ?><a href="<?php echo esc_url($userData['user_url']) ?>" target="_blank" class="quick-login-user-provider-profile"><?php else : ?><span class="quick-login-user-provider-profile"><?php endif ?>
 								<?php if ($userData['avatar']) : ?>
-									<img src="<?php echo $userData['avatar'] ?>" alt="<?php echo $userData['display_name'] ?>" width="24">
+									<img src="<?php echo esc_url($userData['avatar']) ?>" alt="<?php echo esc_attr($userData['display_name']) ?>" width="24">
 								<?php endif ?>
 								<?php echo $userData['user_login'] ?: $userData['user_email'] ?: $userData['display_name'] ?>
 							<?php if ($userData['user_url']) : ?></a><?php else : ?></span><?php endif ?>
@@ -196,7 +196,7 @@ class Buttons {
 						<ul>
 							<?php foreach ($userData as $field => $value) : ?>
 								<?php if ($value && isset($fieldLabels[$field])) : ?>
-									<li><strong><?php echo $fieldLabels[$field] ?></strong>: <?php echo $value ?></li>
+									<li><strong><?php echo esc_html($fieldLabels[$field]) ?></strong>: <?php echo esc_html($value) ?></li>
 								<?php endif ?>
 							<?php endforeach ?>
 							<li><strong>Scope</strong>: <?php echo implode(', ', $providerInfo['scope']) ?></li>

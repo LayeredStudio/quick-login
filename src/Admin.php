@@ -38,7 +38,8 @@ class Admin {
 	public function actions() {
 
 		if (isset($_POST['quick-login-provider-settings-save'])) {
-			$provider = $this->providers[$_REQUEST['quick-login-provider-settings']];
+			$provider = sanitize_key($_REQUEST['quick-login-provider-settings']);
+			$provider = $this->providers[$provider];
 			$options = [];
 
 			if ($provider->getOption('status') === 'needs-setup') {
@@ -46,7 +47,7 @@ class Admin {
 			}
 
 			foreach ($provider->getUserSettings() as $key => $setting) {
-				$options[$key] = $_POST[$key];
+				$options[$key] = sanitize_text_field($_POST[$key]);
 			}
 
 			$provider->updateOptions($options);
@@ -57,7 +58,8 @@ class Admin {
 		}
 
 		if (isset($_REQUEST['quick-login-provider-enable'])) {
-			$provider = $this->providers[$_REQUEST['quick-login-provider-enable']];
+			$provider = sanitize_key($_REQUEST['quick-login-provider-enable']);
+			$provider = $this->providers[$provider];
 			$provider->updateOptions([
 				'status'	=>	'enabled'
 			]);
@@ -68,7 +70,8 @@ class Admin {
 		}
 
 		if (isset($_REQUEST['quick-login-provider-disable'])) {
-			$provider = $this->providers[$_REQUEST['quick-login-provider-disable']];
+			$provider = sanitize_key($_REQUEST['quick-login-provider-enable']);
+			$provider = $this->providers[$provider];
 			$provider->updateOptions([
 				'status'	=>	'disabled'
 			]);
@@ -80,12 +83,12 @@ class Admin {
 
 		if (isset($_POST['quick-login-settings'])) {
 			$options = array_merge(get_option('quick-login'), [
-				'login-form'		=>	$_POST['quick-login-login-form'],
-				'login-style'		=>	$_POST['quick-login-login-style'],
-				'register-form'		=>	$_POST['quick-login-register-form'],
-				'register-style'	=>	$_POST['quick-login-register-style'],
-				'comment-form'		=>	$_POST['quick-login-comment-form'],
-				'comment-style'		=>	$_POST['quick-login-comment-style']
+				'login-form'		=>	sanitize_text_field($_POST['quick-login-login-form']),
+				'login-style'		=>	sanitize_text_field($_POST['quick-login-login-style']),
+				'register-form'		=>	sanitize_text_field($_POST['quick-login-register-form']),
+				'register-style'	=>	sanitize_text_field($_POST['quick-login-register-style']),
+				'comment-form'		=>	sanitize_text_field($_POST['quick-login-comment-form']),
+				'comment-style'		=>	sanitize_text_field($_POST['quick-login-comment-style'])
 			]);
 
 			update_option('quick-login', $options);
@@ -114,15 +117,15 @@ class Admin {
 
 		if (isset($_REQUEST['quick-login-alert'])) {
 			$notices[] = [
-				'type'			=>	isset($_REQUEST['alert-type']) ? $_REQUEST['alert-type'] : 'success',
-				'message'		=>	$_REQUEST['quick-login-alert'],
+				'type'			=>	sanitize_key($_REQUEST['alert-type'] ?? 'success'),
+				'message'		=>	sanitize_text_field($_REQUEST['quick-login-alert']),
 				'class'			=>	'is-dismissible',
 			];
 		}
 
 		foreach ($notices as $notice) {
 			?>
-			<div class="notice notice-<?php echo esc_attr($notice['type']) ?> <?php if (isset($notice['class'])) echo $notice['class'] ?>">
+			<div class="notice notice-<?php echo esc_attr($notice['type']) ?> <?php if (isset($notice['class'])) echo esc_attr($notice['class']) ?>">
 				<p><?php echo wp_kses($notice['message'], ['a' => ['href' => [], 'title' => []], 'strong' => []]) ?></p>
 			</div>
 			<?php
@@ -131,7 +134,8 @@ class Admin {
 
 	public function noticesDismiss() {
 
-		set_transient('quick-login-notice-' . $_POST['notice'], 1, DAY_IN_SECONDS * 30);
+		$transientKey = sanitize_key('quick-login-notice-' . $_POST['notice']);
+		set_transient($transientKey, 1, DAY_IN_SECONDS * 30);
 
 		wp_die(1);
 	}
@@ -157,6 +161,8 @@ class Admin {
 			<?php if (isset($_REQUEST['quick-login-provider-settings']) && isset($this->providers[$_REQUEST['quick-login-provider-settings']])) : ?>
 				<?php
 				$provider = $this->providers[$_REQUEST['quick-login-provider-settings']];
+				$providerRedirectUrl = $provider->getId() === 'twitter' ? '/wp-login.php' : '/wp-login.php?quick-login=' . $provider->getId();
+				$providerRedirectUrl = site_url($providerRedirectUrl);
 				?>
 
 				<h3><?php printf(__('Set up %s', 'quick-login'), $provider->getLabel()) ?></h3>
@@ -175,14 +181,14 @@ class Admin {
 							<tr>
 								<th scope="row"><label for="redirect_url"><?php _e('Redirect URL', 'quick-login') ?></label></th>
 								<td>
-									<input type="text" id="redirect_url" readonly value="<?php echo site_url($provider->getId() === 'twitter' ? '/wp-login.php' : '/wp-login.php?quick-login=' . $provider->getId()) ?>" class="large-text">
+									<input type="text" id="redirect_url" readonly value="<?php echo esc_url($providerRedirectUrl) ?>" class="large-text">
 								</td>
 							</tr>
 							<?php foreach ($provider->getUserSettings() as $key => $setting) : ?>
 								<tr>
 									<th scope="row"><label for="<?php echo esc_attr($key) ?>"><?php echo $setting['name'] ?></label></th>
 									<td>
-										<input name="<?php echo esc_attr($key) ?>" type="<?php echo esc_attr($setting['type']) ?>" id="<?php echo esc_attr($key) ?>" <?php if ($setting['required']) echo 'required'  ?> value="<?php echo $provider->getOption($key, $setting['default']) ?>" placeholder="<?php echo isset($setting['placeholder']) ? $setting['placeholder'] : '' ?>" class="large-text">
+										<input name="<?php echo esc_attr($key) ?>" type="<?php echo esc_attr($setting['type']) ?>" id="<?php echo esc_attr($key) ?>" <?php if ($setting['required']) echo 'required'  ?> value="<?php echo esc_attr($provider->getOption($key, $setting['default'])) ?>" placeholder="<?php echo esc_attr($setting['placeholder'] ?? '') ?>" class="large-text">
 									</td>
 								</tr>
 							<?php endforeach ?>
@@ -190,10 +196,10 @@ class Admin {
 						<tfoot>
 							<tr>
 								<td>
-									<p><a href="<?php echo admin_url('options-general.php?page=quick-login-options') ?>" class="button button-secondary"><?php _e('Cancel', 'quick-login') ?></a></p>
+									<p><a href="<?php echo esc_url(admin_url('options-general.php?page=quick-login-options')) ?>" class="button button-secondary"><?php _e('Cancel', 'quick-login') ?></a></p>
 								</td>
 								<td>
-									<p class="regular-text text-right"><input type="submit" name="quick-login-provider-settings-save" id="submit" class="button button-primary" value="<?php _e('Save settings', 'quick-login') ?>"></p>
+									<p class="regular-text text-right"><input type="submit" name="quick-login-provider-settings-save" id="submit" class="button button-primary" value="<?php esc_html_e('Save settings', 'quick-login') ?>"></p>
 								</td>
 							</tr>
 						</tfoot>
@@ -214,19 +220,19 @@ class Admin {
 								<p><?php echo $provider->getLabel() ?></p>
 
 								<?php if ($provider->getOption('status') !== 'needs-setup') : ?>
-									<a href="<?php echo admin_url('options-general.php?page=quick-login-options&quick-login-provider-settings=' . $provider->getId()) ?>"><span class="dashicons dashicons-admin-generic"></span> <?php _e('Settings', 'quick-login') ?></a>
+									<a href="<?php echo esc_url(admin_url('options-general.php?page=quick-login-options&quick-login-provider-settings=' . $provider->getId())) ?>"><span class="dashicons dashicons-admin-generic"></span> <?php _e('Settings', 'quick-login') ?></a>
 								<?php endif ?>
 							</div>
 							<div class="quick-login-admin-provider-actions">
 								<?php if ($provider->getOption('status') === 'needs-setup') : ?>
-									<a href="<?php echo admin_url('options-general.php?page=quick-login-options&quick-login-provider-settings=' . $provider->getId()) ?>" class="quick-login-admin-provider-action"><?php _e('Setup', 'quick-login') ?></a>
+									<a href="<?php echo esc_url(admin_url('options-general.php?page=quick-login-options&quick-login-provider-settings=' . $provider->getId())) ?>" class="quick-login-admin-provider-action"><?php _e('Setup', 'quick-login') ?></a>
 								<?php elseif ($provider->getOption('status') === 'disabled') : ?>
-									<a href="<?php echo admin_url('options-general.php?page=quick-login-options&quick-login-provider-enable=' . $provider->getId()) ?>" class="quick-login-admin-provider-action"><?php _e('Enable', 'quick-login') ?></a>
+									<a href="<?php echo esc_url(admin_url('options-general.php?page=quick-login-options&quick-login-provider-enable=' . $provider->getId())) ?>" class="quick-login-admin-provider-action"><?php _e('Enable', 'quick-login') ?></a>
 								<?php elseif ($provider->getOption('status') === 'enabled') : ?>
-									<a href="<?php echo admin_url('options-general.php?page=quick-login-options&quick-login-provider-disable=' . $provider->getId()) ?>" class="quick-login-admin-provider-action"><?php _e('Disable', 'quick-login') ?></a>
+									<a href="<?php echo esc_url(admin_url('options-general.php?page=quick-login-options&quick-login-provider-disable=' . $provider->getId())) ?>" class="quick-login-admin-provider-action"><?php _e('Disable', 'quick-login') ?></a>
 								<?php endif ?>
 
-								<span class="quick-login-admin-provider-status quick-login-status-<?php echo $provider->getOption('status') ?>"></span>
+								<span class="quick-login-admin-provider-status quick-login-status-<?php echo esc_attr($provider->getOption('status')) ?>"></span>
 								<?php echo $statuses[$provider->getOption('status')] ?>
 							</div>
 						</div>
@@ -426,7 +432,7 @@ class Admin {
 								<p class="description"><?php _e('Point images or buttons at this link for login') ?></p>
 							</th>
 							<td>
-								<code><?php echo site_url('/wp-login.php') ?>?quick-login=<u>google</u></code>
+								<code><?php echo esc_url(site_url('/wp-login.php')) ?>?quick-login=<u>google</u></code>
 							</td>
 							<td>
 								<fieldset>
@@ -460,9 +466,9 @@ class Admin {
 					$userData = $provider->convertFields($providerData['user']);
 					$name = $userData['user_login'] ?: $userData['user_email'] ?: $userData['display_name'];
 
-					$value .= '<a ' . ($userData['user_url'] ? 'href="' . $userData['user_url'] . '"' : '') . ' target="_blank" class="quick-login-icon quick-login-icon-mini quick-login-provider-' . $provider->getId() . '" style="--quick-login-color: ' . $provider->getColor() . '" data-tooltip="' . esc_attr($provider->getLabel() . ' - ' . $name) . '">';
+					$value .= '<a ' . ($userData['user_url'] ? 'href="' . esc_url($userData['user_url']) . '"' : '') . ' target="_blank" class="quick-login-icon quick-login-icon-mini quick-login-provider-' . esc_attr($provider->getId()) . '" style="--quick-login-color: ' . $provider->getColor() . '" data-tooltip="' . esc_attr($provider->getLabel() . ' - ' . $name) . '">';
 					if ($userData['avatar']) {
-						$value .= '<img src="' . $userData['avatar'] . '" alt="' . $name . '" class="quick-login-avatar" width="18" height="18" />';
+						$value .= '<img src="' . esc_url($userData['avatar']) . '" alt="' . esc_attr($name) . '" class="quick-login-avatar" width="18" height="18" />';
 					}
 					$value .= $provider->getIcon();
 					$value .= '</a>';
@@ -477,7 +483,7 @@ class Admin {
 		$providers = quickLoginProviders(['status' => 'enabled']);
 
 		if ($which === 'top' && count($providers)) {
-			$selectedProvider = isset($_GET['quick-login-filter-provider']) ? $_GET['quick-login-filter-provider'] : '';
+			$selectedProvider = sanitize_key($_GET['quick-login-filter-provider'] ?? '');
 			?>
 			<div class="alignleft actions">
 				<label class="screen-reader-text" for="quick-login-filter-provider"><?php _e('Filter by linked account:', 'quick-login') ?></label>
@@ -486,7 +492,7 @@ class Admin {
 					<!--<option value="any" <?php selected('any', $selectedProvider) ?>><?php esc_html_e('Any provider', 'quick-login') ?></option>-->
 
 					<?php foreach ($providers as $provider) : ?>
-						<option value="<?php echo $provider->getId() ?>" <?php selected($provider->getId(), $selectedProvider) ?>><?php echo $provider->getLabel() ?></option>
+						<option value="<?php echo esc_attr($provider->getId()) ?>" <?php selected($provider->getId(), $selectedProvider) ?>><?php echo $provider->getLabel() ?></option>
 					<?php endforeach ?>
 				</select>
 			</div>
@@ -495,8 +501,9 @@ class Admin {
 	}
 
 	function usersQuery(WP_User_Query $query) {
+		$selectedProvider = sanitize_key($_GET['quick-login-filter-provider'] ?? '');
 
-		if (isset($_GET['quick-login-filter-provider']) && ($selectedProvider = $_GET['quick-login-filter-provider'])) {
+		if (!empty($selectedProvider)) {
 			$metaQuery = [];
 
 			if ($selectedProvider === 'any') {
@@ -523,7 +530,7 @@ class Admin {
 	public function adminLinkedAccounts(WP_User $user) {
 		?>
 		<tr>
-			<th class="row"><?php esc_html_e('Quick Social Login accounts', 'quick-login') ?></th>
+			<th class="row"><?php _e('Quick Social Login accounts', 'quick-login') ?></th>
 			<td>
 				<div class="quick-login-user-providers">
 					<?php Buttons::renderLinkedAccounts($user) ?>
@@ -536,7 +543,7 @@ class Admin {
 	public function woocommerceLinkedAccounts() {
 		?>
 		<fieldset>
-			<legend><?php esc_html_e('Quick Social Login accounts', 'quick-login') ?></legend>
+			<legend><?php _e('Quick Social Login accounts', 'quick-login') ?></legend>
 			<?php Buttons::renderLinkedAccounts(wp_get_current_user()) ?>
 		</fieldset>
 		<div class="clear"></div>
