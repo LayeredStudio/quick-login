@@ -161,6 +161,12 @@ class Admin {
 
 				<h3><?php printf(__('Set up %s', 'quick-login'), $provider->getLabel()) ?></h3>
 
+				<?php if (!is_ssl()) : ?>
+					<div class="notice notice-error">
+						<p><?php _e('Your websites is not using SSL/HTTPS, using OAuth Login may not work as expected', 'quick-login') ?></p>
+					</div>
+				<?php endif ?>
+
 				<?php $provider->instructions() ?>
 
 				<form method="post">

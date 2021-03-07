@@ -31,7 +31,7 @@ class Google extends Provider {
 			),
 			'hostedDomain'	=>	array(
 				'name'			=>	__('Hosted Domain', 'quick-login'),
-				'placeholder'	=>	__('Ex: company.com - restrict authentication to a hosted G Suite domain', 'quick-login'),
+				'placeholder'	=>	__('Ex: company.com - use only to restrict login to a hosted Google Workspace domain', 'quick-login'),
 				'required'		=>	false,
 				'type'			=>	'text',
 				'default'		=>	''

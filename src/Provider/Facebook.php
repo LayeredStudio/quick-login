@@ -34,12 +34,6 @@ class Facebook extends Provider {
 		?>
 		<p><strong>Facebook Login</strong> requires credentials for a Facebook App. <button class="button button-small quick-login-provider-instructions-btn">Show instructions ↕</button></p>
 
-		<?php if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') : ?>
-			<div class="notice notice-error">
-				<p><?php _e('Hey! HTTPS in not enabled for this site, Facebook Login may not work as expected', 'quick-login') ?></p>
-			</div>
-		<?php endif ?>
-
 		<ol class="quick-login-provider-instructions">
 			<li>Create (or edit) a Facebook app on <a href="https://developers.facebook.com/apps/" target="_blank">Facebook Apps page</a>
 				<ul>
